@@ -13,7 +13,7 @@
  * @constructor
  */
 Y.Date.__zTimezone = function() {
-    this.localeData = Y.Intl.get("datatype-date-timezone");
+    this.localeData = Y.Intl.get(MODULE_NAME);
 };
 
 AjxTimezone = Y.Date.__zTimezone;

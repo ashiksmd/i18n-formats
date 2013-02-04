@@ -4,7 +4,8 @@ YUI.add('gallery-i18n-formats', function (Y, NAME) {
  * Copyright 2012 Yahoo! Inc. All Rights Reserved. Based on code owned by VMWare, Inc.
  */
 
-var Format, NumberFormat, YNumberFormat,    //number
+var MODULE_NAME = "gallery-i18n-formats",
+    Format, NumberFormat, YNumberFormat,    //number
     TimezoneData, TimezoneLinks, Timezone, AjxTimezone,  //timezone
     ShortNames, DateFormat, BuddhistDateFormat, YDateFormat, YRelativeTimeFormat, YDurationFormat,   //date
     Formatter, StringFormatter, DateFormatter, TimeFormatter, NumberFormatter,SelectFormatter, PluralFormatter, ChoiceFormatter, formatters; //message
@@ -824,7 +825,7 @@ Y.Number.__YNumberFormat = function(style) {
     }
     
     var pattern = "",
-        formats = Y.Intl.get("datatype-number-advanced-format");
+        formats = Y.Intl.get(MODULE_NAME);
     switch(style) {
         case Y.Number.STYLES.CURRENCY_STYLE:
             pattern = formats.currencyFormat;
@@ -4143,7 +4144,7 @@ TimezoneLinks = Y.Date.Timezone.__tzoneLinks;/**
  * @constructor
  */
 Y.Date.__zTimezone = function() {
-    this.localeData = Y.Intl.get("datatype-date-timezone");
+    this.localeData = Y.Intl.get(MODULE_NAME);
 };
 
 AjxTimezone = Y.Date.__zTimezone;
@@ -5844,7 +5845,7 @@ Y.Date.__YDateFormat = function(timeZone, dateFormat, timeFormat, timeZoneFormat
         timeZone = "Etc/GMT";
     }
 
-    this._Formats = Y.Intl.get("datatype-date-advanced-format");
+    this._Formats = Y.Intl.get(MODULE_NAME);
         
     //If not valid time zone
     if(!Y.Date.Timezone.isValidTimezoneId(timeZone)) {
@@ -5861,7 +5862,7 @@ Y.Date.__YDateFormat = function(timeZone, dateFormat, timeFormat, timeZoneFormat
     this._relative = false;
     this._pattern = this._generatePattern();
 
-    var locale = Y.Intl.getLang("datatype-date-advanced-format");
+    var locale = Y.Intl.getLang(MODULE_NAME);
         
     if(locale.match(/^th/) && !locale.match(/u-ca-gregory/)) {
         //Use buddhist calendar
@@ -6153,7 +6154,7 @@ Y.Date.__YRelativeTimeFormat = function(style) {
         style = Y.Date.RELATIVE_TIME_FORMATS[style];
     }
         
-    this.patterns = Y.Intl.get("datatype-date-advanced-format");
+    this.patterns = Y.Intl.get(MODULE_NAME);
     this.style = style;
 		
     switch(style) {
@@ -6347,7 +6348,7 @@ Y.Date.__YDurationFormat = function(style) {
         style = Y.Date.DURATION_FORMATS[style];
     }
     this.style = style;
-    this.patterns = Y.Intl.get("datatype-date-advanced-format");
+    this.patterns = Y.Intl.get(MODULE_NAME);
 };
 
 YDurationFormat = Y.Date.__YDurationFormat;

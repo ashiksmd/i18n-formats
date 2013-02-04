@@ -906,7 +906,7 @@ Y.Date.__YDateFormat = function(timeZone, dateFormat, timeFormat, timeZoneFormat
         timeZone = "Etc/GMT";
     }
 
-    this._Formats = Y.Intl.get("datatype-date-advanced-format");
+    this._Formats = Y.Intl.get(MODULE_NAME);
         
     //If not valid time zone
     if(!Y.Date.Timezone.isValidTimezoneId(timeZone)) {
@@ -923,7 +923,7 @@ Y.Date.__YDateFormat = function(timeZone, dateFormat, timeFormat, timeZoneFormat
     this._relative = false;
     this._pattern = this._generatePattern();
 
-    var locale = Y.Intl.getLang("datatype-date-advanced-format");
+    var locale = Y.Intl.getLang(MODULE_NAME);
         
     if(locale.match(/^th/) && !locale.match(/u-ca-gregory/)) {
         //Use buddhist calendar

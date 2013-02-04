@@ -31,7 +31,7 @@ Y.Date.__YDurationFormat = function(style) {
         style = Y.Date.DURATION_FORMATS[style];
     }
     this.style = style;
-    this.patterns = Y.Intl.get("datatype-date-advanced-format");
+    this.patterns = Y.Intl.get(MODULE_NAME);
 };
 
 YDurationFormat = Y.Date.__YDurationFormat;

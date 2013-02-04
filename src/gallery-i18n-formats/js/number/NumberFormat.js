@@ -512,7 +512,7 @@ Y.Number.__YNumberFormat = function(style) {
     }
     
     var pattern = "",
-        formats = Y.Intl.get("datatype-number-advanced-format");
+        formats = Y.Intl.get(MODULE_NAME);
     switch(style) {
         case Y.Number.STYLES.CURRENCY_STYLE:
             pattern = formats.currencyFormat;

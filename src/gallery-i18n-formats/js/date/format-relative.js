@@ -20,7 +20,7 @@ Y.Date.__YRelativeTimeFormat = function(style) {
         style = Y.Date.RELATIVE_TIME_FORMATS[style];
     }
         
-    this.patterns = Y.Intl.get("datatype-date-advanced-format");
+    this.patterns = Y.Intl.get(MODULE_NAME);
     this.style = style;
 		
     switch(style) {

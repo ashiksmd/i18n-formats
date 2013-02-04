@@ -5,7 +5,7 @@ YUI.add('module-tests', function(Y) {
                     
         setUp: function() {
             Y.Intl.add(
-                "datatype-number-advanced-format",
+                "gallery-i18n-formats",
                 "en-US",
                 {
                     "USD_currencyISO" : "US Dollar",
@@ -206,7 +206,7 @@ YUI.add('module-tests', function(Y) {
         setUp: function() {
 
             Y.Intl.add(
-                "datatype-date-advanced-format",
+                "gallery-i18n-formats",
                 "en",
                 {                    
                     "DateTimeTimezoneCombination" : "{1} {0} {2}",
@@ -214,20 +214,13 @@ YUI.add('module-tests', function(Y) {
                     "WYMD_long" : "EEEE, MMMM d, y",
                     "monthJunLong" : "June",
                     "periodPm" : "PM",
-                    "weekdayMonLong" : "Monday"
-                }
-                );
-                    
-            Y.Intl.add(
-                "datatype-date-timezone",
-                "en",
-                {
+                    "weekdayMonLong" : "Monday",
                     "Asia/Kolkata_Z_short" : "IST"
                 }
                 );
             
             Y.Intl.add(
-                "datatype-date-advanced-format",
+                "gallery-i18n-formats",
                 "th",
                 {
                     "DateTimeTimezoneCombination" : "{1}, {0} {2}",
@@ -236,22 +229,15 @@ YUI.add('module-tests', function(Y) {
                     "monthJunLong" : "\u0E21\u0E34\u0E16\u0E38\u0E19\u0E32\u0E22\u0E19",
                     "periodAm" : "\u0E0A\u0E48\u0E27\u0E07\u0E27\u0E31\u0E19",
                     "periodPm" : "\u0E0A\u0E48\u0E27\u0E07\u0E27\u0E31\u0E19",
-                    "weekdayMonLong" : "\u0E27\u0E31\u0E19\u0E08\u0E31\u0E19\u0E17\u0E23\u0E4C"
-                }
-                );
-            
-            Y.Intl.add(
-                "datatype-date-timezone",
-                "th",
-                {
+                    "weekdayMonLong" : "\u0E27\u0E31\u0E19\u0E08\u0E31\u0E19\u0E17\u0E23\u0E4C",
                     "Asia/Shanghai_Z_short" : "CST (CN)"
                 }
                 );
         },
 
         testAbsoluteDateFormat : function () {
-            Y.Intl.setLang("datatype-date-advanced-format", "en");
-            Y.Intl.setLang("datatype-date-timezone", "en");
+            Y.Intl.setLang("gallery-i18n-formats", "en");
+            Y.Intl.setLang("gallery-i18n-formats", "en");
                         
             var date = new Date(Date.UTC(2012, 5, 25, 10));
             var result = Y.Date.format(date, {
@@ -266,8 +252,8 @@ YUI.add('module-tests', function(Y) {
                     
         testBuddhistCalendar: function () {
             //Thai calendar
-            Y.Intl.setLang("datatype-date-advanced-format", "th");    //Change language for this test only
-            Y.Intl.setLang("datatype-date-timezone", "th");
+            Y.Intl.setLang("gallery-i18n-formats", "th");    //Change language for this test only
+            Y.Intl.setLang("gallery-i18n-formats", "th");
                         
             var date = new Date(Date.UTC(2012, 5, 25, 10));
             var result = Y.Date.format(date, {
@@ -287,7 +273,7 @@ YUI.add('module-tests', function(Y) {
         
         setUp : function () {
             Y.Intl.add(
-                "datatype-date-advanced-format",
+                "gallery-i18n-formats",
                 "en",
                 {                    
                     "YMD_full" : "M/d/yy",
@@ -374,7 +360,7 @@ YUI.add('module-tests', function(Y) {
                     
         setUp : function () {
             Y.Intl.add(
-                "datatype-date-advanced-format",
+                "gallery-i18n-formats",
                 "en-US",
                 {
                     "HMS_long" : "{0} {1} {2}",
@@ -384,14 +370,7 @@ YUI.add('module-tests', function(Y) {
                     "minute" : "minute",
                     "minutes" : "minutes",
                     "second" : "second",
-                    "seconds" : "seconds"			
-                }
-                );
-                    
-            Y.Intl.add(
-                "format-numbers",
-                "en-US",
-                {
+                    "seconds" : "seconds",
                     "decimalFormat" : "#,##0.###",
                     "decimalSeparator" : ".",
                     "defaultCurrency" : "USD",
@@ -511,7 +490,7 @@ YUI.add('module-tests', function(Y) {
             this.delta = 60 * 1000;
             this.timeValue = 1265078145;
             Y.Intl.add(
-                "datatype-date-advanced-format",
+                "gallery-i18n-formats",
                 "en-US",
 
                 {
@@ -582,7 +561,7 @@ YUI.add('module-tests', function(Y) {
         setUp: function() {
 
             Y.Intl.add(
-                "datatype-date-advanced-format",
+                "gallery-i18n-formats",
                 "en",
                 {
                     "YMD_short" : "M/d/yy",
@@ -600,16 +579,26 @@ YUI.add('module-tests', function(Y) {
                     "DateTimezoneCombination" : "{1} {2}",
                     "TimeTimezoneCombination" : "{0} {2}",
                     "periodAm" : "AM",
-                    "periodPm" : "PM"
-                }
-                );
-
-            Y.Intl.add(
-                "datatype-date-timezone",
-                "en",
-                {
+                    "periodPm" : "PM",
                     "Asia/Kolkata_Z_abbreviated" : "India Time",
-                    "Asia/Kolkata_Z_short" : "IST"
+                    "Asia/Kolkata_Z_short" : "IST",
+                    "decimalFormat" : "#,##0.###",
+                    "decimalSeparator" : ".",
+                    "groupingSeparator" : ",",
+                    "numberZero" : "0",
+                    "percentFormat" : "#,##0%",
+	            "percentSign" : "%",
+                    "USD_currencyISO" : "US Dollar",
+                    "USD_currencyPlural" : "US dollars",
+                    "USD_currencySingular" : "US dollar",
+                    "USD_currencySymbol" : "$",
+                    "currencyFormat" : "¤#,##0.00;(¤#,##0.00)",
+                    "defaultCurrency" : "USD",
+                    "exponentialSymbol" : "E",
+                    "minusSign" : "-",
+                    "scientificFormat" : "#E0",
+                    "currencyPatternPlural" : "{0} {1}",
+                    "currencyPatternSingular" : "{0} {1}"
                 }
                 );
         },

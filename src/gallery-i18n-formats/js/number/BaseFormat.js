@@ -2,7 +2,8 @@
  * Copyright 2012 Yahoo! Inc. All Rights Reserved. Based on code owned by VMWare, Inc.
  */
 
-var Format, NumberFormat, YNumberFormat,    //number
+var MODULE_NAME = "gallery-i18n-formats",
+    Format, NumberFormat, YNumberFormat,    //number
     TimezoneData, TimezoneLinks, Timezone, AjxTimezone,  //timezone
     ShortNames, DateFormat, BuddhistDateFormat, YDateFormat, YRelativeTimeFormat, YDurationFormat,   //date
     Formatter, StringFormatter, DateFormatter, TimeFormatter, NumberFormatter,SelectFormatter, PluralFormatter, ChoiceFormatter, formatters; //message
