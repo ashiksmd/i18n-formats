@@ -23,6 +23,7 @@
 		"js/message/MsgSelectFormatter.js",
 		"js/message/MsgPluralFormatter.js",
 		"js/message/MsgChoiceFormatter.js",
+                "js/message/MsgListFormatter.js",
                 "js/message/format-message.js"
             ]
         }

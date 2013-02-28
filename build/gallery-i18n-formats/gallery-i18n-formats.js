@@ -9,7 +9,8 @@ var MODULE_NAME = "gallery-i18n-formats",
     TimezoneData, TimezoneLinks, Timezone, AjxTimezone,  //timezone
     ShortNames, DateFormat, BuddhistDateFormat, YDateFormat, YRelativeTimeFormat, YDurationFormat,   //date
     ListFormatter, //list
-    Formatter, StringFormatter, DateFormatter, TimeFormatter, NumberFormatter,SelectFormatter, PluralFormatter, ChoiceFormatter, formatters; //message
+    Formatter, StringFormatter, DateFormatter, TimeFormatter, NumberFormatter,SelectFormatter, //message
+    PluralFormatter, ChoiceFormatter, MsgListFormatter, formatters; //message
 
 /**
  * Pad string to specified length
@@ -6568,11 +6569,37 @@ Y.mix(Y.Date, {
         return new YDurationFormat(oConfig.style).format(oDuration);
     }
 }, true);
+/**
+ * ListFormatter formats lists with locale dependent rules.
+ * For example, in locale en, lists are formatted into a
+ * string of comma-separated values
+ * @class ListFormatter
+ * @namespace Intl
+ * @static
+ */
 ListFormatter = {
+    /**
+     * Substitute items into corrrect positions in pattern
+     * For internal use only
+     * @method __sub
+     * @private
+     * @static
+     * @param pattern {String} The pattern
+     * @param item0 {String} item to replace {0} in pattern
+     * @param item1 {String} item to replace {1} in pattern
+     * @return {String} Result string after substitutions
+     */
     __sub: function(pattern, item0, item1) {
          return pattern.replace("{0}", item0).replace("{1}", item1);
     },
 
+    /**
+     * Format list into string
+     * @method format
+     * @static
+     * @param list {Array} The list to be formatted
+     * @return {String} formatted result
+     */
     format: function(list) {
          if(!Y.Lang.isArray(list)) { return ""; }
         
@@ -7296,6 +7323,61 @@ Y.mix(ChoiceFormatter.prototype, {
         return str;
     }
 }, true);/**
+ * List formatter
+ * @class MsgListFormatter
+ * @namespace Intl
+ * @extends StringFormatter
+ * @private
+ * @constructor
+ * @param values {Array|Object} The data to be processed and inserted.
+ */
+Y.Intl.MsgListFormatter = function(values) {
+      MsgListFormatter.superclass.constructor.call(this, values);
+      this.regex = "{\\s*([a-zA-Z0-9_]+)\\s*,\\s*list\\s*}";
+};
+
+MsgListFormatter = Y.Intl.MsgListFormatter;
+Y.extend(MsgListFormatter, StringFormatter);
+
+/**
+ * Create an instance of the formatter
+ * @method createInstance
+ * @static
+ * @param values {Array|Object} The data to be processed and inserted.
+ */
+MsgListFormatter.createInstance = function(values) {
+     return new MsgListFormatter(values);
+};
+
+Y.mix(MsgListFormatter.prototype, {
+     /**
+      * Format all instances in str that can be handled by MsgListFormatter
+      * @method format
+      * @param str {String} Input string/pattern
+      * @return {String} Formatted result
+      */
+     format: function(str) {
+          var regex = new RegExp(this.regex, "gm"),
+              matches = null,
+              params;
+
+          while((matches = regex.exec(str))) {
+              params = {};
+
+              if(this.getParams(params, matches)) {
+                  //Got a match
+                  str = str.replace(
+                             matches[0],
+                             Y.Intl.ListFormatter.format( params.value )
+                  );
+              }
+          }
+
+          return str;
+     }
+}, true);
+
+/**
  * MessageFormat enables the construction of localizable messages that combine static strings with information that only becomes available at runtime.
  * @module intl-format
  * @requires datatype-date-advanced-format, datatype-number-advanced-format, intl
@@ -7305,7 +7387,7 @@ Y.mix(ChoiceFormatter.prototype, {
  * Formatter classes. For each group found in the pattern, will try to parse with all of these formatters.
  * If a formatter fails to parse, the next one in the list try to do so.
  */
-formatters = [ StringFormatter, DateFormatter, TimeFormatter, NumberFormatter, ChoiceFormatter, PluralFormatter, SelectFormatter ];
+formatters = [ StringFormatter, DateFormatter, TimeFormatter, NumberFormatter, ChoiceFormatter, PluralFormatter, SelectFormatter, MsgListFormatter ];
 
 Y.mix(Y.Intl, {
 

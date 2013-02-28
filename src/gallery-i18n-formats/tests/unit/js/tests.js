@@ -631,7 +631,9 @@ YUI.add('module-tests', function(Y) {
                     "minusSign" : "-",
                     "scientificFormat" : "#E0",
                     "currencyPatternPlural" : "{0} {1}",
-                    "currencyPatternSingular" : "{0} {1}"
+                    "currencyPatternSingular" : "{0} {1}",
+                    "listPatternTwo": "{0} and {1}",
+                    "listPatternEnd": "{0}, and {1}"
                 }
                 );
         },
@@ -753,6 +755,27 @@ YUI.add('module-tests', function(Y) {
                 "FILE_COUNT": 2
             });
             Y.Assert.areEqual("There are 2 files on disk.", result);
+        },
+
+        testListFormat: function() {
+              var input = {
+                   COUNTRIES: []
+              };
+
+              var result = Y.Intl.formatMessage("{COUNTRIES, list}", input);
+              Y.Assert.areEqual("", result);
+
+              input.COUNTRIES.push("US");
+              result = Y.Intl.formatMessage("{COUNTRIES, list}", input);
+              Y.Assert.areEqual("US", result);
+
+              input.COUNTRIES.push("UK");
+              result = Y.Intl.formatMessage("{COUNTRIES, list}", input);
+              Y.Assert.areEqual("US and UK", result);
+
+              input.COUNTRIES.push("Canada");
+              result = Y.Intl.formatMessage("{COUNTRIES, list}", input);
+              Y.Assert.areEqual("US, UK, and Canada", result);
         },
 
         testNoMatch: function() {

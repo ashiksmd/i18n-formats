@@ -1,8 +1,34 @@
+/**
+ * ListFormatter formats lists with locale dependent rules.
+ * For example, in locale en, lists are formatted into a
+ * string of comma-separated values
+ * @class ListFormatter
+ * @namespace Intl
+ * @static
+ */
 ListFormatter = {
+    /**
+     * Substitute items into corrrect positions in pattern
+     * For internal use only
+     * @method __sub
+     * @private
+     * @static
+     * @param pattern {String} The pattern
+     * @param item0 {String} item to replace {0} in pattern
+     * @param item1 {String} item to replace {1} in pattern
+     * @return {String} Result string after substitutions
+     */
     __sub: function(pattern, item0, item1) {
          return pattern.replace("{0}", item0).replace("{1}", item1);
     },
 
+    /**
+     * Format list into string
+     * @method format
+     * @static
+     * @param list {Array} The list to be formatted
+     * @return {String} formatted result
+     */
     format: function(list) {
          if(!Y.Lang.isArray(list)) { return ""; }
         
