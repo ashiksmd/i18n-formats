@@ -14,6 +14,7 @@
                 "js/date/format-relative.js",
                 "js/date/format-duration.js",
                 "js/date/format-date-advanced.js",
+                "js/list/format-list.js",
 		"js/message/MsgBaseFormatter.js",
 		"js/message/MsgStringFormatter.js",
 		"js/message/MsgDateFormatter.js",

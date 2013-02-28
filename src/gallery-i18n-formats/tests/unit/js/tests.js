@@ -553,6 +553,39 @@ YUI.add('module-tests', function(Y) {
             Y.Assert.areEqual("0 secs ago", result);
         }
     });
+
+    var listFormatTests = new Y.Test.Case({
+        name: "List Format Tests",
+        setUp: function() {
+              Y.Intl.add(
+                   "gallery-i18n-formats",
+                   "en",
+                   {
+                        listPatternTwo: "{0} and {1}",
+                        listPatternEnd: "{0}, and {1}"
+                   }
+              );
+        },
+
+        testListFormat: function() {
+              var input = [];
+
+              var result = Y.Intl.ListFormatter.format(input);
+              Y.Assert.areEqual("", result);
+
+              input.push("US");
+              result = Y.Intl.ListFormatter.format(input);
+              Y.Assert.areEqual("US", result);
+
+              input.push("UK");
+              result = Y.Intl.ListFormatter.format(input);
+              Y.Assert.areEqual("US and UK", result);
+
+              input.push("Canada");
+              result = Y.Intl.ListFormatter.format(input);
+              Y.Assert.areEqual("US, UK, and Canada", result);
+        }
+    });
     
         var messageFormatTests = new Y.Test.Case({
     
@@ -736,6 +769,7 @@ YUI.add('module-tests', function(Y) {
     Y.Test.Runner.add(numberFormatTests);
     Y.Test.Runner.add(timeZoneTests);
     Y.Test.Runner.add(dateFormatTestSuite);
+    Y.Test.Runner.add(listFormatTests);
     Y.Test.Runner.add(messageFormatTests);
 
 },'', { requires: [ 'test', 'gallery-i18n-formats' ] });
