@@ -750,7 +750,6 @@
 	"days_abbr" : "يومين",
 	"decimalFormat" : "#,##0.###;#,##0.###-",
 	"decimalSeparator" : "٫",
-	"defaultCurrency" : "",
 	"exponentialSymbol" : "اس",
 	"groupingSeparator" : "٬",
 	"hour" : "ساعة واحدة",

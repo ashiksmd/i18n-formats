@@ -750,7 +750,6 @@
 	"days_abbr" : "ว",
 	"decimalFormat" : "#,##0.###",
 	"decimalSeparator" : ".",
-	"defaultCurrency" : "",
 	"exponentialSymbol" : "E",
 	"groupingSeparator" : ",",
 	"hour" : "ชั่วโมง",

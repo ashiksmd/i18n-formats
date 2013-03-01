@@ -759,8 +759,6 @@
 	"hours_abbr" : "val.",
 	"infinitySign" : "∞",
 	"listPatternEnd" : "{0} ir {1}",
-	"listPatternMiddle" : "",
-	"listPatternStart" : "",
 	"listPatternTwo" : "{0} ir {1}",
 	"minusSign" : "−",
 	"minute" : "minutė",

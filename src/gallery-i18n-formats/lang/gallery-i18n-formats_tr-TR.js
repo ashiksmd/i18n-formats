@@ -759,8 +759,6 @@
 	"hours_abbr" : "sa.",
 	"infinitySign" : "∞",
 	"listPatternEnd" : "{0} ve {1}",
-	"listPatternMiddle" : "",
-	"listPatternStart" : "",
 	"listPatternTwo" : "{0} ve {1}",
 	"minusSign" : "-",
 	"minute" : "dakika",

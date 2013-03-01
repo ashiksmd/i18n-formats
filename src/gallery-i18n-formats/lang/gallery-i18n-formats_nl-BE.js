@@ -759,8 +759,6 @@
 	"hours_abbr" : "u",
 	"infinitySign" : "∞",
 	"listPatternEnd" : "{0} en {1}",
-	"listPatternMiddle" : "",
-	"listPatternStart" : "",
 	"listPatternTwo" : "{0} en {1}",
 	"minusSign" : "-",
 	"minute" : "minuut",

@@ -759,8 +759,6 @@
 	"hours_abbr" : "ώρες",
 	"infinitySign" : "∞",
 	"listPatternEnd" : "{0} και {1}",
-	"listPatternMiddle" : "",
-	"listPatternStart" : "",
 	"listPatternTwo" : "{0} και {1}",
 	"minusSign" : "-",
 	"minute" : "λεπτό",

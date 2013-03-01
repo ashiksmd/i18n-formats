@@ -759,8 +759,6 @@
 	"hours_abbr" : "klukkustundir",
 	"infinitySign" : "∞",
 	"listPatternEnd" : "{0} og {1}",
-	"listPatternMiddle" : "",
-	"listPatternStart" : "",
 	"listPatternTwo" : "{0} og {1}",
 	"minusSign" : "−",
 	"minute" : "mínúta",

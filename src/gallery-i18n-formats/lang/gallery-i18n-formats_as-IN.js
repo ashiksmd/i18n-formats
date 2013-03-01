@@ -808,7 +808,6 @@
 	"second_abbr" : "s",
 	"seconds" : "s",
 	"seconds_abbr" : "s",
-	"today" : "",
 	"tomorrow" : "কাইলৈ",
 	"weekdayFriLong" : "শুক্ৰবাৰ",
 	"weekdayFriMedium" : "শুক্ৰ",

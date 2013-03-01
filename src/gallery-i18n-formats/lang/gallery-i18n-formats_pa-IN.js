@@ -827,6 +827,5 @@
 	"year" : "y",
 	"year_abbr" : "y",
 	"years" : "y",
-	"years_abbr" : "y",
-	"yesterday" : ""
+	"years_abbr" : "y"
 }

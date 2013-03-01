@@ -827,6 +827,5 @@
 	"year" : "urtea",
 	"year_abbr" : "urtea",
 	"years" : "urte",
-	"years_abbr" : "urte",
-	"yesterday" : ""
+	"years_abbr" : "urte"
 }

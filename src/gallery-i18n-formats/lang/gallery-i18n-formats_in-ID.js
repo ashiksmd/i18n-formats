@@ -759,8 +759,6 @@
 	"hours_abbr" : "jam",
 	"infinitySign" : "∞",
 	"listPatternEnd" : "{0}, dan  {1}",
-	"listPatternMiddle" : "",
-	"listPatternStart" : "",
 	"listPatternTwo" : "{0} dan {1}",
 	"minusSign" : "-",
 	"minute" : "menit",

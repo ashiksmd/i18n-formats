@@ -750,7 +750,6 @@
 	"days_abbr" : "egun",
 	"decimalFormat" : "#,##0.###",
 	"decimalSeparator" : ",",
-	"defaultCurrency" : "",
 	"exponentialSymbol" : "E",
 	"groupingSeparator" : ".",
 	"hour" : "ordua",
@@ -827,6 +826,5 @@
 	"year" : "urtea",
 	"year_abbr" : "urtea",
 	"years" : "urte",
-	"years_abbr" : "urte",
-	"yesterday" : ""
+	"years_abbr" : "urte"
 }

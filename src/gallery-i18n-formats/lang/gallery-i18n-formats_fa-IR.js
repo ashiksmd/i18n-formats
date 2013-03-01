@@ -741,7 +741,6 @@
 	"YMD_short" : "M/d/yy",
 	"YM_long" : "MMMM y",
 	"currencyFormat" : "#,##0.00 ¤;'‪'-#,##0.00'‬' ¤",
-	"currencyPatternPlural" : "",
 	"currencyPatternSingular" : "{0} {1}",
 	"day" : "روز",
 	"day_abbr" : "روز",

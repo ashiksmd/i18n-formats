@@ -759,8 +759,6 @@
 	"hours_abbr" : "மணிநேரம்",
 	"infinitySign" : "∞",
 	"listPatternEnd" : "{0} மற்றும் {1}",
-	"listPatternMiddle" : "",
-	"listPatternStart" : "",
 	"listPatternTwo" : "{0} மற்றும் {1}",
 	"minusSign" : "-",
 	"minute" : "நிமிடம்",

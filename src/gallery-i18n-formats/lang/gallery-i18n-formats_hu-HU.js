@@ -759,8 +759,6 @@
 	"hours_abbr" : "ó",
 	"infinitySign" : "∞",
 	"listPatternEnd" : "{0} és {1}",
-	"listPatternMiddle" : "",
-	"listPatternStart" : "",
 	"listPatternTwo" : "{0} és {1}",
 	"minusSign" : "-",
 	"minute" : "perc",

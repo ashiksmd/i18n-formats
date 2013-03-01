@@ -750,7 +750,6 @@
 	"days_abbr" : "gün",
 	"decimalFormat" : "#,##0.###",
 	"decimalSeparator" : ",",
-	"defaultCurrency" : "",
 	"exponentialSymbol" : "E",
 	"groupingSeparator" : ".",
 	"hour" : "saat",

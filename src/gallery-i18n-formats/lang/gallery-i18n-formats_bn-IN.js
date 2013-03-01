@@ -518,7 +518,7 @@
 	"Atlantic/Cape_Verde_Z_short" : "CVT",
 	"Atlantic/Reykjavik_Z_abbreviated" : "আইসলণ্ড সময়",
 	"Atlantic/Reykjavik_Z_short" : "GMT",
-	"Atlantic/South_Georgia_Z_abbreviated" : "দক্ষিণ জর্জিয়া ও দক্ষিণ স্যান্ডউইচ দ্বীপপুঞ স�",
+	"Atlantic/South_Georgia_Z_abbreviated" : "দক্ষিণ জর্জিয়া ও দক্ষিণ স্যান্ডউইচ দ্বীপপুঞ স�",
 	"Atlantic/South_Georgia_Z_short" : "GST (GS)",
 	"Atlantic/St_Helena_Z_abbreviated" : "সেন্ট হেলেনা সময়",
 	"Atlantic/St_Helena_Z_short" : "GMT",
@@ -808,8 +808,6 @@
 	"second_abbr" : "সেকেন্ড",
 	"seconds" : "সেকেন্ড",
 	"seconds_abbr" : "সেকেন্ড",
-	"today" : "",
-	"tomorrow" : "",
 	"weekdayFriLong" : "শুক্রবার",
 	"weekdayFriMedium" : "শুক্র",
 	"weekdayMonLong" : "সোমবার",
@@ -827,6 +825,5 @@
 	"year" : "বছর",
 	"year_abbr" : "বছর",
 	"years" : "বছর",
-	"years_abbr" : "বছর",
-	"yesterday" : ""
+	"years_abbr" : "বছর"
 }

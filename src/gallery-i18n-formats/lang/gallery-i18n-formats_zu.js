@@ -750,7 +750,6 @@
 	"days_abbr" : "d",
 	"decimalFormat" : "#,##0.###",
 	"decimalSeparator" : ",",
-	"defaultCurrency" : "",
 	"exponentialSymbol" : "E",
 	"groupingSeparator" : " ",
 	"hour" : "h",

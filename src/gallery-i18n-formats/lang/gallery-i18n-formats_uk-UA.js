@@ -759,8 +759,6 @@
 	"hours_abbr" : "год.",
 	"infinitySign" : "∞",
 	"listPatternEnd" : "{0} та {1}",
-	"listPatternMiddle" : "",
-	"listPatternStart" : "",
 	"listPatternTwo" : "{0} та {1}",
 	"minusSign" : "-",
 	"minute" : "хвилина",

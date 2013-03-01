@@ -759,8 +759,6 @@
 	"hours_abbr" : "сата",
 	"infinitySign" : "∞",
 	"listPatternEnd" : "{0} и {1}",
-	"listPatternMiddle" : "",
-	"listPatternStart" : "",
 	"listPatternTwo" : "{0} и {1}",
 	"minusSign" : "-",
 	"minute" : "минут",

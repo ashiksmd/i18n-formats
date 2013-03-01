@@ -759,8 +759,6 @@
 	"hours_abbr" : "tundi",
 	"infinitySign" : "∞",
 	"listPatternEnd" : "{0} ja {1}",
-	"listPatternMiddle" : "",
-	"listPatternStart" : "",
 	"listPatternTwo" : "{0} ja {1}",
 	"minusSign" : "-",
 	"minute" : "minut",

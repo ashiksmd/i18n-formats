@@ -750,7 +750,6 @@
 	"days_abbr" : "zile",
 	"decimalFormat" : "#,##0.###",
 	"decimalSeparator" : ",",
-	"defaultCurrency" : "",
 	"exponentialSymbol" : "E",
 	"groupingSeparator" : ".",
 	"hour" : "oră",

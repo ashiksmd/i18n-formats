@@ -759,8 +759,6 @@
 	"hours_abbr" : "કલાક",
 	"infinitySign" : "∞",
 	"listPatternEnd" : "{0} અને {1}",
-	"listPatternMiddle" : "",
-	"listPatternStart" : "",
 	"listPatternTwo" : "{0} અને {1}",
 	"minusSign" : "-",
 	"minute" : "મિનિટ",

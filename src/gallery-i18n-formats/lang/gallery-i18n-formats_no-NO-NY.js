@@ -49,8 +49,6 @@
 	"hours_abbr" : "t",
 	"infinitySign" : "∞",
 	"listPatternEnd" : "{0} og {1}",
-	"listPatternMiddle" : "",
-	"listPatternStart" : "",
 	"listPatternTwo" : "{0} og {1}",
 	"minusSign" : "−",
 	"minute" : "minutt",

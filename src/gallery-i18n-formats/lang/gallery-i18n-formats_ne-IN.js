@@ -808,8 +808,6 @@
 	"second_abbr" : "सेकेण्ड",
 	"seconds" : "s",
 	"seconds_abbr" : "s",
-	"today" : "",
-	"tomorrow" : "",
 	"weekdayFriLong" : "शुक्रवार",
 	"weekdayFriMedium" : "शुक्रवार",
 	"weekdayMonLong" : "सोमवार",
@@ -827,6 +825,5 @@
 	"year" : "वर्ष",
 	"year_abbr" : "वर्ष",
 	"years" : "वर्ष",
-	"years_abbr" : "वर्ष",
-	"yesterday" : ""
+	"years_abbr" : "वर्ष"
 }

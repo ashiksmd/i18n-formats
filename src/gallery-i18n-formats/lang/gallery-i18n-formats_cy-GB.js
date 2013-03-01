@@ -808,8 +808,6 @@
 	"second_abbr" : "s",
 	"seconds" : "s",
 	"seconds_abbr" : "s",
-	"today" : "",
-	"tomorrow" : "",
 	"weekdayFriLong" : "Dydd Gwener",
 	"weekdayFriMedium" : "Gwen",
 	"weekdayMonLong" : "Dydd Llun",
@@ -827,6 +825,5 @@
 	"year" : "y",
 	"year_abbr" : "y",
 	"years" : "y",
-	"years_abbr" : "y",
-	"yesterday" : ""
+	"years_abbr" : "y"
 }
