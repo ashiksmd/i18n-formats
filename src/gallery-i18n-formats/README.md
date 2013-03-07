@@ -95,6 +95,16 @@ YUI({ lang: 'en-IN' }).use("gallery-i18n-formats", function(Y) {
                  }
            )
     );
+
+    //List formatter
+    console.log(
+           Y.Intl.formatMessage(
+                 "{COUNTRIES, list}",
+                 {
+                    "COUNTRIES": ["US", "UK", "Canada"]
+                 }
+           )
+    );
 });
 
 ```
