@@ -518,7 +518,7 @@
 	"Atlantic/Cape_Verde_Z_short" : "CVT",
 	"Atlantic/Reykjavik_Z_abbreviated" : "(ისლანდია)",
 	"Atlantic/Reykjavik_Z_short" : "GMT",
-	"Atlantic/South_Georgia_Z_abbreviated" : "(სამხრეთი ჯორჯია და სამხრეთ სენდვიჩის კუნძულებ�",
+	"Atlantic/South_Georgia_Z_abbreviated" : "(სამხრეთი ჯორჯია და სამხრეთ სენდვიჩის კუნძულებ�",
 	"Atlantic/South_Georgia_Z_short" : "GST (GS)",
 	"Atlantic/St_Helena_Z_abbreviated" : "(წმინდა ელენეს კუნძული)",
 	"Atlantic/St_Helena_Z_short" : "GMT",

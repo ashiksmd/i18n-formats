@@ -800,6 +800,7 @@
 	"percentSign" : "%",
 	"periodAm" : "dio dana",
 	"periodPm" : "dio dana",
+	"pluralRule" : "set11",
 	"plusSign" : "+",
 	"scientificFormat" : "#E0",
 	"second" : "sekunda",

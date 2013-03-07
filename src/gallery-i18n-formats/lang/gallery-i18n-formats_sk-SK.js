@@ -800,6 +800,7 @@
 	"percentSign" : "%",
 	"periodAm" : "Časť dňa",
 	"periodPm" : "Časť dňa",
+	"pluralRule" : "set12",
 	"plusSign" : "+",
 	"scientificFormat" : "#E0",
 	"second" : "sekunda",

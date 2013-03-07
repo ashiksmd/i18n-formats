@@ -802,6 +802,7 @@
 	"percentSign" : "%",
 	"periodAm" : "Yini",
 	"periodPm" : "Yini",
+	"pluralRule" : "set3",
 	"plusSign" : "+",
 	"scientificFormat" : "#E0",
 	"second" : "s",

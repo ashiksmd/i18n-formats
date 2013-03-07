@@ -800,6 +800,7 @@
 	"percentSign" : "%",
 	"periodAm" : "dagsperiod",
 	"periodPm" : "dagsperiod",
+	"pluralRule" : "set3",
 	"plusSign" : "+",
 	"scientificFormat" : "#E0",
 	"second" : "sekund",

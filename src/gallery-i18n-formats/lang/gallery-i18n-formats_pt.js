@@ -799,6 +799,7 @@
 	"percentSign" : "%",
 	"periodAm" : "Período do dia",
 	"periodPm" : "Período do dia",
+	"pluralRule" : "set3",
 	"plusSign" : "+",
 	"scientificFormat" : "#E0",
 	"second" : "segundo",

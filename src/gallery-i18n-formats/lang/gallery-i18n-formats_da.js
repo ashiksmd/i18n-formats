@@ -799,6 +799,7 @@
 	"percentSign" : "%",
 	"periodAm" : "dagtid",
 	"periodPm" : "dagtid",
+	"pluralRule" : "set3",
 	"plusSign" : "+",
 	"scientificFormat" : "#E0",
 	"second" : "sekund",

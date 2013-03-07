@@ -801,6 +801,7 @@
 	"percentSign" : "%",
 	"periodAm" : "Muda wa siku",
 	"periodPm" : "Muda wa siku",
+	"pluralRule" : "set3",
 	"plusSign" : "+",
 	"scientificFormat" : "#E0",
 	"second" : "s",

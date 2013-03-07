@@ -799,6 +799,7 @@
 	"percentSign" : "%",
 	"periodAm" : "Tageshälfte",
 	"periodPm" : "Tageshälfte",
+	"pluralRule" : "set3",
 	"plusSign" : "+",
 	"scientificFormat" : "#E0",
 	"second" : "Sekunde",

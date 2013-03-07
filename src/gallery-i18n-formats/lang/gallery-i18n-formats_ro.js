@@ -801,6 +801,7 @@
 	"percentSign" : "%",
 	"periodAm" : "perioada zilei",
 	"periodPm" : "perioada zilei",
+	"pluralRule" : "set9",
 	"plusSign" : "+",
 	"scientificFormat" : "#E0",
 	"second" : "secundă",

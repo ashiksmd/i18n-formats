@@ -802,6 +802,7 @@
 	"percentSign" : "%",
 	"periodAm" : "Dayperiod",
 	"periodPm" : "Dayperiod",
+	"pluralRule" : "set11",
 	"plusSign" : "+",
 	"scientificFormat" : "#E0",
 	"second" : "сэкунда",

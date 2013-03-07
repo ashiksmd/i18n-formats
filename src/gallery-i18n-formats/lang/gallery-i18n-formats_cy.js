@@ -801,6 +801,7 @@
 	"percentSign" : "%",
 	"periodAm" : "AM",
 	"periodPm" : "PM",
+	"pluralRule" : "set17",
 	"plusSign" : "+",
 	"scientificFormat" : "#E0",
 	"second" : "s",

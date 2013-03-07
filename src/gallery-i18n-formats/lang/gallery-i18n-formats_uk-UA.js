@@ -800,6 +800,7 @@
 	"percentSign" : "%",
 	"periodAm" : "Частина доби",
 	"periodPm" : "Частина доби",
+	"pluralRule" : "set11",
 	"plusSign" : "+",
 	"scientificFormat" : "#E0",
 	"second" : "секунда",

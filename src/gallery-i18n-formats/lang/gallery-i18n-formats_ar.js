@@ -801,6 +801,7 @@
 	"percentSign" : "٪",
 	"periodAm" : "ص",
 	"periodPm" : "م",
+	"pluralRule" : "set1",
 	"plusSign" : "+",
 	"scientificFormat" : "#E0",
 	"second" : "ثانية واحدة",

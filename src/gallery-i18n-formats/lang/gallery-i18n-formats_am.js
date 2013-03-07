@@ -801,6 +801,7 @@
 	"percentSign" : "%",
 	"periodAm" : "ጡዎት",
 	"periodPm" : "ከሰአት",
+	"pluralRule" : "set4",
 	"plusSign" : "+",
 	"scientificFormat" : "#E0",
 	"second" : "s",

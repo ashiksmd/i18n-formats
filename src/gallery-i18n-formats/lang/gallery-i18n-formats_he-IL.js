@@ -802,6 +802,7 @@
 	"percentSign" : "%",
 	"periodAm" : "לפה״צ",
 	"periodPm" : "אחה״צ",
+	"pluralRule" : "set2",
 	"plusSign" : "+",
 	"scientificFormat" : "#E0",
 	"second" : "שניה",

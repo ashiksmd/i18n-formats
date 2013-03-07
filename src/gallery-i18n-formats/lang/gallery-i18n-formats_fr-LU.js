@@ -800,6 +800,7 @@
 	"percentSign" : "%",
 	"periodAm" : "cadran",
 	"periodPm" : "cadran",
+	"pluralRule" : "set5",
 	"plusSign" : "+",
 	"scientificFormat" : "#E0",
 	"second" : "seconde",

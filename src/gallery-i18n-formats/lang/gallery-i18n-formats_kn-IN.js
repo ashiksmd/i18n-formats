@@ -518,7 +518,7 @@
 	"Atlantic/Cape_Verde_Z_short" : "CVT",
 	"Atlantic/Reykjavik_Z_abbreviated" : "(ಐಸ್‌ಲ್ಯಾಂಡ್)",
 	"Atlantic/Reykjavik_Z_short" : "GMT",
-	"Atlantic/South_Georgia_Z_abbreviated" : "(ದಕ್ಷಿಣ ಜಾರ್ಜಿಯಾ ಮತ್ತು ದಕ್ಷಿಣ ಸ್ಯಾಂಡ್‌ವಿಚ್ ದ್ವ�",
+	"Atlantic/South_Georgia_Z_abbreviated" : "(ದಕ್ಷಿಣ ಜಾರ್ಜಿಯಾ ಮತ್ತು ದಕ್ಷಿಣ ಸ್ಯಾಂಡ್‌ವಿಚ್ ದ್ವ�",
 	"Atlantic/South_Georgia_Z_short" : "GST (GS)",
 	"Atlantic/St_Helena_Z_abbreviated" : "(ಸೇಂಟ್ ಹೆಲೆನಾ)",
 	"Atlantic/St_Helena_Z_short" : "GMT",

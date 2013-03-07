@@ -799,6 +799,7 @@
 	"percentSign" : "%",
 	"periodAm" : "f.h.",
 	"periodPm" : "e.h.",
+	"pluralRule" : "set3",
 	"plusSign" : "+",
 	"scientificFormat" : "#E0",
 	"second" : "sekúnda",

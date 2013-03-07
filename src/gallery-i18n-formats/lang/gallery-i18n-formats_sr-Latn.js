@@ -799,6 +799,7 @@
 	"percentSign" : "%",
 	"periodAm" : "pre podne",
 	"periodPm" : " popodne",
+	"pluralRule" : "set11",
 	"plusSign" : "+",
 	"scientificFormat" : "#E0",
 	"second" : "sekunda",

@@ -800,6 +800,7 @@
 	"percentSign" : "%",
 	"periodAm" : "a.m.",
 	"periodPm" : "p.m.",
+	"pluralRule" : "set3",
 	"plusSign" : "+",
 	"scientificFormat" : "#E0",
 	"second" : "segon",

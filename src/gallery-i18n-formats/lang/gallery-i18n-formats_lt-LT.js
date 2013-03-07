@@ -800,6 +800,7 @@
 	"percentSign" : "%",
 	"periodAm" : "dienos metas",
 	"periodPm" : "dienos metas",
+	"pluralRule" : "set10",
 	"plusSign" : "+",
 	"scientificFormat" : "#E0",
 	"second" : "sekundė",

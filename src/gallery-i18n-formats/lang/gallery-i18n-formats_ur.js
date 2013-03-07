@@ -801,6 +801,7 @@
 	"percentSign" : "%",
 	"periodAm" : "رات",
 	"periodPm" : "صبح",
+	"pluralRule" : "set3",
 	"plusSign" : "+",
 	"scientificFormat" : "#E0",
 	"second" : "s",

@@ -799,6 +799,7 @@
 	"percentSign" : "%",
 	"periodAm" : "π.μ.",
 	"periodPm" : "μ.μ.",
+	"pluralRule" : "set3",
 	"plusSign" : "+",
 	"scientificFormat" : "#E0",
 	"second" : "δευτερόλεπτο",

@@ -799,6 +799,7 @@
 	"percentSign" : "%",
 	"periodAm" : "пре подне",
 	"periodPm" : "поподне",
+	"pluralRule" : "set11",
 	"plusSign" : "+",
 	"scientificFormat" : "#E0",
 	"second" : "секунда",

@@ -799,6 +799,7 @@
 	"percentSign" : "%",
 	"periodAm" : "ден",
 	"periodPm" : "ден",
+	"pluralRule" : "set3",
 	"plusSign" : "+",
 	"scientificFormat" : "#E0",
 	"second" : "секунда",

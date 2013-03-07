@@ -799,6 +799,7 @@
 	"percentSign" : "%",
 	"periodAm" : "Čas dneva",
 	"periodPm" : "Čas dneva",
+	"pluralRule" : "set14",
 	"plusSign" : "+",
 	"scientificFormat" : "#E0",
 	"second" : "sekunda",

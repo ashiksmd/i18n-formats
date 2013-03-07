@@ -800,6 +800,7 @@
 	"percentSign" : "%",
 	"periodAm" : "enne",
 	"periodPm" : "pärast lõunat",
+	"pluralRule" : "set3",
 	"plusSign" : "+",
 	"scientificFormat" : "#E0",
 	"second" : "sekund",

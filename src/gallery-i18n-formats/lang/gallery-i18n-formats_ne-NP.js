@@ -802,6 +802,7 @@
 	"percentSign" : "%",
 	"periodAm" : "पूर्व मध्यान्ह",
 	"periodPm" : "उत्तर मध्यान्ह",
+	"pluralRule" : "set3",
 	"plusSign" : "+",
 	"scientificFormat" : "#E0",
 	"second" : "सेकेण्ड",

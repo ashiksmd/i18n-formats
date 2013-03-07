@@ -21,6 +21,7 @@
 		"js/message/MsgTimeFormatter.js",
 		"js/message/MsgNumberFormatter.js",
 		"js/message/MsgSelectFormatter.js",
+                "js/message/PluralRules.js",
 		"js/message/MsgPluralFormatter.js",
 		"js/message/MsgChoiceFormatter.js",
                 "js/message/MsgListFormatter.js",
