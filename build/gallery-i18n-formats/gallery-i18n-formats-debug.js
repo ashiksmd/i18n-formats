@@ -7505,6 +7505,10 @@ PluralFormatter.prototype.select = function(options, params) {
     var pluralForm = this.rule(params.value),
         result = options[pluralForm];
 
+    if(result === undefined || result === null) {
+        result = options.other;
+    }
+
     result = result.replace("#", new NumberFormatter({VAL: params.value}).format("{VAL, number, integer}"));	//Use 'number' to format this part
 
     return result;
