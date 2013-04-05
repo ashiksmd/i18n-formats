@@ -824,6 +824,8 @@ YUI.add('module-tests', function(Y) {
     var dateFormatTestSuite = new Y.Test.Suite("DateFormat Tests");
     dateFormatTestSuite.add(absoluteDateFormat);
     dateFormatTestSuite.add(absoluteWithRelative);
+    dateFormatTestSuite.add(durationFormatTests);    
+    dateFormatTestSuite.add(relativeTimeFormatTests);
 
     Y.Test.Runner.add(numberFormatTests);
     Y.Test.Runner.add(timeZoneTests);
