@@ -2,9 +2,6 @@
  * Copyright 2012 Yahoo! Inc. All Rights Reserved. Based on code owned by VMWare, Inc.
  */
 
-var MODULE_NAME = "gallery-advanced-date-format",
-    Format, ShortNames, DateFormat, BuddhistDateFormat, YDateFormat, YRelativeTimeFormat, YDurationFormat;
-
 /**
  * This module provides absolute/relative date and time formatting, as well as duration formatting
  * Applications can choose date, time, and time zone components separately.
@@ -23,7 +20,7 @@ var MODULE_NAME = "gallery-advanced-date-format",
  * @requires datatype-date-timezone, datatype-date-format, datatype-number-advanced-format
  */
 
-Format = Y.Number.__BaseFormat;
+Format = Y.Date.__BaseFormat;
 
 ShortNames = {
         "weekdayMonShort":"M",
@@ -595,7 +592,7 @@ Y.mix(DateFormat.WeekdaySegment.prototype, {
 DateFormat.TimeSegment = function(format, s) {
     DateFormat.TimeSegment.superclass.constructor.call(this, format, s);
 };
-Y.extend(DateFormat.TimeSegment, Y.Number.__BaseFormat.Segment);
+Y.extend(DateFormat.TimeSegment, Y.Date.__BaseFormat.Segment);
 
 //
 // Time hour segment class

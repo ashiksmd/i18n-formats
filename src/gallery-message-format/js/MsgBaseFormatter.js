@@ -81,6 +81,7 @@ Y.mix(Formatter, {
      * @return {Y.Date.Timezone}
      */
     getCurrentTimeZone: function() {
+        if(Y.Date === undefined || Y.Date.Timezone === undefined) { return "GMT"; }
         var systemTZoneOffset = (new Date()).getTimezoneOffset()*-60;
         return Y.Date.Timezone.getTimezoneIdForOffset(systemTZoneOffset);
     }

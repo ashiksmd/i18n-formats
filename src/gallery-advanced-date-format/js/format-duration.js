@@ -138,7 +138,8 @@ YDurationFormat.prototype.format = function(oDuration) {
             minutes: "",
             seconds: ""
         },
-        resultPattern = "";
+        resultPattern = "",
+        formatNumber = function(num) { return num; };
 
     if(oDuration.hours === undefined || oDuration.hours === null || oDuration.hours < 0) { oDuration.hours = defaultValue; }
     if(oDuration.minutes === undefined || oDuration.minutes === null || oDuration.minutes < 0) { oDuration.minutes = defaultValue; }
@@ -148,11 +149,15 @@ YDurationFormat.prototype.format = function(oDuration) {
     if(oDuration.minutes > 59 || oDuration.seconds > 59) {
         Y.error("Minutes and Seconds should be less than 60");
     }
-    
+
+    //If number format available, use it, otherwise do not format number.
+    if (Y.Number !== undefined && Y.Number.format !== undefined) {
+        formatNumber = function(num) { return Y.Number.format(num); };
+    }
     if(this.style === Y.Date.DURATION_FORMATS.HMS_LONG) {
         resultPattern = this.patterns.HMS_long;
         if(oDuration.hours >= 0) {
-            result.hours = Y.Number.format(oDuration.hours) + " " + (oDuration.hours === 1 ? this.patterns.hour : this.patterns.hours);
+            result.hours = formatNumber(oDuration.hours) + " " + (oDuration.hours === 1 ? this.patterns.hour : this.patterns.hours);
         }
 
         if(oDuration.minutes >= 0) {
@@ -165,7 +170,7 @@ YDurationFormat.prototype.format = function(oDuration) {
     } else {                                            //HMS_SHORT
         resultPattern = this.patterns.HMS_short;
         result = {
-             hours: Y.Number.format(oDuration.hours),
+             hours: formatNumber(oDuration.hours),
              minutes: Y.Date._zeroPad(oDuration.minutes, 2),
              seconds: Y.Date._zeroPad(oDuration.seconds, 2)
         };

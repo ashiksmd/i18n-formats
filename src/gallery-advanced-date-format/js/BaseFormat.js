@@ -2,38 +2,10 @@
  * Copyright 2012 Yahoo! Inc. All Rights Reserved. Based on code owned by VMWare, Inc.
  */
 
-var MODULE_NAME = "gallery-advanced-number-format",
-    Format, NumberFormat, YNumberFormat;
+var MODULE_NAME = "gallery-advanced-date-format",
+    Format, ShortNames, DateFormat, BuddhistDateFormat, YDateFormat, YRelativeTimeFormat, YDurationFormat;
 
-Y.Number.__advancedFormat = true;
-
-/**
- * Pad string to specified length
- * @method _zeroPad
- * @for Number
- * @static
- * @private
- * @param {String|Number} s The string or number to be padded
- * @param {Number} length The maximum length s should be padded to have
- * @param {String} [zeroChar='0'] The character to be used to pad the string.
- * @param {Boolean} [rightSide=false] If true, padding will be done from the right-side of the string
- * @return {String} The padded string
- */
-Y.Number._zeroPad  = function(s, length, zeroChar, rightSide) {
-    s = typeof s === "string" ? s : String(s);
-
-    if (s.length >= length) { return s; }
-
-    zeroChar = zeroChar || '0';
-	
-    var a = [], i;
-    for (i = s.length; i < length; i++) {
-        a.push(zeroChar);
-    }
-    a[rightSide ? "unshift" : "push"](s);
-
-    return a.join("");
-};
+Y.Date.__advancedFormat = true;
 
 //
 // Format class
@@ -44,13 +16,13 @@ Y.Number._zeroPad  = function(s, length, zeroChar, rightSide) {
  * returns the formatted string.
  * For internal use only.
  * @class __BaseFormat
- * @namespace Number
+ * @namespace Date
  * @constructor
  * @private
  * @param {String} pattern
  * @param {Object} formats
  */
-Y.Number.__BaseFormat = function(pattern, formats) {
+Y.Date.__BaseFormat = function(pattern, formats) {
     if ( !pattern && !formats ) {
         return;
     }
@@ -65,14 +37,14 @@ Y.Number.__BaseFormat = function(pattern, formats) {
         /**
          * Segments in the pattern
          * @property _segments
-         * @type Number.__BaseFormat.Segment
+         * @type Date.__BaseFormat.Segment
          */
         _segments: [],
         Formats: formats
     });
 };
 
-Format = Y.Number.__BaseFormat;
+Format = Y.Date.__BaseFormat;
 
 Y.mix(Format.prototype, {
     /**
@@ -98,7 +70,7 @@ Y.mix(Format.prototype, {
      * The default implementation of this method assumes that the sub-class
      * has implemented the _createParseObject method.
      * @method parse
-     * @for Number.__BaseFormat
+     * @for Date.__BaseFormat
      * @param {String} s The string to be parsed
      * @param {Number} [pp=0] Parse position. String will only be read from here
      */
@@ -137,7 +109,7 @@ Y.mix(Format.prototype, {
  * Segments in the pattern to be formatted
  * @class __BaseFormat.Segment
  * @for __BaseFormat
- * @namespace Number
+ * @namespace Date
  * @private
  * @constructor
  * @param {Format} format The format object that created this segment
@@ -181,7 +153,7 @@ Y.mix(Format.Segment.prototype, {
     /**
      * Return the parent Format object
      * @method getFormat
-     * @return {Number.__BaseFormat}
+     * @return {Date.__BaseFormat}
      */
     getFormat: function() {
         return this._parent;
@@ -272,7 +244,7 @@ Y.mix(Format.Segment, {
  * Text segment in the pattern.
  * @class __BaseFormat.TextSegment
  * @for __BaseFormat
- * @namespace Number
+ * @namespace Date
  * @extends Segment
  * @constructor
  * @param {Format} format The parent Format object

@@ -257,4 +257,4 @@ YUI.add('module-tests', function(Y) {
 
     Y.Test.Runner.add(messageFormatTests);
 
-},'', { requires: [ 'test', 'gallery-message-format', 'gallery-list-format', 'gallery-advanced-date-format' ] });
+},'', { requires: [ 'test', 'gallery-message-format', 'gallery-list-format', 'gallery-advanced-date-format', 'gallery-advanced-number-format' ] });

@@ -10,9 +10,9 @@
 Y.Intl.NumberFormatter = function(values) {
     NumberFormatter.superclass.constructor.call(this, values);
     this.styles = {
-        "integer": Y.Number.STYLES.NUMBER_STYLE,
-        "percent": Y.Number.STYLES.PERCENT_STYLE,
-        "currency": Y.Number.STYLES.CURRENCY_STYLE
+        "integer": 4 /*Y.Number.STYLES.NUMBER_STYLE*/,
+        "percent": 8 /*Y.Number.STYLES.PERCENT_STYLE*/,
+        "currency": 1 /*Y.Number.STYLES.CURRENCY_STYLE*/
     };
     this.regex = "{\\s*([a-zA-Z0-9_]+)\\s*,\\s*number\\s*(,\\s*(\\w+)\\s*)?}";
 };
@@ -71,7 +71,7 @@ Y.mix(NumberFormatter.prototype, {
      * @return {String} Formatted result
      */
     format: function(str) {
-        if(Y.Number === undefined || Y.Number.format === undefined) { return str; }
+        if(Y.Number === undefined || !Y.Number.__advancedFormat) { return str; }
         var regex = new RegExp(this.regex, "gm"),
             matches = null,
             params, config;

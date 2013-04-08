@@ -7,6 +7,8 @@ YUI.add('gallery-advanced-number-format', function (Y, NAME) {
 var MODULE_NAME = "gallery-advanced-number-format",
     Format, NumberFormat, YNumberFormat;
 
+Y.Number.__advancedFormat = true;
+
 /**
  * Pad string to specified length
  * @method _zeroPad

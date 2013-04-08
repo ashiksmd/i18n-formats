@@ -10,10 +10,10 @@
 Y.Intl.DateFormatter = function(values) {
     DateFormatter.superclass.constructor.call(this, values);
     this.styles = {
-        "short":  [ Y.Date.DATE_FORMATS.YMD_SHORT, 0, 0 ],
-        "medium": [ Y.Date.DATE_FORMATS.YMD_ABBREVIATED,0, 0 ],
-        "long":   [ Y.Date.DATE_FORMATS.YMD_LONG, 0, 0 ],
-        "full":   [ Y.Date.DATE_FORMATS.WYMD_LONG, 0, 0 ]
+        "short":  [ 512 /*Y.Date.DATE_FORMATS.YMD_SHORT*/, 0, 0 ],
+        "medium": [ 256 /*Y.Date.DATE_FORMATS.YMD_ABBREVIATED*/,0, 0 ],
+        "long":   [ 128 /*Y.Date.DATE_FORMATS.YMD_LONG*/, 0, 0 ],
+        "full":   [ 1 /*Y.Date.DATE_FORMATS.WYMD_LONG*/, 0, 0 ]
     };
     this.regex = "{\\s*([a-zA-Z0-9_]+)\\s*,\\s*date\\s*(,\\s*(\\w+)\\s*)?}";
 };
@@ -72,7 +72,7 @@ Y.mix(DateFormatter.prototype, {
      * @return {String} Formatted result
      */
     format: function(str, config) {
-        if(Y.Date === undefined || Y.Date.format === undefined) { return str; }
+        if(Y.Date === undefined || !Y.Date.__advancedFormat ) { return str; }
         var regex = new RegExp(this.regex, "gm"),
             matches = null,
             params, style, result;
