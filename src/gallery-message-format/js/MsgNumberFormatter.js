@@ -71,7 +71,7 @@ Y.mix(NumberFormatter.prototype, {
      * @return {String} Formatted result
      */
     format: function(str) {
-        if(Y.Number === undefined || Y.Number.format === undefined) { return str; } 
+        if(Y.Number === undefined || Y.Number.format === undefined) { return str; }
         var regex = new RegExp(this.regex, "gm"),
             matches = null,
             params, config;

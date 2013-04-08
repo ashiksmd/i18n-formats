@@ -72,7 +72,7 @@ Y.mix(DateFormatter.prototype, {
      * @return {String} Formatted result
      */
     format: function(str, config) {
-        if(Y.Date === undefined || Y.Date.format === undefined) { return str; } 
+        if(Y.Date === undefined || Y.Date.format === undefined) { return str; }
         var regex = new RegExp(this.regex, "gm"),
             matches = null,
             params, style, result;

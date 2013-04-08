@@ -229,7 +229,7 @@ Y.mix(DateFormatter.prototype, {
      * @return {String} Formatted result
      */
     format: function(str, config) {
-        if(Y.Date === undefined || Y.Date.format === undefined) { return str; } 
+        if(Y.Date === undefined || Y.Date.format === undefined) { return str; }
         var regex = new RegExp(this.regex, "gm"),
             matches = null,
             params, style, result;
@@ -358,7 +358,7 @@ Y.mix(NumberFormatter.prototype, {
      * @return {String} Formatted result
      */
     format: function(str) {
-        if(Y.Number === undefined || Y.Number.format === undefined) { return str; } 
+        if(Y.Number === undefined || Y.Number.format === undefined) { return str; }
         var regex = new RegExp(this.regex, "gm"),
             matches = null,
             params, config;
@@ -1045,7 +1045,7 @@ Y.mix(MsgListFormatter.prototype, {
       * @return {String} Formatted result
       */
      format: function(str) {
-          if(Y.Intl === undefined || Y.Intl.ListFormatter === undefined || Y.Intl.ListFormatter.format === undefined) { return str; } 
+          if(Y.Intl === undefined || Y.Intl.ListFormatter === undefined || Y.Intl.ListFormatter.format === undefined) { return str; }
           var regex = new RegExp(this.regex, "gm"),
               matches = null,
               params;

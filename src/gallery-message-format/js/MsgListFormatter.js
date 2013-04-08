@@ -33,7 +33,7 @@ Y.mix(MsgListFormatter.prototype, {
       * @return {String} Formatted result
       */
      format: function(str) {
-          if(Y.Intl === undefined || Y.Intl.ListFormatter === undefined || Y.Intl.ListFormatter.format === undefined) { return str; } 
+          if(Y.Intl === undefined || Y.Intl.ListFormatter === undefined || Y.Intl.ListFormatter.format === undefined) { return str; }
           var regex = new RegExp(this.regex, "gm"),
               matches = null,
               params;
