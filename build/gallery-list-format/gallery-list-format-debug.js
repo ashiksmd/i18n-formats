@@ -65,7 +65,7 @@ Y.Intl.ListFormatter = ListFormatter;
 
 
 }, '@VERSION@', {
-    "requires": [
+    "lang": [
         "af",
         "am",
         "ar",
