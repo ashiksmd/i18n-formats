@@ -171,8 +171,8 @@ YDurationFormat.prototype.format = function(oDuration) {
         resultPattern = this.patterns.HMS_short;
         result = {
              hours: formatNumber(oDuration.hours),
-             minutes: Y.Date._zeroPad(oDuration.minutes, 2),
-             seconds: Y.Date._zeroPad(oDuration.seconds, 2)
+             minutes: Y.Intl.Utils.zeroPad(oDuration.minutes, 2),
+             seconds: Y.Intl.Utils.zeroPad(oDuration.seconds, 2)
         };
     }
         

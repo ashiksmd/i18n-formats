@@ -6,34 +6,6 @@
  */
 
 /**
- * Pad string to specified length
- * @method _zeroPad
- * @for Date
- * @static
- * @private
- * @param {String|Number} s The string or number to be padded
- * @param {Number} length The maximum length s should be padded to have
- * @param {String} [zeroChar='0'] The character to be used to pad the string.
- * @param {Boolean} [rightSide=false] If true, padding will be done from the right-side of the string
- * @return {String} The padded string
- */
-Y.Date._zeroPad  = function(s, length, zeroChar, rightSide) {
-    s = typeof s === "string" ? s : String(s);
-
-    if (s.length >= length) { return s; }
-
-    zeroChar = zeroChar || '0';
-	
-    var a = [], i;
-    for (i = s.length; i < length; i++) {
-        a.push(zeroChar);
-    }
-    a[rightSide ? "unshift" : "push"](s);
-
-    return a.join("");
-};
-
-/**
  * Class to handle timezones
  * @class __zTimezone
  * @namespace Date
@@ -758,19 +730,20 @@ Y.mix(Timezone.prototype, {
         var uTime = new Date(timeValue * 1000),
             offset = AjxTimezone.getOffset(this.tzId, uTime),
             offsetString = "Z",
-            rfc3339, offsetSign;
+            rfc3339, offsetSign,
+            Utils = Y.Intl.Utils;
 
         if(offset !== 0) {
             offsetSign = (offset > 0 ? "+": "-");
-            offsetString = offsetSign + Y.Date._zeroPad(Math.abs(Timezone._floatToInt(offset/60)), 2) + ":" + Y.Date._zeroPad(offset % 60, 2);
+            offsetString = offsetSign + Utils.zeroPad(Math.abs(Timezone._floatToInt(offset/60)), 2) + ":" + Utils.zeroPad(offset % 60, 2);
         }
 
         uTime.setTime(timeValue*1000 + offset*60*1000);
 
-        rfc3339 = Y.Date._zeroPad(uTime.getUTCFullYear(), 4) + "-"
-                      + Y.Date._zeroPad((uTime.getUTCMonth() + 1), 2) + "-" + Y.Date._zeroPad(uTime.getUTCDate(), 2)
-                      + "T" + Y.Date._zeroPad(uTime.getUTCHours(), 2) + ":" + Y.Date._zeroPad(uTime.getUTCMinutes(), 2)
-                      + ":" + Y.Date._zeroPad(uTime.getUTCSeconds(), 2) + offsetString;
+        rfc3339 = Utils.zeroPad(uTime.getUTCFullYear(), 4) + "-"
+                      + Utils.zeroPad((uTime.getUTCMonth() + 1), 2) + "-" + Utils.zeroPad(uTime.getUTCDate(), 2)
+                      + "T" + Utils.zeroPad(uTime.getUTCHours(), 2) + ":" + Utils.zeroPad(uTime.getUTCMinutes(), 2)
+                      + ":" + Utils.zeroPad(uTime.getUTCSeconds(), 2) + offsetString;
 
         return rfc3339;
     },
@@ -784,13 +757,14 @@ Y.mix(Timezone.prototype, {
     convertUTCToSQLFormat: function(timeValue) {
         var uTime = new Date(timeValue * 1000),
             offset = AjxTimezone.getOffset(this.tzId, uTime),
-            sqlDate;
+            sqlDate,
+            Utils = Y.Intl.Utils;
             
         uTime.setTime(timeValue*1000 + offset*60*1000);
 
-        sqlDate = Y.Date._zeroPad(uTime.getUTCFullYear(), 4) + "-" + Y.Date._zeroPad((uTime.getUTCMonth() + 1), 2)
-                      + "-" + Y.Date._zeroPad(uTime.getUTCDate(), 2) + " " + Y.Date._zeroPad(uTime.getUTCHours(), 2)
-                      + ":" + Y.Date._zeroPad(uTime.getUTCMinutes(), 2) + ":" + Y.Date._zeroPad(uTime.getUTCSeconds(), 2);
+        sqlDate = Utils.zeroPad(uTime.getUTCFullYear(), 4) + "-" + Utils.zeroPad((uTime.getUTCMonth() + 1), 2)
+                      + "-" + Utils.zeroPad(uTime.getUTCDate(), 2) + " " + Utils.zeroPad(uTime.getUTCHours(), 2)
+                      + ":" + Utils.zeroPad(uTime.getUTCMinutes(), 2) + ":" + Utils.zeroPad(uTime.getUTCSeconds(), 2);
 
         return sqlDate;
     },

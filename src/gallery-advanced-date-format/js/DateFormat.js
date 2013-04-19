@@ -20,7 +20,11 @@
  * @requires datatype-date-timezone, datatype-date-format, datatype-number-advanced-format
  */
 
-Format = Y.Date.__BaseFormat;
+var MODULE_NAME = "gallery-advanced-date-format",
+    Format, ShortNames, DateFormat, BuddhistDateFormat, YDateFormat, YRelativeTimeFormat, YDurationFormat;
+
+Format = Y.Intl.Utils.BaseFormat;
+Y.Date.__advancedFormat = true;
 
 ShortNames = {
         "weekdayMonShort":"M",
@@ -60,7 +64,7 @@ ShortNames = {
  * http://www.unicode.org/cldr/.
  *
  * @class __zDateFormat
- * @extends Number.__BaseFormat
+ * @extends Intl.Utils.BaseFormat
  * @namespace Date
  * @private
  * @constructor
@@ -238,7 +242,7 @@ DateFormat.prototype.format = function(object, relative) {
  * @class DateSegment
  * @namespace Date.__zDateFormat
  * @for Date.__zDateFormat
- * @extends Number.__BaseFormat.Segment
+ * @extends Intl.Utils.BaseFormat.Segment
  * @private
  * @constructor
  * @param format {Date.__zDateFormat} The parent Format object.
@@ -318,7 +322,7 @@ Y.mix(DateFormat.YearSegment.prototype, {
      */
     format: function(date) {
         var year = String(date.getFullYear());
-        return this._s.length !== 1 && this._s.length < 4 ? year.substr(year.length - 2) : Y.Date._zeroPad(year, this._s.length);
+        return this._s.length !== 1 && this._s.length < 4 ? year.substr(year.length - 2) : Y.Intl.Utils.zeroPad(year, this._s.length);
     }
 }, true);
 
@@ -393,7 +397,7 @@ Y.mix(DateFormat.MonthSegment.prototype, {
             case 1:
                 return String(month + 1);
             case 2:
-                return Y.Date._zeroPad(month + 1, 2);
+                return Y.Intl.Utils.zeroPad(month + 1, 2);
             case 3:
                 return DateFormat.MonthSegment.MONTHS[DateFormat.MEDIUM][month];
             case 5:
@@ -444,7 +448,7 @@ DateFormat.WeekSegment.prototype.format = function(date) {
         date2.setDate(date2.getDate() + 7);
     }
 
-    return Y.Date._zeroPad(week, this._s.length);
+    return Y.Intl.Utils.zeroPad(week, this._s.length);
 };
 
 //
@@ -488,7 +492,7 @@ DateFormat.DaySegment.prototype.format = function(date) {
             month--;
         } while (month > 0);
     }
-    return Y.Date._zeroPad(day, this._s.length);
+    return Y.Intl.Utils.zeroPad(day, this._s.length);
 };
 
 //
@@ -570,7 +574,7 @@ Y.mix(DateFormat.WeekdaySegment.prototype, {
             }
             return DateFormat.WeekdaySegment.WEEKDAYS[style][weekday];
         }
-        return Y.Date._zeroPad(weekday, this._s.length);
+        return Y.Intl.Utils.zeroPad(weekday, this._s.length);
     }
 }, true);
 
@@ -583,7 +587,7 @@ Y.mix(DateFormat.WeekdaySegment.prototype, {
  * @class TimeSegment
  * @namespace Date.__zDateFormat
  * @for Date.__zDateFormat
- * @extends Number.__BaseFormat.Segment
+ * @extends Intl.Utils.BaseFormat.Segment
  * @private
  * @constructor
  * @param format {Date.__zDateFormat} The parent Format object
@@ -592,7 +596,7 @@ Y.mix(DateFormat.WeekdaySegment.prototype, {
 DateFormat.TimeSegment = function(format, s) {
     DateFormat.TimeSegment.superclass.constructor.call(this, format, s);
 };
-Y.extend(DateFormat.TimeSegment, Y.Date.__BaseFormat.Segment);
+Y.extend(DateFormat.TimeSegment, Y.Intl.Utils.BaseFormat.Segment);
 
 //
 // Time hour segment class
@@ -646,7 +650,7 @@ Y.mix(DateFormat.HourSegment.prototype, {
                 hours--;
             }
         /***/
-        return Y.Date._zeroPad(hours, this._s.length);
+        return Y.Intl.Utils.zeroPad(hours, this._s.length);
     }
 }, true);
 
@@ -688,7 +692,7 @@ Y.mix(DateFormat.MinuteSegment.prototype, {
      */
     format: function(date) {
         var minutes = date.getMinutes();
-        return Y.Date._zeroPad(minutes, this._s.length);
+        return Y.Intl.Utils.zeroPad(minutes, this._s.length);
     }
 }, true);
 
@@ -720,7 +724,7 @@ Y.extend(DateFormat.SecondSegment, DateFormat.TimeSegment);
  */
 DateFormat.SecondSegment.prototype.format = function(date) {
     var minutes = /s/.test(this._s) ? date.getSeconds() : date.getMilliseconds();
-    return Y.Date._zeroPad(minutes, this._s.length);
+    return Y.Intl.Utils.zeroPad(minutes, this._s.length);
 };
 
 //
@@ -866,7 +870,7 @@ Y.extend(BuddhistDateFormat.YearSegment, DateFormat.YearSegment);
 BuddhistDateFormat.YearSegment.prototype.format = function(date) {
     var year = date.getFullYear();
     year = String(year + 543);      //Buddhist Calendar epoch is in 543 BC
-    return this._s.length !== 1 && this._s.length < 4 ? year.substr(year.length - 2) : Y.Date._zeroPad(year, this._s.length);
+    return this._s.length !== 1 && this._s.length < 4 ? year.substr(year.length - 2) : Y.Intl.Utils.zeroPad(year, this._s.length);
 };
     
 /**

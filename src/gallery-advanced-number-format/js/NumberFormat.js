@@ -1,3 +1,9 @@
+var MODULE_NAME = "gallery-advanced-number-format",
+    Format = Y.Intl.Utils.BaseFormat,
+    NumberFormat, YNumberFormat;
+
+Y.Number.__advancedFormat = true;
+
 /**
  * NumberFormat helps you to format and parse numbers for any locale.
  * Your code can be completely independent of the locale conventions for decimal points, thousands-separators,
@@ -12,7 +18,7 @@
 /**
  * Class to handle Number formatting.
  * @class __zNumberFormat
- * @extends __BaseFormat
+ * @extends Intl.Utils.BaseFormat
  * @namespace Number
  * @private
  * @constructor
@@ -137,7 +143,7 @@ Y.Number.__zNumberFormat = function(pattern, formats, skipNegFormat) {
 };
 
 NumberFormat = Y.Number.__zNumberFormat;
-Y.extend(NumberFormat, Y.Number.__BaseFormat);
+Y.extend(NumberFormat, Format);
     
 // Constants
 
@@ -272,7 +278,7 @@ Y.mix( NumberFormat.prototype, {
 
     /**
      * Creates the object that is initialized by parsing. For internal use only.
-     * Overrides method from __BaseFormat
+     * Overrides method from Intl.Utils.BaseFormat
      * @method _createParseObject
      * @private
      * @return {Object}
@@ -293,7 +299,7 @@ Y.mix( NumberFormat.prototype, {
  * @class __zNumberFormat.NumberSegment
  * @for __zNumberFormat
  * @namespace Number
- * @extends Number.__BaseFormat.Segment
+ * @extends Intl.Utils.BaseFormat.Segment
  *
  * @private
  * @constructor
@@ -358,7 +364,7 @@ Y.mix(NumberFormat.NumberSegment.prototype, {
             expon, i;
 
 	if (whole.length < this._parent._minIntDigits) {
-            whole = Y.Number._zeroPad(whole, this._parent._minIntDigits, this._parent.Formats.numberZero);
+            whole = Y.Intl.Utils.zeroPad(whole, this._parent._minIntDigits, this._parent.Formats.numberZero);
         }
         if (whole.length > this._parent._primaryGrouping && this._parent._useGrouping) {
             i = whole.length - offset;
@@ -382,7 +388,7 @@ Y.mix(NumberFormat.NumberSegment.prototype, {
 
         fract = fract.replace(/0+$/,"");
         if (fract.length < this._parent._minFracDigits) {
-            fract = Y.Number._zeroPad(fract, this._parent._minFracDigits, this._parent.Formats.numberZero, true);
+            fract = Y.Intl.Utils.zeroPad(fract, this._parent._minFracDigits, this._parent.Formats.numberZero, true);
         }
 	
         a = [ whole ];
