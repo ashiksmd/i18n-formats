@@ -1,8 +1,8 @@
 /**
  * Timezone performs operations on a given timezone string represented in Olson tz database
  * This module uses parts of zimbra AjxTimezone to handle time-zones
- * @module datatype-date-timezone
- * @requires datatype-date-format
+ * @module gallery-advanced-date-timezone
+ * @requires datatype-date-format, gallery-i18n-common
  */
 
 /**
@@ -56,66 +56,14 @@ Y.mix(AjxTimezone, {
     },
 
     /**
-     * Add dst transition rules with dst information
-     * @method addRule
-     * @static
-     * @param rule {Object} Object containing timezone information
-     */
-    addRule: function(rule) {
-        var tzId = rule.tzId, array;
-
-        AjxTimezone._SHORT_NAMES[tzId] = AjxTimezone._generateShortName(rule.standard.offset);
-        AjxTimezone._CLIENT2RULE[tzId] = rule;
-
-        array = rule.daylight ? AjxTimezone.DAYLIGHT_RULES : AjxTimezone.STANDARD_RULES;
-        array.push(rule);
-    },
-
-    /**
      * Get dst transition rule
      * @method getRule
      * @static
      * @param tzId {Object} Timezone Id
-     * @param tz {Object} Rule object to match against
      * @return {Object} The rule
      */
-    getRule: function(tzId, tz) {
-        var rule = AjxTimezone._CLIENT2RULE[tzId],
-            names = [ "standard", "daylight" ],
-            rules, i, j, found, name, onset, breakOuter, p;
-        if (!rule && tz) {
-            rules = tz.daylight ? AjxTimezone.DAYLIGHT_RULES : AjxTimezone.STANDARD_RULES;
-            for (i = 0; i < rules.length; i++) {
-                rule = rules[i];
-
-                found = true;
-                for (j = 0; j < names.length; j++) {
-                    name = names[j];
-                    onset = rule[name];
-                    if (!onset) { continue; }
-			
-                    breakOuter = false;
-
-                    for (p in tz[name]) {
-                        if (tz[name][p] !== onset[p]) {
-                            found = false;
-                            breakOuter = true;
-                            break;
-                        }
-                    }
-
-                    if(breakOuter){
-                        break;
-                    }
-                }
-                if (found) {
-                    return rule;
-                }
-            }
-            return null;
-        }
-
-        return rule;
+    getRule: function(tzId) {
+        return TimezoneData.TIMEZONE_RULES[tzId];
     },
 
     /**
@@ -182,15 +130,7 @@ Y.mix(AjxTimezone, {
     },
 
     _SHORT_NAMES: {},
-    _CLIENT2RULE: {},
-    /**
-     * The data is specified using the server identifiers for historical
-     * reasons. Perhaps in the future we'll use the client (i.e. Java)
-     * identifiers on the server as well.
-     */
-    STANDARD_RULES: [],
-    DAYLIGHT_RULES: [],
-
+    
     /**
      * Generate short name for a timezone like +0530 for IST
      * @method _generateShortName
@@ -213,28 +153,6 @@ Y.mix(AjxTimezone, {
     },
 
     /**
-     * Initialized timezone rules. Only for internal use.
-     * @method _initTimezoneRules
-     * @static
-     * @private
-     */
-    _initTimezoneRules: function() {
-        var rule, i, j, array;
-
-        for (i = 0; i < TimezoneData.TIMEZONE_RULES.length; i++) {
-            rule = TimezoneData.TIMEZONE_RULES[i];
-            array = rule.daylight ? AjxTimezone.DAYLIGHT_RULES : AjxTimezone.STANDARD_RULES;
-            array.push(rule);
-        }
-
-        TimezoneData.TIMEZONE_RULES.sort(AjxTimezone._BY_OFFSET);
-        for (j = 0; j < TimezoneData.TIMEZONE_RULES.length; j++) {
-            rule = TimezoneData.TIMEZONE_RULES[j];
-            AjxTimezone.addRule(rule);
-        }
-    },
-
-    /**
      * Get timezone ids matching raw offset
      * @method getCurrentTimezoneIds
      * @static
@@ -248,7 +166,7 @@ Y.mix(AjxTimezone, {
             today = new Date(),
             tzId, link;
 
-        for(tzId in AjxTimezone._CLIENT2RULE) {
+        for(tzId in TimezoneData.TIMEZONE_RULES) {
             if(rawOffset === 0 || AjxTimezone.getOffset(tzId, today) === rawOffset) {
                 result.push(tzId);
             }
@@ -281,12 +199,12 @@ Y.mix(AjxTimezone, {
                 etcGMTId += (rawOffset > 0? "-": "+") + rawOffset/60;
             }
 
-            if(AjxTimezone._CLIENT2RULE[etcGMTId] !== undefined) {
+            if(TimezoneData.TIMEZONE_RULES[etcGMTId] !== undefined) {
                 return etcGMTId;
             }
         }
 	
-        for(tzId in AjxTimezone._CLIENT2RULE) {
+        for(tzId in TimezoneData.TIMEZONE_RULES) {
             if(AjxTimezone.getOffset(tzId, today) === rawOffset) {
                 return tzId;
             }
@@ -352,7 +270,7 @@ Y.mix(AjxTimezone, {
      * @return {Boolean} true if tzId is valid, false otherwise
      */
     isValidTimezoneId: function(tzId) {
-        return (AjxTimezone._CLIENT2RULE[tzId] !== undefined || TimezoneLinks[tzId] !== undefined);
+        return (TimezoneData.TIMEZONE_RULES[tzId] !== undefined || TimezoneLinks[tzId] !== undefined);
     }
 });
 
@@ -365,6 +283,9 @@ Y.mix(AjxTimezone.prototype, {
      * @return {String}
      */
     getShortName: function(tzId) {
+        if(!AjxTimezone._SHORT_NAMES[tzId]) {
+            AjxTimezone._SHORT_NAMES[tzId] = AjxTimezone._generateShortName(AjxTimezone.getOffset(tzId, new Date()));
+        }
         var shortName = ["GMT",AjxTimezone._SHORT_NAMES[tzId]].join("");
         return shortName;
     },
@@ -388,8 +309,6 @@ Y.mix(AjxTimezone.prototype, {
      */
     getLongName: AjxTimezone.prototype.getMediumName
 });
-
-AjxTimezone._initTimezoneRules();
 
 /**
  * Timezone performs operations on a given timezone string represented in Olson tz database
@@ -616,10 +535,10 @@ Y.mix(Timezone, {
         var normalizedId,
             next = tzId;
 
-        do {
+        while(next !== undefined) {
             normalizedId = next;
             next = TimezoneLinks[normalizedId];
-        } while( next !== undefined );
+        }
 
         return normalizedId;
     }
@@ -731,7 +650,7 @@ Y.mix(Timezone.prototype, {
             offset = AjxTimezone.getOffset(this.tzId, uTime),
             offsetString = "Z",
             rfc3339, offsetSign,
-            Utils = Y.Intl.Utils;
+            Utils = Y.Intl.Common;
 
         if(offset !== 0) {
             offsetSign = (offset > 0 ? "+": "-");
@@ -758,7 +677,7 @@ Y.mix(Timezone.prototype, {
         var uTime = new Date(timeValue * 1000),
             offset = AjxTimezone.getOffset(this.tzId, uTime),
             sqlDate,
-            Utils = Y.Intl.Utils;
+            Utils = Y.Intl.Common;
             
         uTime.setTime(timeValue*1000 + offset*60*1000);
 

@@ -1,0 +1,10 @@
+{
+    "name": "gallery-i18n-common",
+    "builds": {
+        "gallery-i18n-common": {
+            "jsfiles": [
+                "js/gallery-i18n-common.js"
+            ]
+        }
+    }
+}

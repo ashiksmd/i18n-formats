@@ -1,5 +1,5 @@
 {
     "gallery-advanced-date-timezone": {
-        "requires": ["datatype-date-format", "gallery-i18n-utils"]
+        "requires": ["datatype-date-format", "gallery-i18n-common"]
     }
 }

@@ -1,5 +1,10 @@
 YUI.add('gallery-message-format', function (Y, NAME) {
 
+/**
+ * This module implements Message formatting similar to the MessageFormat API in ICU
+ * @module gallery-message-format
+ * @requires intl
+ */
 var MODULE_NAME = "gallery-message-format",
     PluralRules, inRange,
     Formatter, StringFormatter, DateFormatter, TimeFormatter, NumberFormatter,SelectFormatter,

@@ -1,7 +1,0 @@
-{
-    "gallery-i18n-utils": {
-        "requires": [
-            "intl"
-        ]
-    }
-}

@@ -1,5 +1,9 @@
 YUI.add('gallery-list-format', function (Y, NAME) {
 
+/**
+ * ListFormatter formats lists with locale dependent rules.
+ * @module gallery-list-format
+ */
 var MODULE_NAME = "gallery-list-format",
     ListFormatter;
 

@@ -36,7 +36,6 @@ YUI.add('module-tests', function(Y) {
 
         testAbsoluteDateFormat : function () {
             Y.Intl.setLang("gallery-advanced-date-format", "en");
-            Y.Intl.setLang("gallery-advanced-date-format", "en");
                         
             var date = new Date(Date.UTC(2012, 5, 25, 10));
             var result = Y.Date.format(date, {
@@ -52,7 +51,6 @@ YUI.add('module-tests', function(Y) {
         testBuddhistCalendar: function () {
             //Thai calendar
             Y.Intl.setLang("gallery-advanced-date-format", "th");    //Change language for this test only
-            Y.Intl.setLang("gallery-advanced-date-format", "th");
                         
             var date = new Date(Date.UTC(2012, 5, 25, 10));
             var result = Y.Date.format(date, {

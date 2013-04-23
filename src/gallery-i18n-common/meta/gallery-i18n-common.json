@@ -1,0 +1,7 @@
+{
+    "gallery-i18n-common": {
+        "requires": [
+            "intl"
+        ]
+    }
+}

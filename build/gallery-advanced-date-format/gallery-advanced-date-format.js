@@ -18,14 +18,14 @@ YUI.add('gallery-advanced-date-format', function (Y, NAME) {
  *
  * Relative time formats only support times in the past. It can represent times like "1 hour 5 minutes ago"
  *
- * @module datatype-date-advanced-format
- * @requires datatype-date-timezone, datatype-date-format, datatype-number-advanced-format
+ * @module gallery-advance-date-format
+ * @requires gallery-advanced-date-timezone
  */
 
 var MODULE_NAME = "gallery-advanced-date-format",
     Format, ShortNames, DateFormat, BuddhistDateFormat, YDateFormat, YRelativeTimeFormat, YDurationFormat;
 
-Format = Y.Intl.Utils.BaseFormat;
+Format = Y.Intl.Common.BaseFormat;
 Y.Date.__advancedFormat = true;
 
 ShortNames = {
@@ -66,7 +66,7 @@ ShortNames = {
  * http://www.unicode.org/cldr/.
  *
  * @class __zDateFormat
- * @extends Intl.Utils.BaseFormat
+ * @extends Intl.Common.BaseFormat
  * @namespace Date
  * @private
  * @constructor
@@ -217,14 +217,14 @@ DateFormat.prototype.format = function(object, relative) {
 
     for (i = 0; i < this._segments.length; i++) {
         //Mark datePattern sections in case of relative dates
-        if(this._segments[i].toString().indexOf("text: \"<datePattern>\"") === 0) {
+        if(this._segments[i]._s.indexOf("<datePattern>") === 0) {
             if(useRelative) {
                 s.push(relative);
             }
             datePattern = true;
             continue;
         }
-        if(this._segments[i].toString().indexOf("text: \"</datePattern>\"") === 0) {
+        if(this._segments[i]._s.indexOf("</datePattern>") === 0) {
             datePattern = false;
             continue;
         }
@@ -244,7 +244,7 @@ DateFormat.prototype.format = function(object, relative) {
  * @class DateSegment
  * @namespace Date.__zDateFormat
  * @for Date.__zDateFormat
- * @extends Intl.Utils.BaseFormat.Segment
+ * @extends Intl.Common.BaseFormat.Segment
  * @private
  * @constructor
  * @param format {Date.__zDateFormat} The parent Format object.
@@ -308,15 +308,6 @@ Y.extend(DateFormat.YearSegment, DateFormat.DateSegment);
 
 Y.mix(DateFormat.YearSegment.prototype, {
     /**
-     * Return a string representation of the object
-     * @method toString
-     * @return {String}
-     */
-    toString: function() {
-        return "dateYear: \""+this._s+'"';
-    },
-
-    /**
      * Format date and get the year segment.
      * @method format
      * @param date {Date} The date to be formatted
@@ -324,7 +315,7 @@ Y.mix(DateFormat.YearSegment.prototype, {
      */
     format: function(date) {
         var year = String(date.getFullYear());
-        return this._s.length !== 1 && this._s.length < 4 ? year.substr(year.length - 2) : Y.Intl.Utils.zeroPad(year, this._s.length);
+        return this._s.length !== 1 && this._s.length < 4 ? year.substr(year.length - 2) : Y.Intl.Common.zeroPad(year, this._s.length);
     }
 }, true);
 
@@ -350,15 +341,6 @@ DateFormat.MonthSegment = function(format, s) {
 Y.extend(DateFormat.MonthSegment, DateFormat.DateSegment);
 
 Y.mix(DateFormat.MonthSegment.prototype, {
-    /**
-     * Return a string representation of the object
-     * @method toString
-     * @return {String}
-     */
-    toString: function() {
-        return "dateMonth: \""+this._s+'"';
-    },
-
     /**
      * Initialize with locale specific data.
      * @method initialize
@@ -399,7 +381,7 @@ Y.mix(DateFormat.MonthSegment.prototype, {
             case 1:
                 return String(month + 1);
             case 2:
-                return Y.Intl.Utils.zeroPad(month + 1, 2);
+                return Y.Intl.Common.zeroPad(month + 1, 2);
             case 3:
                 return DateFormat.MonthSegment.MONTHS[DateFormat.MEDIUM][month];
             case 5:
@@ -450,7 +432,7 @@ DateFormat.WeekSegment.prototype.format = function(date) {
         date2.setDate(date2.getDate() + 7);
     }
 
-    return Y.Intl.Utils.zeroPad(week, this._s.length);
+    return Y.Intl.Common.zeroPad(week, this._s.length);
 };
 
 //
@@ -494,7 +476,7 @@ DateFormat.DaySegment.prototype.format = function(date) {
             month--;
         } while (month > 0);
     }
-    return Y.Intl.Utils.zeroPad(day, this._s.length);
+    return Y.Intl.Common.zeroPad(day, this._s.length);
 };
 
 //
@@ -519,15 +501,6 @@ DateFormat.WeekdaySegment = function(format, s) {
 Y.extend(DateFormat.WeekdaySegment, DateFormat.DateSegment);
 
 Y.mix(DateFormat.WeekdaySegment.prototype, {
-    /**
-     * Return a string representation of the object
-     * @method toString
-     * @return {String}
-     */
-    toString: function() {
-        return "dateDay: \""+this._s+'"';
-    },
-
     /**
      * Initialize with locale specific data.
      * @method initialize
@@ -576,7 +549,7 @@ Y.mix(DateFormat.WeekdaySegment.prototype, {
             }
             return DateFormat.WeekdaySegment.WEEKDAYS[style][weekday];
         }
-        return Y.Intl.Utils.zeroPad(weekday, this._s.length);
+        return Y.Intl.Common.zeroPad(weekday, this._s.length);
     }
 }, true);
 
@@ -589,7 +562,7 @@ Y.mix(DateFormat.WeekdaySegment.prototype, {
  * @class TimeSegment
  * @namespace Date.__zDateFormat
  * @for Date.__zDateFormat
- * @extends Intl.Utils.BaseFormat.Segment
+ * @extends Intl.Common.BaseFormat.Segment
  * @private
  * @constructor
  * @param format {Date.__zDateFormat} The parent Format object
@@ -598,7 +571,7 @@ Y.mix(DateFormat.WeekdaySegment.prototype, {
 DateFormat.TimeSegment = function(format, s) {
     DateFormat.TimeSegment.superclass.constructor.call(this, format, s);
 };
-Y.extend(DateFormat.TimeSegment, Y.Intl.Utils.BaseFormat.Segment);
+Y.extend(DateFormat.TimeSegment, Y.Intl.Common.BaseFormat.Segment);
 
 //
 // Time hour segment class
@@ -622,15 +595,6 @@ Y.extend(DateFormat.HourSegment, DateFormat.TimeSegment);
 
 Y.mix(DateFormat.HourSegment.prototype, {
     /**
-     * Return a string representation of the object
-     * @method toString
-     * @return {String}
-     */
-    toString: function() {
-        return "timeHour: \""+this._s+'"';
-    },
-
-    /**
      * Format date and get the hour segment.
      * @method format
      * @param date {Date} The date to be formatted
@@ -652,7 +616,7 @@ Y.mix(DateFormat.HourSegment.prototype, {
                 hours--;
             }
         /***/
-        return Y.Intl.Utils.zeroPad(hours, this._s.length);
+        return Y.Intl.Common.zeroPad(hours, this._s.length);
     }
 }, true);
 
@@ -678,15 +642,6 @@ Y.extend(DateFormat.MinuteSegment, DateFormat.TimeSegment);
 
 Y.mix(DateFormat.MinuteSegment.prototype, {
     /**
-     * Return a string representation of the object
-     * @method toString
-     * @return {String}
-     */
-    toString: function() {
-        return "timeMinute: \""+this._s+'"';
-    },
-
-    /**
      * Format date and get the minute segment.
      * @method format
      * @param date {Date} The date to be formatted
@@ -694,7 +649,7 @@ Y.mix(DateFormat.MinuteSegment.prototype, {
      */
     format: function(date) {
         var minutes = date.getMinutes();
-        return Y.Intl.Utils.zeroPad(minutes, this._s.length);
+        return Y.Intl.Common.zeroPad(minutes, this._s.length);
     }
 }, true);
 
@@ -726,7 +681,7 @@ Y.extend(DateFormat.SecondSegment, DateFormat.TimeSegment);
  */
 DateFormat.SecondSegment.prototype.format = function(date) {
     var minutes = /s/.test(this._s) ? date.getSeconds() : date.getMilliseconds();
-    return Y.Intl.Utils.zeroPad(minutes, this._s.length);
+    return Y.Intl.Common.zeroPad(minutes, this._s.length);
 };
 
 //
@@ -750,15 +705,6 @@ DateFormat.AmPmSegment = function(format, s) {
 Y.extend(DateFormat.AmPmSegment, DateFormat.TimeSegment);
 
 Y.mix(DateFormat.AmPmSegment.prototype, {
-    /**
-     * Return a string representation of the object
-     * @method toString
-     * @return {String}
-     */
-    toString: function() {
-        return "timeAmPm: \""+this._s+'"';
-    },
-
     /**
      * Format date and get the AM/PM segment.
      * @method format
@@ -792,15 +738,6 @@ DateFormat.TimezoneSegment = function(format, s) {
 Y.extend(DateFormat.TimezoneSegment, DateFormat.TimeSegment);
 
 Y.mix(DateFormat.TimezoneSegment.prototype, {
-    /**
-     * Return a string representation of the object
-     * @method toString
-     * @return {String}
-     */
-    toString: function() {
-        return "timeTimezone: \""+this._s+'"';
-    },
-
     /**
      * Format date and get the timezone segment.
      * @method format
@@ -872,7 +809,7 @@ Y.extend(BuddhistDateFormat.YearSegment, DateFormat.YearSegment);
 BuddhistDateFormat.YearSegment.prototype.format = function(date) {
     var year = date.getFullYear();
     year = String(year + 543);      //Buddhist Calendar epoch is in 543 BC
-    return this._s.length !== 1 && this._s.length < 4 ? year.substr(year.length - 2) : Y.Intl.Utils.zeroPad(year, this._s.length);
+    return this._s.length !== 1 && this._s.length < 4 ? year.substr(year.length - 2) : Y.Intl.Common.zeroPad(year, this._s.length);
 };
     
 /**
@@ -1562,8 +1499,8 @@ YDurationFormat.prototype.format = function(oDuration) {
         resultPattern = this.patterns.HMS_short;
         result = {
              hours: formatNumber(oDuration.hours),
-             minutes: Y.Intl.Utils.zeroPad(oDuration.minutes, 2),
-             seconds: Y.Intl.Utils.zeroPad(oDuration.seconds, 2)
+             minutes: Y.Intl.Common.zeroPad(oDuration.minutes, 2),
+             seconds: Y.Intl.Common.zeroPad(oDuration.seconds, 2)
         };
     }
         

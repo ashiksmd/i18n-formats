@@ -3,3148 +3,1385 @@ YUI.add('gallery-advanced-date-timezone', function (Y, NAME) {
 /*
  * Copyright 2012 Yahoo! Inc. All Rights Reserved. Based on code owned by VMWare, Inc.
  */
-var TimezoneData, TimezoneLinks, Timezone, AjxTimezone;
+var TimezoneData, TimezoneLinks, Timezone, AjxTimezone, stdOffsets;
 
-Y.Date.Timezone = {
-    __tzoneData: {
-         TRANSITION_YEAR: 2011,
-         TIMEZONE_RULES: [
-{
-    tzId: "Asia/Riyadh88",
-    standard: {
-        offset: 187
-    }
-},
-{
-    tzId: "Asia/Kabul",
-    standard: {
-        offset: 270
-    }
-},
-{
-    tzId: "Asia/Yerevan",
-    standard: {
-        offset: 240
-    }
-},
-{
-    tzId: "Asia/Baku",
-    standard: {
-        offset: 240,
-        mon: 10,
-        week: -1,
-        wkday: 1,
-        hour: 5,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: 300,
-        mon: 3,
-        week: -1,
-        wkday: 1,
-        hour: 4,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "Asia/Bahrain",
-    standard: {
-        offset: 180
-    }
-},
-{
-    tzId: "Asia/Dhaka",
-    standard: {
-        offset: 360
-    }
-},
-{
-    tzId: "Asia/Thimphu",
-    standard: {
-        offset: 360
-    }
-},
-{
-    tzId: "Indian/Chagos",
-    standard: {
-        offset: 360
-    }
-},
-{
-    tzId: "Asia/Brunei",
-    standard: {
-        offset: 480
-    }
-},
-{
-    tzId: "Asia/Rangoon",
-    standard: {
-        offset: 390
-    }
-},
-{
-    tzId: "Asia/Phnom_Penh",
-    standard: {
-        offset: 420
-    }
-},
-{
-    tzId: "Asia/Harbin",
-    standard: {
-        offset: 480
-    }
-},
-{
-    tzId: "Asia/Shanghai",
-    standard: {
-        offset: 480
-    }
-},
-{
-    tzId: "Asia/Chongqing",
-    standard: {
-        offset: 480
-    }
-},
-{
-    tzId: "Asia/Urumqi",
-    standard: {
-        offset: 480
-    }
-},
-{
-    tzId: "Asia/Kashgar",
-    standard: {
-        offset: 480
-    }
-},
-{
-    tzId: "Asia/Hong_Kong",
-    standard: {
-        offset: 480
-    }
-},
-{
-    tzId: "Asia/Taipei",
-    standard: {
-        offset: 480
-    }
-},
-{
-    tzId: "Asia/Macau",
-    standard: {
-        offset: 480
-    }
-},
-{
-    tzId: "Asia/Nicosia",
-    standard: {
-        offset: 120
-    }
-},
-{
-    tzId: "Asia/Tbilisi",
-    standard: {
-        offset: 240
-    }
-},
-{
-    tzId: "Asia/Dili",
-    standard: {
-        offset: 540
-    }
-},
-{
-    tzId: "Asia/Kolkata",
-    standard: {
-        offset: 330
-    }
-},
-{
-    tzId: "Asia/Jakarta",
-    standard: {
-        offset: 427
-    }
-},
-{
-    tzId: "Asia/Pontianak",
-    standard: {
-        offset: 540
-    }
-},
-{
-    tzId: "Asia/Tehran",
-    standard: {
-        offset: 210
-    }
-},
-{
-    tzId: "Asia/Baghdad",
-    standard: {
-        offset: 180
-    }
-},
-{
-    tzId: "Asia/Jerusalem",
-    standard: {
-        offset: 120
-    }
-},
-{
-    tzId: "Asia/Tokyo",
-    standard: {
-        offset: 540
-    }
-},
-{
-    tzId: "Asia/Amman",
-    standard: {
-        offset: 120
-    }
-},
-{
-    tzId: "Asia/Almaty",
-    standard: {
-        offset: 360
-    }
-},
-{
-    tzId: "Asia/Qyzylorda",
-    standard: {
-        offset: 360
-    }
-},
-{
-    tzId: "Asia/Aqtobe",
-    standard: {
-        offset: 300
-    }
-},
-{
-    tzId: "Asia/Aqtau",
-    standard: {
-        offset: 300
-    }
-},
-{
-    tzId: "Asia/Oral",
-    standard: {
-        offset: 300
-    }
-},
-{
-    tzId: "Asia/Bishkek",
-    standard: {
-        offset: 360
-    }
-},
-{
-    tzId: "Asia/Seoul",
-    standard: {
-        offset: 540
-    }
-},
-{
-    tzId: "Asia/Kuwait",
-    standard: {
-        offset: 180
-    }
-},
-{
-    tzId: "Asia/Vientiane",
-    standard: {
-        offset: 420
-    }
-},
-{
-    tzId: "Asia/Beirut",
-    standard: {
-        offset: 120
-    }
-},
-{
-    tzId: "Asia/Kuala_Lumpur",
-    standard: {
-        offset: 480
-    }
-},
-{
-    tzId: "Asia/Kuching",
-    standard: {
-        offset: 480
-    }
-},
-{
-    tzId: "Indian/Maldives",
-    standard: {
-        offset: 300
-    }
-},
-{
-    tzId: "Asia/Hovd",
-    standard: {
-        offset: 420
-    }
-},
-{
-    tzId: "Asia/Ulaanbaatar",
-    standard: {
-        offset: 480
-    }
-},
-{
-    tzId: "Asia/Choibalsan",
-    standard: {
-        offset: 480
-    }
-},
-{
-    tzId: "Asia/Kathmandu",
-    standard: {
-        offset: 345
-    }
-},
-{
-    tzId: "Asia/Muscat",
-    standard: {
-        offset: 240
-    }
-},
-{
-    tzId: "Asia/Karachi",
-    standard: {
-        offset: 300
-    }
-},
-{
-    tzId: "Asia/Gaza",
-    standard: {
-        offset: 120
-    }
-},
-{
-    tzId: "Asia/Hebron",
-    standard: {
-        offset: 120
-    }
-},
-{
-    tzId: "Asia/Manila",
-    standard: {
-        offset: 480
-    }
-},
-{
-    tzId: "Asia/Qatar",
-    standard: {
-        offset: 180
-    }
-},
-{
-    tzId: "Asia/Riyadh",
-    standard: {
-        offset: 180
-    }
-},
-{
-    tzId: "Asia/Singapore",
-    standard: {
-        offset: 480
-    }
-},
-{
-    tzId: "Asia/Colombo",
-    standard: {
-        offset: 330
-    }
-},
-{
-    tzId: "Asia/Damascus",
-    standard: {
-        offset: 120,
-        mon: 10,
-        week: -1,
-        wkday: 6,
-        hour: 0,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: 180,
-        mon: 3,
-        week: -1,
-        wkday: 6,
-        hour: 0,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "Asia/Dushanbe",
-    standard: {
-        offset: 300
-    }
-},
-{
-    tzId: "Asia/Bangkok",
-    standard: {
-        offset: 420
-    }
-},
-{
-    tzId: "Asia/Ashgabat",
-    standard: {
-        offset: 300
-    }
-},
-{
-    tzId: "Asia/Dubai",
-    standard: {
-        offset: 240
-    }
-},
-{
-    tzId: "Asia/Samarkand",
-    standard: {
-        offset: 300
-    }
-},
-{
-    tzId: "Asia/Ho_Chi_Minh",
-    standard: {
-        offset: 420
-    }
-},
-{
-    tzId: "Asia/Aden",
-    standard: {
-        offset: 180
-    }
-},
-{
-    tzId: "Australia/Darwin",
-    standard: {
-        offset: 570
-    }
-},
-{
-    tzId: "Australia/Perth",
-    standard: {
-        offset: 525
-    }
-},
-{
-    tzId: "Australia/Brisbane",
-    standard: {
-        offset: 600
-    }
-},
-{
-    tzId: "Australia/Adelaide",
-    standard: {
-        offset: 570,
-        mon: 4,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: 630,
-        mon: 10,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "Australia/Hobart",
-    standard: {
-        offset: 600
-    }
-},
-{
-    tzId: "Australia/Melbourne",
-    standard: {
-        offset: 600,
-        mon: 4,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: 660,
-        mon: 10,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "Australia/Sydney",
-    standard: {
-        offset: 570,
-        mon: 4,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: 630,
-        mon: 10,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "Australia/Lord_Howe",
-    standard: {
-        offset: 630,
-        mon: 4,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: 660,
-        mon: 10,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "Indian/Christmas",
-    standard: {
-        offset: 420
-    }
-},
-{
-    tzId: "Pacific/Rarotonga",
-    standard: {
-        offset: -600
-    }
-},
-{
-    tzId: "Indian/Cocos",
-    standard: {
-        offset: 390
-    }
-},
-{
-    tzId: "Pacific/Fiji",
-    standard: {
-        offset: 720
-    }
-},
-{
-    tzId: "Pacific/Gambier",
-    standard: {
-        offset: -600
-    }
-},
-{
-    tzId: "Pacific/Guam",
-    standard: {
-        offset: 600
-    }
-},
-{
-    tzId: "Pacific/Tarawa",
-    standard: {
-        offset: 840
-    }
-},
-{
-    tzId: "Pacific/Saipan",
-    standard: {
-        offset: 600
-    }
-},
-{
-    tzId: "Pacific/Majuro",
-    standard: {
-        offset: 720
-    }
-},
-{
-    tzId: "Pacific/Chuuk",
-    standard: {
-        offset: 660
-    }
-},
-{
-    tzId: "Pacific/Nauru",
-    standard: {
-        offset: 720
-    }
-},
-{
-    tzId: "Pacific/Noumea",
-    standard: {
-        offset: 660
-    }
-},
-{
-    tzId: "Pacific/Auckland",
-    standard: {
-        offset: 765
-    }
-},
-{
-    tzId: "Pacific/Niue",
-    standard: {
-        offset: -660
-    }
-},
-{
-    tzId: "Pacific/Norfolk",
-    standard: {
-        offset: 690
-    }
-},
-{
-    tzId: "Pacific/Palau",
-    standard: {
-        offset: 540
-    }
-},
-{
-    tzId: "Pacific/Port_Moresby",
-    standard: {
-        offset: 600
-    }
-},
-{
-    tzId: "Pacific/Pitcairn",
-    standard: {
-        offset: -480
-    }
-},
-{
-    tzId: "Pacific/Pago_Pago",
-    standard: {
-        offset: -660
-    }
-},
-{
-    tzId: "Pacific/Apia",
-    standard: {
-        offset: 780
-    }
-},
-{
-    tzId: "Pacific/Guadalcanal",
-    standard: {
-        offset: 660
-    }
-},
-{
-    tzId: "Pacific/Fakaofo",
-    standard: {
-        offset: 840
-    }
-},
-{
-    tzId: "Pacific/Tongatapu",
-    standard: {
-        offset: 780
-    }
-},
-{
-    tzId: "Pacific/Funafuti",
-    standard: {
-        offset: 720
-    }
-},
-{
-    tzId: "Pacific/Johnston",
-    standard: {
-        offset: -600
-    }
-},
-{
-    tzId: "Pacific/Midway",
-    standard: {
-        offset: -660
-    }
-},
-{
-    tzId: "Pacific/Wake",
-    standard: {
-        offset: 720
-    }
-},
-{
-    tzId: "Pacific/Efate",
-    standard: {
-        offset: 660
-    }
-},
-{
-    tzId: "Pacific/Wallis",
-    standard: {
-        offset: 720
-    }
-},
-{
-    tzId: "Etc/GMT",
-    standard: {
-        offset: 0
-    }
-},
-{
-    tzId: "Etc/GMT-14",
-    standard: {
-        offset: 0
-    }
-},
-{
-    tzId: "Asia/Riyadh87",
-    standard: {
-        offset: 187
-    }
-},
-{
-    tzId: "America/Argentina/Buenos_Aires",
-    standard: {
-        offset: -180
-    }
-},
-{
-    tzId: "America/Argentina/Cordoba",
-    standard: {
-        offset: -180
-    }
-},
-{
-    tzId: "America/Argentina/Salta",
-    standard: {
-        offset: -180
-    }
-},
-{
-    tzId: "America/Argentina/Tucuman",
-    standard: {
-        offset: -180
-    }
-},
-{
-    tzId: "America/Argentina/La_Rioja",
-    standard: {
-        offset: -180
-    }
-},
-{
-    tzId: "America/Argentina/San_Juan",
-    standard: {
-        offset: -180
-    }
-},
-{
-    tzId: "America/Argentina/Jujuy",
-    standard: {
-        offset: -180
-    }
-},
-{
-    tzId: "America/Argentina/Catamarca",
-    standard: {
-        offset: -180
-    }
-},
-{
-    tzId: "America/Argentina/Mendoza",
-    standard: {
-        offset: -180
-    }
-},
-{
-    tzId: "America/Argentina/San_Luis",
-    standard: {
-        offset: -240
-    }
-},
-{
-    tzId: "America/Argentina/Rio_Gallegos",
-    standard: {
-        offset: -180
-    }
-},
-{
-    tzId: "America/Argentina/Ushuaia",
-    standard: {
-        offset: -180
-    }
-},
-{
-    tzId: "America/Aruba",
-    standard: {
-        offset: -240
-    }
-},
-{
-    tzId: "America/La_Paz",
-    standard: {
-        offset: -240
-    }
-},
-{
-    tzId: "America/Noronha",
-    standard: {
-        offset: -120
-    }
-},
-{
-    tzId: "America/Belem",
-    standard: {
-        offset: -180
-    }
-},
-{
-    tzId: "America/Santarem",
-    standard: {
-        offset: -180
-    }
-},
-{
-    tzId: "America/Fortaleza",
-    standard: {
-        offset: -180
-    }
-},
-{
-    tzId: "America/Recife",
-    standard: {
-        offset: -180
-    }
-},
-{
-    tzId: "America/Araguaina",
-    standard: {
-        offset: -180
-    }
-},
-{
-    tzId: "America/Maceio",
-    standard: {
-        offset: -180
-    }
-},
-{
-    tzId: "America/Bahia",
-    standard: {
-        offset: -180
-    }
-},
-{
-    tzId: "America/Sao_Paulo",
-    standard: {
-        offset: -180
-    }
-},
-{
-    tzId: "America/Campo_Grande",
-    standard: {
-        offset: -240
-    }
-},
-{
-    tzId: "America/Cuiaba",
-    standard: {
-        offset: -240
-    }
-},
-{
-    tzId: "America/Porto_Velho",
-    standard: {
-        offset: -240
-    }
-},
-{
-    tzId: "America/Boa_Vista",
-    standard: {
-        offset: -240
-    }
-},
-{
-    tzId: "America/Manaus",
-    standard: {
-        offset: -240
-    }
-},
-{
-    tzId: "America/Eirunepe",
-    standard: {
-        offset: -240
-    }
-},
-{
-    tzId: "America/Rio_Branco",
-    standard: {
-        offset: -240
-    }
-},
-{
-    tzId: "America/Santiago",
-    standard: {
-        offset: -360
-    }
-},
-{
-    tzId: "America/Bogota",
-    standard: {
-        offset: -300
-    }
-},
-{
-    tzId: "America/Curacao",
-    standard: {
-        offset: -240
-    }
-},
-{
-    tzId: "America/Guayaquil",
-    standard: {
-        offset: -360
-    }
-},
-{
-    tzId: "Atlantic/Stanley",
-    standard: {
-        offset: -180
-    }
-},
-{
-    tzId: "America/Cayenne",
-    standard: {
-        offset: -180
-    }
-},
-{
-    tzId: "America/Guyana",
-    standard: {
-        offset: -180
-    }
-},
-{
-    tzId: "America/Asuncion",
-    standard: {
-        offset: -240,
-        mon: 4,
-        week: 2,
-        wkday: 1,
-        hour: 0,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -180,
-        mon: 10,
-        week: 2,
-        wkday: 1,
-        hour: 0,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Lima",
-    standard: {
-        offset: -300
-    }
-},
-{
-    tzId: "Atlantic/South_Georgia",
-    standard: {
-        offset: -120
-    }
-},
-{
-    tzId: "America/Paramaribo",
-    standard: {
-        offset: -180
-    }
-},
-{
-    tzId: "America/Port_of_Spain",
-    standard: {
-        offset: -240
-    }
-},
-{
-    tzId: "America/Montevideo",
-    standard: {
-        offset: -180
-    }
-},
-{
-    tzId: "America/Caracas",
-    standard: {
-        offset: -210
-    }
-},
-{
-    tzId: "Antarctica/Casey",
-    standard: {
-        offset: 480
-    }
-},
-{
-    tzId: "Antarctica/Davis",
-    standard: {
-        offset: 360
-    }
-},
-{
-    tzId: "Antarctica/Macquarie",
-    standard: {
-        offset: 660
-    }
-},
-{
-    tzId: "Indian/Kerguelen",
-    standard: {
-        offset: 300
-    }
-},
-{
-    tzId: "Antarctica/DumontDUrville",
-    standard: {
-        offset: 600
-    }
-},
-{
-    tzId: "Antarctica/Syowa",
-    standard: {
-        offset: 180
-    }
-},
-{
-    tzId: "Antarctica/Vostok",
-    standard: {
-        offset: 360
-    }
-},
-{
-    tzId: "Antarctica/Rothera",
-    standard: {
-        offset: -180
-    }
-},
-{
-    tzId: "Antarctica/Palmer",
-    standard: {
-        offset: -240
-    }
-},
-{
-    tzId: "Antarctica/McMurdo",
-    standard: {
-        offset: 720
-    }
-},
-{
-    tzId: "Asia/Riyadh89",
-    standard: {
-        offset: 187
-    }
-},
-{
-    tzId: "Africa/Algiers",
-    standard: {
-        offset: 60
-    }
-},
-{
-    tzId: "Africa/Luanda",
-    standard: {
-        offset: 60
-    }
-},
-{
-    tzId: "Africa/Porto-Novo",
-    standard: {
-        offset: 60
-    }
-},
-{
-    tzId: "Africa/Gaborone",
-    standard: {
-        offset: 120
-    }
-},
-{
-    tzId: "Africa/Ouagadougou",
-    standard: {
-        offset: 0
-    }
-},
-{
-    tzId: "Africa/Bujumbura",
-    standard: {
-        offset: 120
-    }
-},
-{
-    tzId: "Africa/Douala",
-    standard: {
-        offset: 60
-    }
-},
-{
-    tzId: "Atlantic/Cape_Verde",
-    standard: {
-        offset: -60
-    }
-},
-{
-    tzId: "Africa/Bangui",
-    standard: {
-        offset: 60
-    }
-},
-{
-    tzId: "Africa/Ndjamena",
-    standard: {
-        offset: 60
-    }
-},
-{
-    tzId: "Indian/Comoro",
-    standard: {
-        offset: 180
-    }
-},
-{
-    tzId: "Africa/Kinshasa",
-    standard: {
-        offset: 120
-    }
-},
-{
-    tzId: "Africa/Brazzaville",
-    standard: {
-        offset: 60
-    }
-},
-{
-    tzId: "Africa/Abidjan",
-    standard: {
-        offset: 0
-    }
-},
-{
-    tzId: "Africa/Djibouti",
-    standard: {
-        offset: 180
-    }
-},
-{
-    tzId: "Africa/Cairo",
-    standard: {
-        offset: 120
-    }
-},
-{
-    tzId: "Africa/Malabo",
-    standard: {
-        offset: 60
-    }
-},
-{
-    tzId: "Africa/Asmara",
-    standard: {
-        offset: 180
-    }
-},
-{
-    tzId: "Africa/Addis_Ababa",
-    standard: {
-        offset: 180
-    }
-},
-{
-    tzId: "Africa/Libreville",
-    standard: {
-        offset: 60
-    }
-},
-{
-    tzId: "Africa/Banjul",
-    standard: {
-        offset: 0
-    }
-},
-{
-    tzId: "Africa/Accra",
-    standard: {
-        offset: 0
-    }
-},
-{
-    tzId: "Africa/Conakry",
-    standard: {
-        offset: 0
-    }
-},
-{
-    tzId: "Africa/Bissau",
-    standard: {
-        offset: 0
-    }
-},
-{
-    tzId: "Africa/Nairobi",
-    standard: {
-        offset: 180
-    }
-},
-{
-    tzId: "Africa/Maseru",
-    standard: {
-        offset: 120
-    }
-},
-{
-    tzId: "Africa/Monrovia",
-    standard: {
-        offset: 0
-    }
-},
-{
-    tzId: "Africa/Tripoli",
-    standard: {
-        offset: 60
-    }
-},
-{
-    tzId: "Indian/Antananarivo",
-    standard: {
-        offset: 180
-    }
-},
-{
-    tzId: "Africa/Blantyre",
-    standard: {
-        offset: 120
-    }
-},
-{
-    tzId: "Africa/Bamako",
-    standard: {
-        offset: 0
-    }
-},
-{
-    tzId: "Africa/Nouakchott",
-    standard: {
-        offset: 0
-    }
-},
-{
-    tzId: "Indian/Mauritius",
-    standard: {
-        offset: 240
-    }
-},
-{
-    tzId: "Indian/Mayotte",
-    standard: {
-        offset: 180
-    }
-},
-{
-    tzId: "Africa/Casablanca",
-    standard: {
-        offset: 0,
-        mon: 9,
-        week: -1,
-        wkday: 1,
-        hour: 3,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: 60,
-        mon: 4,
-        week: -1,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "Africa/El_Aaiun",
-    standard: {
-        offset: 0
-    }
-},
-{
-    tzId: "Africa/Maputo",
-    standard: {
-        offset: 120
-    }
-},
-{
-    tzId: "Africa/Windhoek",
-    standard: {
-        offset: 60
-    }
-},
-{
-    tzId: "Africa/Niamey",
-    standard: {
-        offset: 60
-    }
-},
-{
-    tzId: "Africa/Lagos",
-    standard: {
-        offset: 60
-    }
-},
-{
-    tzId: "Indian/Reunion",
-    standard: {
-        offset: 240
-    }
-},
-{
-    tzId: "Africa/Kigali",
-    standard: {
-        offset: 120
-    }
-},
-{
-    tzId: "Atlantic/St_Helena",
-    standard: {
-        offset: 0
-    }
-},
-{
-    tzId: "Africa/Sao_Tome",
-    standard: {
-        offset: 0
-    }
-},
-{
-    tzId: "Africa/Dakar",
-    standard: {
-        offset: 0
-    }
-},
-{
-    tzId: "Indian/Mahe",
-    standard: {
-        offset: 240
-    }
-},
-{
-    tzId: "Africa/Freetown",
-    standard: {
-        offset: 0
-    }
-},
-{
-    tzId: "Africa/Mogadishu",
-    standard: {
-        offset: 180
-    }
-},
-{
-    tzId: "Africa/Johannesburg",
-    standard: {
-        offset: 120
-    }
-},
-{
-    tzId: "Africa/Khartoum",
-    standard: {
-        offset: 180
-    }
-},
-{
-    tzId: "Africa/Juba",
-    standard: {
-        offset: 180
-    }
-},
-{
-    tzId: "Africa/Mbabane",
-    standard: {
-        offset: 120
-    }
-},
-{
-    tzId: "Africa/Dar_es_Salaam",
-    standard: {
-        offset: 180
-    }
-},
-{
-    tzId: "Africa/Lome",
-    standard: {
-        offset: 0
-    }
-},
-{
-    tzId: "Africa/Tunis",
-    standard: {
-        offset: 60
-    }
-},
-{
-    tzId: "Africa/Kampala",
-    standard: {
-        offset: 180
-    }
-},
-{
-    tzId: "Africa/Lusaka",
-    standard: {
-        offset: 120
-    }
-},
-{
-    tzId: "Africa/Harare",
-    standard: {
-        offset: 120
-    }
-},
-{
-    tzId: "Europe/London",
-    standard: {
-        offset: 0
-    }
-},
-{
-    tzId: "WET",
-    standard: {
-        offset: 0
-    }
-},
-{
-    tzId: "Europe/Tirane",
-    standard: {
-        offset: 60
-    }
-},
-{
-    tzId: "Europe/Andorra",
-    standard: {
-        offset: 60
-    }
-},
-{
-    tzId: "Europe/Vienna",
-    standard: {
-        offset: 60
-    }
-},
-{
-    tzId: "Europe/Minsk",
-    standard: {
-        offset: 180
-    }
-},
-{
-    tzId: "Europe/Brussels",
-    standard: {
-        offset: 60
-    }
-},
-{
-    tzId: "Europe/Sofia",
-    standard: {
-        offset: 120
-    }
-},
-{
-    tzId: "Europe/Prague",
-    standard: {
-        offset: 60
-    }
-},
-{
-    tzId: "Europe/Copenhagen",
-    standard: {
-        offset: 0
-    }
-},
-{
-    tzId: "America/Danmarkshavn",
-    standard: {
-        offset: -240,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -180,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "Europe/Tallinn",
-    standard: {
-        offset: 120
-    }
-},
-{
-    tzId: "Europe/Helsinki",
-    standard: {
-        offset: 120
-    }
-},
-{
-    tzId: "Europe/Paris",
-    standard: {
-        offset: 9
-    }
-},
-{
-    tzId: "Europe/Berlin",
-    standard: {
-        offset: 60
-    }
-},
-{
-    tzId: "Europe/Gibraltar",
-    standard: {
-        offset: 60
-    }
-},
-{
-    tzId: "Europe/Athens",
-    standard: {
-        offset: 120
-    }
-},
-{
-    tzId: "Europe/Budapest",
-    standard: {
-        offset: 60
-    }
-},
-{
-    tzId: "Atlantic/Reykjavik",
-    standard: {
-        offset: 0
-    }
-},
-{
-    tzId: "Europe/Rome",
-    standard: {
-        offset: 60
-    }
-},
-{
-    tzId: "Europe/Riga",
-    standard: {
-        offset: 120
-    }
-},
-{
-    tzId: "Europe/Vaduz",
-    standard: {
-        offset: 60
-    }
-},
-{
-    tzId: "Europe/Vilnius",
-    standard: {
-        offset: 120
-    }
-},
-{
-    tzId: "Europe/Luxembourg",
-    standard: {
-        offset: 60
-    }
-},
-{
-    tzId: "Europe/Malta",
-    standard: {
-        offset: 60
-    }
-},
-{
-    tzId: "Europe/Chisinau",
-    standard: {
-        offset: 120
-    }
-},
-{
-    tzId: "Europe/Monaco",
-    standard: {
-        offset: 60
-    }
-},
-{
-    tzId: "Europe/Amsterdam",
-    standard: {
-        offset: 60
-    }
-},
-{
-    tzId: "Europe/Oslo",
-    standard: {
-        offset: 60
-    }
-},
-{
-    tzId: "Europe/Warsaw",
-    standard: {
-        offset: 60
-    }
-},
-{
-    tzId: "Europe/Lisbon",
-    standard: {
-        offset: 0
-    }
-},
-{
-    tzId: "Europe/Bucharest",
-    standard: {
-        offset: 120
-    }
-},
-{
-    tzId: "Europe/Kaliningrad",
-    standard: {
-        offset: 180
-    }
-},
-{
-    tzId: "Europe/Moscow",
-    standard: {
-        offset: 240
-    }
-},
-{
-    tzId: "Europe/Volgograd",
-    standard: {
-        offset: 240
-    }
-},
-{
-    tzId: "Europe/Samara",
-    standard: {
-        offset: 240
-    }
-},
-{
-    tzId: "Asia/Yekaterinburg",
-    standard: {
-        offset: 360
-    }
-},
-{
-    tzId: "Asia/Omsk",
-    standard: {
-        offset: 420
-    }
-},
-{
-    tzId: "Asia/Novosibirsk",
-    standard: {
-        offset: 420
-    }
-},
-{
-    tzId: "Asia/Novokuznetsk",
-    standard: {
-        offset: 420
-    }
-},
-{
-    tzId: "Asia/Krasnoyarsk",
-    standard: {
-        offset: 480
-    }
-},
-{
-    tzId: "Asia/Irkutsk",
-    standard: {
-        offset: 540
-    }
-},
-{
-    tzId: "Asia/Yakutsk",
-    standard: {
-        offset: 600
-    }
-},
-{
-    tzId: "Asia/Vladivostok",
-    standard: {
-        offset: 660
-    }
-},
-{
-    tzId: "Asia/Sakhalin",
-    standard: {
-        offset: 660
-    }
-},
-{
-    tzId: "Asia/Magadan",
-    standard: {
-        offset: 720
-    }
-},
-{
-    tzId: "Asia/Kamchatka",
-    standard: {
-        offset: 720
-    }
-},
-{
-    tzId: "Asia/Anadyr",
-    standard: {
-        offset: 720
-    }
-},
-{
-    tzId: "Europe/Belgrade",
-    standard: {
-        offset: 60
-    }
-},
-{
-    tzId: "Europe/Madrid",
-    standard: {
-        offset: 0
-    }
-},
-{
-    tzId: "Europe/Stockholm",
-    standard: {
-        offset: 60
-    }
-},
-{
-    tzId: "Europe/Zurich",
-    standard: {
-        offset: 60
-    }
-},
-{
-    tzId: "Europe/Istanbul",
-    standard: {
-        offset: 0
-    }
-},
-{
-    tzId: "Europe/Kiev",
-    standard: {
-        offset: 120
-    }
-},
-{
-    tzId: "Europe/Uzhgorod",
-    standard: {
-        offset: 120
-    }
-},
-{
-    tzId: "Europe/Zaporozhye",
-    standard: {
-        offset: 120
-    }
-},
-{
-    tzId: "Europe/Simferopol",
-    standard: {
-        offset: 120
-    }
-},
-{
-    tzId: "EST",
-    standard: {
-        offset: 0
-    }
-},
-{
-    tzId: "America/New_York",
-    standard: {
-        offset: -300,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -240,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Chicago",
-    standard: {
-        offset: -360,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -300,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/North_Dakota/Center",
-    standard: {
-        offset: -360,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -300,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/North_Dakota/New_Salem",
-    standard: {
-        offset: -360,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -300,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/North_Dakota/Beulah",
-    standard: {
-        offset: -360,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -300,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Denver",
-    standard: {
-        offset: -420,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -360,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Los_Angeles",
-    standard: {
-        offset: -480,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -420,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Juneau",
-    standard: {
-        offset: -600,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -540,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "Pacific/Honolulu",
-    standard: {
-        offset: -600
-    }
-},
-{
-    tzId: "America/Phoenix",
-    standard: {
-        offset: -420
-    }
-},
-{
-    tzId: "America/Boise",
-    standard: {
-        offset: -420,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -360,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Indiana/Indianapolis",
-    standard: {
-        offset: -300,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -240,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Indiana/Marengo",
-    standard: {
-        offset: -300,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -240,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Indiana/Vincennes",
-    standard: {
-        offset: -300,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -240,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Indiana/Tell_City",
-    standard: {
-        offset: -360,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -300,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Indiana/Petersburg",
-    standard: {
-        offset: -300,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -240,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Indiana/Knox",
-    standard: {
-        offset: -360,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -300,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Indiana/Winamac",
-    standard: {
-        offset: -300,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -240,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Indiana/Vevay",
-    standard: {
-        offset: -300,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -240,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Kentucky/Louisville",
-    standard: {
-        offset: -300,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -240,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Kentucky/Monticello",
-    standard: {
-        offset: -300,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -240,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Detroit",
-    standard: {
-        offset: -300,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -240,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Menominee",
-    standard: {
-        offset: -360,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -300,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/St_Johns",
-    standard: {
-        offset: -150,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -90,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Goose_Bay",
-    standard: {
-        offset: -240,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -180,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Halifax",
-    standard: {
-        offset: -240,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -180,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Moncton",
-    standard: {
-        offset: -240,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -180,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Blanc-Sablon",
-    standard: {
-        offset: -300,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -240,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Toronto",
-    standard: {
-        offset: -300
-    }
-},
-{
-    tzId: "America/Winnipeg",
-    standard: {
-        offset: -360,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -300,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Regina",
-    standard: {
-        offset: -360
-    }
-},
-{
-    tzId: "America/Edmonton",
-    standard: {
-        offset: -420,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -360,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Vancouver",
-    standard: {
-        offset: -420
-    }
-},
-{
-    tzId: "America/Pangnirtung",
-    standard: {
-        offset: -300,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -240,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Iqaluit",
-    standard: {
-        offset: -300,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -240,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Resolute",
-    standard: {
-        offset: -360,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -300,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Rankin_Inlet",
-    standard: {
-        offset: -360,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -300,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Cambridge_Bay",
-    standard: {
-        offset: -480,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -420,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Cancun",
-    standard: {
-        offset: -360,
-        mon: 10,
-        week: -1,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -300,
-        mon: 4,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Merida",
-    standard: {
-        offset: -360,
-        mon: 10,
-        week: -1,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -300,
-        mon: 4,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Matamoros",
-    standard: {
-        offset: -360,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -300,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Monterrey",
-    standard: {
-        offset: -360,
-        mon: 10,
-        week: -1,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -300,
-        mon: 4,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Mexico_City",
-    standard: {
-        offset: -360,
-        mon: 10,
-        week: -1,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -300,
-        mon: 4,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Ojinaga",
-    standard: {
-        offset: -420,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -360,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Chihuahua",
-    standard: {
-        offset: -420,
-        mon: 10,
-        week: -1,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -360,
-        mon: 4,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Hermosillo",
-    standard: {
-        offset: -420
-    }
-},
-{
-    tzId: "America/Mazatlan",
-    standard: {
-        offset: -420,
-        mon: 10,
-        week: -1,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -360,
-        mon: 4,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Bahia_Banderas",
-    standard: {
-        offset: -360,
-        mon: 10,
-        week: -1,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -300,
-        mon: 4,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Tijuana",
-    standard: {
-        offset: -480,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -420,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Santa_Isabel",
-    standard: {
-        offset: -480,
-        mon: 10,
-        week: -1,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -420,
-        mon: 4,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Anguilla",
-    standard: {
-        offset: -240
-    }
-},
-{
-    tzId: "America/Antigua",
-    standard: {
-        offset: -240
-    }
-},
-{
-    tzId: "America/Nassau",
-    standard: {
-        offset: -300,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -240,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Barbados",
-    standard: {
-        offset: -240
-    }
-},
-{
-    tzId: "America/Belize",
-    standard: {
-        offset: -360
-    }
-},
-{
-    tzId: "Atlantic/Bermuda",
-    standard: {
-        offset: -240,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -180,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Cayman",
-    standard: {
-        offset: -300
-    }
-},
-{
-    tzId: "America/Costa_Rica",
-    standard: {
-        offset: -360
-    }
-},
-{
-    tzId: "America/Havana",
-    standard: {
-        offset: -300
-    }
-},
-{
-    tzId: "America/Dominica",
-    standard: {
-        offset: -240
-    }
-},
-{
-    tzId: "America/Santo_Domingo",
-    standard: {
-        offset: -240
-    }
-},
-{
-    tzId: "America/El_Salvador",
-    standard: {
-        offset: -360
-    }
-},
-{
-    tzId: "America/Grenada",
-    standard: {
-        offset: -240
-    }
-},
-{
-    tzId: "America/Guadeloupe",
-    standard: {
-        offset: -240
-    }
-},
-{
-    tzId: "America/Guatemala",
-    standard: {
-        offset: -360
-    }
-},
-{
-    tzId: "America/Port-au-Prince",
-    standard: {
-        offset: -300
-    }
-},
-{
-    tzId: "America/Tegucigalpa",
-    standard: {
-        offset: -360
-    }
-},
-{
-    tzId: "America/Jamaica",
-    standard: {
-        offset: -300
-    }
-},
-{
-    tzId: "America/Martinique",
-    standard: {
-        offset: -240
-    }
-},
-{
-    tzId: "America/Montserrat",
-    standard: {
-        offset: -240
-    }
-},
-{
-    tzId: "America/Managua",
-    standard: {
-        offset: -360
-    }
-},
-{
-    tzId: "America/Panama",
-    standard: {
-        offset: -300
-    }
-},
-{
-    tzId: "America/Puerto_Rico",
-    standard: {
-        offset: -240
-    }
-},
-{
-    tzId: "America/St_Kitts",
-    standard: {
-        offset: -240
-    }
-},
-{
-    tzId: "America/St_Lucia",
-    standard: {
-        offset: -240
-    }
-},
-{
-    tzId: "America/Miquelon",
-    standard: {
-        offset: -180,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -120,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/St_Vincent",
-    standard: {
-        offset: -240
-    }
-},
-{
-    tzId: "America/Grand_Turk",
-    standard: {
-        offset: -300,
-        mon: 11,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    },
-    daylight: {
-        offset: -240,
-        mon: 3,
-        week: 2,
-        wkday: 1,
-        hour: 2,
-        min: 0,
-        sec: 0
-    }
-},
-{
-    tzId: "America/Tortola",
-    standard: {
-        offset: -240
-    }
-},
-{
-    tzId: "America/St_Thomas",
-    standard: {
-        offset: -240
-    }
-}
-]
+Y.namespace("Date.Timezone");
+
+Y.Date.Timezone.__stdOffsets = {
+   "187": { offset: 187 },
+   "270": { offset: 270 },
+   "240": { offset: 240 },
+   "180": { offset: 180 },
+   "360": { offset: 360 },
+   "480": { offset: 480 },
+   "390": { offset: 390 },
+   "420": { offset: 420 },
+   "540": { offset: 540 },
+   "330": { offset: 330 },
+   "427": { offset: 427 },
+   "210": { offset: 210 },
+   "300": { offset: 300 },
+   "345": { offset: 345 },
+   "-180": { offset: -180 },
+   "-240": { offset: -240 },
+   "-120": { offset: -120 },
+   "-300": { offset: -300 },
+   "-360": { offset: -360 },
+   "-210": { offset: -210 },
+   "600": { offset: 600 },
+   "0": { offset: 0 },
+   "9": { offset: 9 },
+   "120": { offset: 120 },
+   "660": { offset: 660 },
+   "720": { offset: 720 },
+   "60": { offset: 60 },
+   "-60": { offset: -60 },
+   "-600": { offset: -600 },
+   "-420": { offset: -420 },
+   "570": { offset: 570 },
+   "525": { offset: 525 },
+   "840": { offset: 840 },
+   "-660": { offset: -660 },
+   "690": { offset: 690 },
+   "-480": { offset: -480 },
+   "780": { offset: 780 }
+};
+
+stdOffsets = Y.Date.Timezone.__stdOffsets;
+Y.Date.Timezone.__tzoneData = {
+      TRANSITION_YEAR: 2012,
+      TIMEZONE_RULES:{
+      "Asia/Riyadh88": {
+         standard: stdOffsets[187]
+      },
+      "Asia/Kabul": {
+         standard: stdOffsets[270]
+      },
+      "Asia/Yerevan": {
+         standard: stdOffsets[240]
+      },
+      "Asia/Baku": {
+         standard: { offset: 240, mon: 10, week: -1, wkday: 1, hour: 5, min: 0, sec: 0 },
+         daylight: { offset: 300, mon: 3, week: -1, wkday: 1, hour: 4, min: 0, sec: 0 }
+      },
+      "Asia/Bahrain": {
+         standard: stdOffsets[180]
+      },
+      "Asia/Dhaka": {
+         standard: stdOffsets[360]
+      },
+      "Asia/Thimphu": {
+         standard: stdOffsets[360]
+      },
+      "Indian/Chagos": {
+         standard: stdOffsets[360]
+      },
+      "Asia/Brunei": {
+         standard: stdOffsets[480]
+      },
+      "Asia/Rangoon": {
+         standard: stdOffsets[390]
+      },
+      "Asia/Phnom_Penh": {
+         standard: stdOffsets[420]
+      },
+      "Asia/Harbin": {
+         standard: stdOffsets[480]
+      },
+      "Asia/Shanghai": {
+         standard: stdOffsets[480]
+      },
+      "Asia/Chongqing": {
+         standard: stdOffsets[480]
+      },
+      "Asia/Urumqi": {
+         standard: stdOffsets[480]
+      },
+      "Asia/Kashgar": {
+         standard: stdOffsets[480]
+      },
+      "Asia/Hong_Kong": {
+         standard: stdOffsets[480]
+      },
+      "Asia/Taipei": {
+         standard: stdOffsets[480]
+      },
+      "Asia/Macau": {
+         standard: stdOffsets[480]
+      },
+      "Asia/Nicosia": {
+         standard: { offset: 120, mon: 10, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 },
+         daylight: { offset: 180, mon: 3, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 }
+      },
+      "Asia/Tbilisi": {
+         standard: stdOffsets[240]
+      },
+      "Asia/Dili": {
+         standard: stdOffsets[540]
+      },
+      "Asia/Kolkata": {
+         standard: stdOffsets[330]
+      },
+      "Asia/Jakarta": {
+         standard: stdOffsets[427]
+      },
+      "Asia/Pontianak": {
+         standard: stdOffsets[540]
+      },
+      "Asia/Tehran": {
+         standard: stdOffsets[210]
+      },
+      "Asia/Baghdad": {
+         standard: stdOffsets[180]
+      },
+      "Asia/Jerusalem": {
+         standard: { offset: 120, mon: 10, week: 3, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: 180, mon: 3, week: 3, wkday: 6, hour: 2, min: 0, sec: 0 }
+      },
+      "Asia/Tokyo": {
+         standard: stdOffsets[540]
+      },
+      "Asia/Amman": {
+         standard: { offset: 120, mon: 10, week: -1, wkday: 6, hour: 0, min: 0, sec: 0 },
+         daylight: { offset: 180, mon: 3, week: -1, wkday: 5, hour: 24, min: 0, sec: 0 }
+      },
+      "Asia/Almaty": {
+         standard: stdOffsets[360]
+      },
+      "Asia/Qyzylorda": {
+         standard: stdOffsets[360]
+      },
+      "Asia/Aqtobe": {
+         standard: stdOffsets[300]
+      },
+      "Asia/Aqtau": {
+         standard: stdOffsets[300]
+      },
+      "Asia/Oral": {
+         standard: stdOffsets[300]
+      },
+      "Asia/Bishkek": {
+         standard: stdOffsets[360]
+      },
+      "Asia/Seoul": {
+         standard: stdOffsets[540]
+      },
+      "Asia/Kuwait": {
+         standard: stdOffsets[180]
+      },
+      "Asia/Vientiane": {
+         standard: stdOffsets[420]
+      },
+      "Asia/Beirut": {
+         standard: { offset: 120, mon: 10, week: -1, wkday: 1, hour: 0, min: 0, sec: 0 },
+         daylight: { offset: 180, mon: 3, week: -1, wkday: 1, hour: 0, min: 0, sec: 0 }
+      },
+      "Asia/Kuala_Lumpur": {
+         standard: stdOffsets[480]
+      },
+      "Asia/Kuching": {
+         standard: stdOffsets[480]
+      },
+      "Indian/Maldives": {
+         standard: stdOffsets[300]
+      },
+      "Asia/Hovd": {
+         standard: stdOffsets[420]
+      },
+      "Asia/Ulaanbaatar": {
+         standard: stdOffsets[480]
+      },
+      "Asia/Choibalsan": {
+         standard: stdOffsets[480]
+      },
+      "Asia/Kathmandu": {
+         standard: stdOffsets[345]
+      },
+      "Asia/Muscat": {
+         standard: stdOffsets[240]
+      },
+      "Asia/Karachi": {
+         standard: stdOffsets[300]
+      },
+      "Asia/Gaza": {
+         standard: { offset: 120, mon: 9, week: 1, wkday: 6, hour: 1, min: 0, sec: 0 },
+         daylight: { offset: 180, mon: 3, week: -1, wkday: 5, hour: 24, min: 0, sec: 0 }
+      },
+      "Asia/Hebron": {
+         standard: { offset: 120, mon: 9, week: 1, wkday: 6, hour: 1, min: 0, sec: 0 },
+         daylight: { offset: 180, mon: 3, week: -1, wkday: 5, hour: 24, min: 0, sec: 0 }
+      },
+      "Asia/Manila": {
+         standard: stdOffsets[480]
+      },
+      "Asia/Qatar": {
+         standard: stdOffsets[180]
+      },
+      "Asia/Riyadh": {
+         standard: stdOffsets[180]
+      },
+      "Asia/Singapore": {
+         standard: stdOffsets[480]
+      },
+      "Asia/Colombo": {
+         standard: stdOffsets[330]
+      },
+      "Asia/Damascus": {
+         standard: { offset: 120, mon: 10, week: -1, wkday: 6, hour: 0, min: 0, sec: 0 },
+         daylight: { offset: 180, mon: 3, week: -1, wkday: 6, hour: 0, min: 0, sec: 0 }
+      },
+      "Asia/Dushanbe": {
+         standard: stdOffsets[300]
+      },
+      "Asia/Bangkok": {
+         standard: stdOffsets[420]
+      },
+      "Asia/Ashgabat": {
+         standard: stdOffsets[300]
+      },
+      "Asia/Dubai": {
+         standard: stdOffsets[240]
+      },
+      "Asia/Samarkand": {
+         standard: stdOffsets[300]
+      },
+      "Asia/Ho_Chi_Minh": {
+         standard: stdOffsets[420]
+      },
+      "Asia/Aden": {
+         standard: stdOffsets[180]
+      },
+      "America/Argentina/Buenos_Aires": {
+         standard: stdOffsets[-180]
+      },
+      "America/Argentina/Cordoba": {
+         standard: stdOffsets[-180]
+      },
+      "America/Argentina/Salta": {
+         standard: stdOffsets[-180]
+      },
+      "America/Argentina/Tucuman": {
+         standard: stdOffsets[-180]
+      },
+      "America/Argentina/La_Rioja": {
+         standard: stdOffsets[-180]
+      },
+      "America/Argentina/San_Juan": {
+         standard: stdOffsets[-180]
+      },
+      "America/Argentina/Jujuy": {
+         standard: stdOffsets[-180]
+      },
+      "America/Argentina/Catamarca": {
+         standard: stdOffsets[-180]
+      },
+      "America/Argentina/Mendoza": {
+         standard: stdOffsets[-180]
+      },
+      "America/Argentina/San_Luis": {
+         standard: stdOffsets[-240]
+      },
+      "America/Argentina/Rio_Gallegos": {
+         standard: stdOffsets[-180]
+      },
+      "America/Argentina/Ushuaia": {
+         standard: stdOffsets[-180]
+      },
+      "America/Aruba": {
+         standard: stdOffsets[-240]
+      },
+      "America/La_Paz": {
+         standard: stdOffsets[-240]
+      },
+      "America/Noronha": {
+         standard: stdOffsets[-120]
+      },
+      "America/Belem": {
+         standard: stdOffsets[-180]
+      },
+      "America/Santarem": {
+         standard: stdOffsets[-180]
+      },
+      "America/Fortaleza": {
+         standard: stdOffsets[-180]
+      },
+      "America/Recife": {
+         standard: stdOffsets[-180]
+      },
+      "America/Araguaina": {
+         standard: { offset: -180, mon: 2, week: 2, wkday: 1, hour: 0, min: 0, sec: 0 },
+         daylight: { offset: -120, mon: 10, week: 2, wkday: 1, hour: 0, min: 0, sec: 0 }
+      },
+      "America/Maceio": {
+         standard: stdOffsets[-180]
+      },
+      "America/Bahia": {
+         standard: stdOffsets[-180]
+      },
+      "America/Sao_Paulo": {
+         standard: { offset: -180, mon: 2, week: 2, wkday: 1, hour: 0, min: 0, sec: 0 },
+         daylight: { offset: -120, mon: 10, week: 2, wkday: 1, hour: 0, min: 0, sec: 0 }
+      },
+      "America/Campo_Grande": {
+         standard: { offset: -240, mon: 2, week: 2, wkday: 1, hour: 0, min: 0, sec: 0 },
+         daylight: { offset: -180, mon: 10, week: 2, wkday: 1, hour: 0, min: 0, sec: 0 }
+      },
+      "America/Cuiaba": {
+         standard: { offset: -240, mon: 2, week: 2, wkday: 1, hour: 0, min: 0, sec: 0 },
+         daylight: { offset: -180, mon: 10, week: 2, wkday: 1, hour: 0, min: 0, sec: 0 }
+      },
+      "America/Porto_Velho": {
+         standard: stdOffsets[-240]
+      },
+      "America/Boa_Vista": {
+         standard: stdOffsets[-240]
+      },
+      "America/Manaus": {
+         standard: stdOffsets[-240]
+      },
+      "America/Eirunepe": {
+         standard: stdOffsets[-240]
+      },
+      "America/Rio_Branco": {
+         standard: stdOffsets[-240]
+      },
+      "America/Santiago": {
+         standard: { offset: -360, mon: 4, week: 3, wkday: 1, hour: 3, min: 0, sec: 0 },
+         daylight: { offset: -300, mon: 9, week: 3, wkday: 1, hour: 4, min: 0, sec: 0 }
+      },
+      "America/Bogota": {
+         standard: stdOffsets[-300]
+      },
+      "America/Curacao": {
+         standard: stdOffsets[-240]
+      },
+      "America/Guayaquil": {
+         standard: stdOffsets[-360]
+      },
+      "Atlantic/Stanley": {
+         standard: stdOffsets[-180]
+      },
+      "America/Cayenne": {
+         standard: stdOffsets[-180]
+      },
+      "America/Guyana": {
+         standard: stdOffsets[-180]
+      },
+      "America/Asuncion": {
+         standard: { offset: -240, mon: 3, week: 2, wkday: 1, hour: 0, min: 0, sec: 0 },
+         daylight: { offset: -180, mon: 10, week: 2, wkday: 1, hour: 0, min: 0, sec: 0 }
+      },
+      "America/Lima": {
+         standard: stdOffsets[-300]
+      },
+      "Atlantic/South_Georgia": {
+         standard: stdOffsets[-120]
+      },
+      "America/Paramaribo": {
+         standard: stdOffsets[-180]
+      },
+      "America/Port_of_Spain": {
+         standard: stdOffsets[-240]
+      },
+      "America/Montevideo": {
+         standard: { offset: -180, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -120, mon: 10, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Caracas": {
+         standard: stdOffsets[-210]
+      },
+      "Antarctica/Casey": {
+         standard: stdOffsets[480]
+      },
+      "Antarctica/Davis": {
+         standard: stdOffsets[360]
+      },
+      "Indian/Kerguelen": {
+         standard: stdOffsets[300]
+      },
+      "Antarctica/DumontDUrville": {
+         standard: stdOffsets[600]
+      },
+      "Antarctica/Syowa": {
+         standard: stdOffsets[180]
+      },
+      "Antarctica/Vostok": {
+         standard: stdOffsets[360]
+      },
+      "Antarctica/Rothera": {
+         standard: stdOffsets[-180]
+      },
+      "Antarctica/Palmer": {
+         standard: { offset: -240, mon: 4, week: 3, wkday: 1, hour: 3, min: 0, sec: 0 },
+         daylight: { offset: -180, mon: 9, week: 3, wkday: 1, hour: 4, min: 0, sec: 0 }
+      },
+      "Antarctica/McMurdo": {
+         standard: { offset: 720, mon: 4, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: 780, mon: 9, week: -1, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "Europe/London": {
+         standard: stdOffsets[0]
+      },
+      "WET": {
+         standard: stdOffsets[0]
+      },
+      "Europe/Tirane": {
+         standard: { offset: 60, mon: 10, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 },
+         daylight: { offset: 120, mon: 3, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 }
+      },
+      "Europe/Andorra": {
+         standard: { offset: 60, mon: 10, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 },
+         daylight: { offset: 120, mon: 3, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 }
+      },
+      "Europe/Vienna": {
+         standard: { offset: 60, mon: 10, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 },
+         daylight: { offset: 120, mon: 3, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 }
+      },
+      "Europe/Minsk": {
+         standard: stdOffsets[180]
+      },
+      "Europe/Brussels": {
+         standard: { offset: 60, mon: 10, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 },
+         daylight: { offset: 120, mon: 3, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 }
+      },
+      "Europe/Sofia": {
+         standard: { offset: 120, mon: 10, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 },
+         daylight: { offset: 180, mon: 3, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 }
+      },
+      "Europe/Prague": {
+         standard: { offset: 60, mon: 10, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 },
+         daylight: { offset: 120, mon: 3, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 }
+      },
+      "Europe/Copenhagen": {
+         standard: { offset: 0, mon: 10, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 },
+         daylight: { offset: 60, mon: 3, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 }
+      },
+      "America/Danmarkshavn": {
+         standard: { offset: -240, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -180, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "Europe/Tallinn": {
+         standard: { offset: 120, mon: 10, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 },
+         daylight: { offset: 180, mon: 3, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 }
+      },
+      "Europe/Helsinki": {
+         standard: { offset: 120, mon: 10, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 },
+         daylight: { offset: 180, mon: 3, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 }
+      },
+      "Europe/Paris": {
+         standard: stdOffsets[9]
+      },
+      "Europe/Berlin": {
+         standard: { offset: 60, mon: 10, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 },
+         daylight: { offset: 120, mon: 3, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 }
+      },
+      "Europe/Gibraltar": {
+         standard: { offset: 60, mon: 10, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 },
+         daylight: { offset: 120, mon: 3, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 }
+      },
+      "Europe/Athens": {
+         standard: stdOffsets[120]
+      },
+      "Europe/Budapest": {
+         standard: { offset: 60, mon: 10, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 },
+         daylight: { offset: 120, mon: 3, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 }
+      },
+      "Atlantic/Reykjavik": {
+         standard: stdOffsets[0]
+      },
+      "Europe/Rome": {
+         standard: { offset: 60, mon: 10, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 },
+         daylight: { offset: 120, mon: 3, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 }
+      },
+      "Europe/Riga": {
+         standard: { offset: 120, mon: 10, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 },
+         daylight: { offset: 180, mon: 3, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 }
+      },
+      "Europe/Vaduz": {
+         standard: { offset: 60, mon: 10, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 },
+         daylight: { offset: 120, mon: 3, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 }
+      },
+      "Europe/Vilnius": {
+         standard: { offset: 120, mon: 10, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 },
+         daylight: { offset: 180, mon: 3, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 }
+      },
+      "Europe/Luxembourg": {
+         standard: { offset: 60, mon: 10, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 },
+         daylight: { offset: 120, mon: 3, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 }
+      },
+      "Europe/Malta": {
+         standard: { offset: 60, mon: 10, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 },
+         daylight: { offset: 120, mon: 3, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 }
+      },
+      "Europe/Chisinau": {
+         standard: { offset: 120, mon: 10, week: -1, wkday: 1, hour: 0, min: 0, sec: 0 },
+         daylight: { offset: 180, mon: 3, week: -1, wkday: 1, hour: 0, min: 0, sec: 0 }
+      },
+      "Europe/Monaco": {
+         standard: { offset: 60, mon: 10, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 },
+         daylight: { offset: 120, mon: 3, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 }
+      },
+      "Europe/Amsterdam": {
+         standard: { offset: 60, mon: 10, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 },
+         daylight: { offset: 120, mon: 3, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 }
+      },
+      "Europe/Oslo": {
+         standard: { offset: 60, mon: 10, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 },
+         daylight: { offset: 120, mon: 3, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 }
+      },
+      "Europe/Warsaw": {
+         standard: { offset: 60, mon: 10, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 },
+         daylight: { offset: 120, mon: 3, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 }
+      },
+      "Europe/Lisbon": {
+         standard: { offset: 0, mon: 10, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 },
+         daylight: { offset: 60, mon: 3, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 }
+      },
+      "Europe/Bucharest": {
+         standard: { offset: 120, mon: 10, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 },
+         daylight: { offset: 180, mon: 3, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 }
+      },
+      "Europe/Kaliningrad": {
+         standard: stdOffsets[180]
+      },
+      "Europe/Moscow": {
+         standard: stdOffsets[240]
+      },
+      "Europe/Volgograd": {
+         standard: stdOffsets[240]
+      },
+      "Europe/Samara": {
+         standard: stdOffsets[240]
+      },
+      "Asia/Yekaterinburg": {
+         standard: stdOffsets[360]
+      },
+      "Asia/Omsk": {
+         standard: stdOffsets[420]
+      },
+      "Asia/Novosibirsk": {
+         standard: stdOffsets[420]
+      },
+      "Asia/Novokuznetsk": {
+         standard: stdOffsets[420]
+      },
+      "Asia/Krasnoyarsk": {
+         standard: stdOffsets[480]
+      },
+      "Asia/Irkutsk": {
+         standard: stdOffsets[540]
+      },
+      "Asia/Yakutsk": {
+         standard: stdOffsets[600]
+      },
+      "Asia/Vladivostok": {
+         standard: stdOffsets[660]
+      },
+      "Asia/Khandyga": {
+         standard: stdOffsets[600]
+      },
+      "Asia/Sakhalin": {
+         standard: stdOffsets[660]
+      },
+      "Asia/Magadan": {
+         standard: stdOffsets[720]
+      },
+      "Asia/Ust-Nera": {
+         standard: stdOffsets[660]
+      },
+      "Asia/Kamchatka": {
+         standard: stdOffsets[720]
+      },
+      "Asia/Anadyr": {
+         standard: stdOffsets[720]
+      },
+      "Europe/Belgrade": {
+         standard: stdOffsets[60]
+      },
+      "Europe/Madrid": {
+         standard: { offset: 0, mon: 10, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 },
+         daylight: { offset: 60, mon: 3, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 }
+      },
+      "Europe/Stockholm": {
+         standard: { offset: 60, mon: 10, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 },
+         daylight: { offset: 120, mon: 3, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 }
+      },
+      "Europe/Zurich": {
+         standard: { offset: 60, mon: 10, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 },
+         daylight: { offset: 120, mon: 3, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 }
+      },
+      "Europe/Istanbul": {
+         standard: stdOffsets[0]
+      },
+      "Europe/Kiev": {
+         standard: { offset: 120, mon: 10, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 },
+         daylight: { offset: 180, mon: 3, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 }
+      },
+      "Europe/Uzhgorod": {
+         standard: { offset: 120, mon: 10, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 },
+         daylight: { offset: 180, mon: 3, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 }
+      },
+      "Europe/Zaporozhye": {
+         standard: { offset: 120, mon: 10, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 },
+         daylight: { offset: 180, mon: 3, week: -1, wkday: 1, hour: 1, min: 0, sec: 0 }
+      },
+      "Europe/Simferopol": {
+         standard: stdOffsets[120]
+      },
+      "Africa/Algiers": {
+         standard: stdOffsets[60]
+      },
+      "Africa/Luanda": {
+         standard: stdOffsets[60]
+      },
+      "Africa/Porto-Novo": {
+         standard: stdOffsets[60]
+      },
+      "Africa/Gaborone": {
+         standard: stdOffsets[120]
+      },
+      "Africa/Ouagadougou": {
+         standard: stdOffsets[0]
+      },
+      "Africa/Bujumbura": {
+         standard: stdOffsets[120]
+      },
+      "Africa/Douala": {
+         standard: stdOffsets[60]
+      },
+      "Atlantic/Cape_Verde": {
+         standard: stdOffsets[-60]
+      },
+      "Africa/Bangui": {
+         standard: stdOffsets[60]
+      },
+      "Africa/Ndjamena": {
+         standard: stdOffsets[60]
+      },
+      "Indian/Comoro": {
+         standard: stdOffsets[180]
+      },
+      "Africa/Kinshasa": {
+         standard: stdOffsets[120]
+      },
+      "Africa/Brazzaville": {
+         standard: stdOffsets[60]
+      },
+      "Africa/Abidjan": {
+         standard: stdOffsets[0]
+      },
+      "Africa/Djibouti": {
+         standard: stdOffsets[180]
+      },
+      "Africa/Cairo": {
+         standard: stdOffsets[120]
+      },
+      "Africa/Malabo": {
+         standard: stdOffsets[60]
+      },
+      "Africa/Asmara": {
+         standard: stdOffsets[180]
+      },
+      "Africa/Addis_Ababa": {
+         standard: stdOffsets[180]
+      },
+      "Africa/Libreville": {
+         standard: stdOffsets[60]
+      },
+      "Africa/Banjul": {
+         standard: stdOffsets[0]
+      },
+      "Africa/Accra": {
+         standard: stdOffsets[0]
+      },
+      "Africa/Conakry": {
+         standard: stdOffsets[0]
+      },
+      "Africa/Bissau": {
+         standard: stdOffsets[0]
+      },
+      "Africa/Nairobi": {
+         standard: stdOffsets[180]
+      },
+      "Africa/Maseru": {
+         standard: stdOffsets[120]
+      },
+      "Africa/Monrovia": {
+         standard: stdOffsets[0]
+      },
+      "Africa/Tripoli": {
+         standard: { offset: 60, mon: 10, week: -1, wkday: 6, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: 120, mon: 3, week: -1, wkday: 6, hour: 1, min: 0, sec: 0 }
+      },
+      "Indian/Antananarivo": {
+         standard: stdOffsets[180]
+      },
+      "Africa/Blantyre": {
+         standard: stdOffsets[120]
+      },
+      "Africa/Bamako": {
+         standard: stdOffsets[0]
+      },
+      "Africa/Nouakchott": {
+         standard: stdOffsets[0]
+      },
+      "Indian/Mauritius": {
+         standard: stdOffsets[240]
+      },
+      "Indian/Mayotte": {
+         standard: stdOffsets[180]
+      },
+      "Africa/Casablanca": {
+         standard: stdOffsets[0]
+      },
+      "Africa/El_Aaiun": {
+         standard: stdOffsets[0]
+      },
+      "Africa/Maputo": {
+         standard: stdOffsets[120]
+      },
+      "Africa/Windhoek": {
+         standard: { offset: 60, mon: 4, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: 120, mon: 9, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "Africa/Niamey": {
+         standard: stdOffsets[60]
+      },
+      "Africa/Lagos": {
+         standard: stdOffsets[60]
+      },
+      "Indian/Reunion": {
+         standard: stdOffsets[240]
+      },
+      "Africa/Kigali": {
+         standard: stdOffsets[120]
+      },
+      "Atlantic/St_Helena": {
+         standard: stdOffsets[0]
+      },
+      "Africa/Sao_Tome": {
+         standard: stdOffsets[0]
+      },
+      "Africa/Dakar": {
+         standard: stdOffsets[0]
+      },
+      "Indian/Mahe": {
+         standard: stdOffsets[240]
+      },
+      "Africa/Freetown": {
+         standard: stdOffsets[0]
+      },
+      "Africa/Mogadishu": {
+         standard: stdOffsets[180]
+      },
+      "Africa/Johannesburg": {
+         standard: stdOffsets[120]
+      },
+      "Africa/Khartoum": {
+         standard: stdOffsets[180]
+      },
+      "Africa/Juba": {
+         standard: stdOffsets[180]
+      },
+      "Africa/Mbabane": {
+         standard: stdOffsets[120]
+      },
+      "Africa/Dar_es_Salaam": {
+         standard: stdOffsets[180]
+      },
+      "Africa/Lome": {
+         standard: stdOffsets[0]
+      },
+      "Africa/Tunis": {
+         standard: stdOffsets[60]
+      },
+      "Africa/Kampala": {
+         standard: stdOffsets[180]
+      },
+      "Africa/Lusaka": {
+         standard: stdOffsets[120]
+      },
+      "Africa/Harare": {
+         standard: stdOffsets[120]
+      },
+      "Asia/Riyadh89": {
+         standard: stdOffsets[187]
+      },
+      "EST": {
+         standard: stdOffsets[0]
+      },
+      "America/New_York": {
+         standard: { offset: -300, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -240, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Chicago": {
+         standard: { offset: -360, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -300, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/North_Dakota/Center": {
+         standard: { offset: -360, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -300, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/North_Dakota/New_Salem": {
+         standard: { offset: -360, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -300, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/North_Dakota/Beulah": {
+         standard: { offset: -360, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -300, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Denver": {
+         standard: { offset: -420, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -360, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Los_Angeles": {
+         standard: { offset: -480, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -420, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Juneau": {
+         standard: { offset: -600, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -540, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "Pacific/Honolulu": {
+         standard: stdOffsets[-600]
+      },
+      "America/Phoenix": {
+         standard: stdOffsets[-420]
+      },
+      "America/Boise": {
+         standard: { offset: -420, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -360, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Indiana/Indianapolis": {
+         standard: { offset: -300, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -240, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Indiana/Marengo": {
+         standard: { offset: -300, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -240, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Indiana/Vincennes": {
+         standard: { offset: -300, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -240, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Indiana/Tell_City": {
+         standard: { offset: -360, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -300, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Indiana/Petersburg": {
+         standard: { offset: -300, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -240, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Indiana/Knox": {
+         standard: { offset: -360, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -300, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Indiana/Winamac": {
+         standard: { offset: -300, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -240, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Indiana/Vevay": {
+         standard: { offset: -300, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -240, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Kentucky/Louisville": {
+         standard: { offset: -300, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -240, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Kentucky/Monticello": {
+         standard: { offset: -300, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -240, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Detroit": {
+         standard: { offset: -300, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -240, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Menominee": {
+         standard: { offset: -360, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -300, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/St_Johns": {
+         standard: { offset: -150, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -90, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Goose_Bay": {
+         standard: { offset: -240, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -180, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Halifax": {
+         standard: { offset: -240, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -180, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Moncton": {
+         standard: { offset: -240, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -180, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Blanc-Sablon": {
+         standard: { offset: -300, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -240, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Toronto": {
+         standard: stdOffsets[-300]
+      },
+      "America/Winnipeg": {
+         standard: { offset: -360, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -300, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Regina": {
+         standard: stdOffsets[-360]
+      },
+      "America/Edmonton": {
+         standard: { offset: -420, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -360, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Vancouver": {
+         standard: stdOffsets[-420]
+      },
+      "America/Pangnirtung": {
+         standard: { offset: -300, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -240, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Iqaluit": {
+         standard: { offset: -300, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -240, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Resolute": {
+         standard: { offset: -360, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -300, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Rankin_Inlet": {
+         standard: { offset: -360, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -300, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Cambridge_Bay": {
+         standard: { offset: -480, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -420, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Cancun": {
+         standard: { offset: -360, mon: 10, week: -1, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -300, mon: 4, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Merida": {
+         standard: { offset: -360, mon: 10, week: -1, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -300, mon: 4, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Matamoros": {
+         standard: { offset: -360, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -300, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Monterrey": {
+         standard: { offset: -360, mon: 10, week: -1, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -300, mon: 4, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Mexico_City": {
+         standard: { offset: -360, mon: 10, week: -1, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -300, mon: 4, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Ojinaga": {
+         standard: { offset: -420, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -360, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Chihuahua": {
+         standard: { offset: -420, mon: 10, week: -1, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -360, mon: 4, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Hermosillo": {
+         standard: stdOffsets[-420]
+      },
+      "America/Mazatlan": {
+         standard: { offset: -420, mon: 10, week: -1, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -360, mon: 4, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Bahia_Banderas": {
+         standard: { offset: -360, mon: 10, week: -1, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -300, mon: 4, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Tijuana": {
+         standard: { offset: -480, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -420, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Santa_Isabel": {
+         standard: { offset: -480, mon: 10, week: -1, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -420, mon: 4, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Anguilla": {
+         standard: stdOffsets[-240]
+      },
+      "America/Antigua": {
+         standard: stdOffsets[-240]
+      },
+      "America/Nassau": {
+         standard: { offset: -300, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -240, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Barbados": {
+         standard: stdOffsets[-240]
+      },
+      "America/Belize": {
+         standard: stdOffsets[-360]
+      },
+      "Atlantic/Bermuda": {
+         standard: { offset: -240, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -180, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Cayman": {
+         standard: stdOffsets[-300]
+      },
+      "America/Costa_Rica": {
+         standard: stdOffsets[-360]
+      },
+      "America/Havana": {
+         standard: { offset: -300, mon: 11, week: 2, wkday: 1, hour: 0, min: 0, sec: 0 },
+         daylight: { offset: -240, mon: 3, week: 2, wkday: 1, hour: 0, min: 0, sec: 0 }
+      },
+      "America/Dominica": {
+         standard: stdOffsets[-240]
+      },
+      "America/Santo_Domingo": {
+         standard: stdOffsets[-240]
+      },
+      "America/El_Salvador": {
+         standard: stdOffsets[-360]
+      },
+      "America/Grenada": {
+         standard: stdOffsets[-240]
+      },
+      "America/Guadeloupe": {
+         standard: stdOffsets[-240]
+      },
+      "America/Guatemala": {
+         standard: stdOffsets[-360]
+      },
+      "America/Port-au-Prince": {
+         standard: { offset: -300, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -240, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Tegucigalpa": {
+         standard: stdOffsets[-360]
+      },
+      "America/Jamaica": {
+         standard: stdOffsets[-300]
+      },
+      "America/Martinique": {
+         standard: stdOffsets[-240]
+      },
+      "America/Montserrat": {
+         standard: stdOffsets[-240]
+      },
+      "America/Managua": {
+         standard: stdOffsets[-360]
+      },
+      "America/Panama": {
+         standard: stdOffsets[-300]
+      },
+      "America/Puerto_Rico": {
+         standard: stdOffsets[-240]
+      },
+      "America/St_Kitts": {
+         standard: stdOffsets[-240]
+      },
+      "America/St_Lucia": {
+         standard: stdOffsets[-240]
+      },
+      "America/Miquelon": {
+         standard: { offset: -180, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -120, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/St_Vincent": {
+         standard: stdOffsets[-240]
+      },
+      "America/Grand_Turk": {
+         standard: { offset: -300, mon: 11, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: -240, mon: 3, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "America/Tortola": {
+         standard: stdOffsets[-240]
+      },
+      "America/St_Thomas": {
+         standard: stdOffsets[-240]
+      },
+      "Australia/Darwin": {
+         standard: stdOffsets[570]
+      },
+      "Australia/Perth": {
+         standard: stdOffsets[525]
+      },
+      "Australia/Brisbane": {
+         standard: stdOffsets[600]
+      },
+      "Australia/Adelaide": {
+         standard: { offset: 570, mon: 4, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: 630, mon: 10, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "Australia/Hobart": {
+         standard: { offset: 600, mon: 4, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: 660, mon: 10, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "Australia/Melbourne": {
+         standard: { offset: 600, mon: 4, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: 660, mon: 10, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "Australia/Sydney": {
+         standard: { offset: 570, mon: 4, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: 630, mon: 10, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "Australia/Lord_Howe": {
+         standard: { offset: 630, mon: 4, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: 660, mon: 10, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "Antarctica/Macquarie": {
+         standard: stdOffsets[660]
+      },
+      "Indian/Christmas": {
+         standard: stdOffsets[420]
+      },
+      "Pacific/Rarotonga": {
+         standard: stdOffsets[-600]
+      },
+      "Indian/Cocos": {
+         standard: stdOffsets[390]
+      },
+      "Pacific/Fiji": {
+         standard: { offset: 720, mon: 1, week: 5, wkday: 1, hour: 3, min: 0, sec: 0 },
+         daylight: { offset: 780, mon: 10, week: 5, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "Pacific/Gambier": {
+         standard: stdOffsets[-600]
+      },
+      "Pacific/Guam": {
+         standard: stdOffsets[600]
+      },
+      "Pacific/Tarawa": {
+         standard: stdOffsets[840]
+      },
+      "Pacific/Saipan": {
+         standard: stdOffsets[600]
+      },
+      "Pacific/Majuro": {
+         standard: stdOffsets[720]
+      },
+      "Pacific/Chuuk": {
+         standard: stdOffsets[660]
+      },
+      "Pacific/Nauru": {
+         standard: stdOffsets[720]
+      },
+      "Pacific/Noumea": {
+         standard: stdOffsets[660]
+      },
+      "Pacific/Auckland": {
+         standard: { offset: 765, mon: 4, week: 2, wkday: 1, hour: 2, min: 0, sec: 0 },
+         daylight: { offset: 825, mon: 9, week: -1, wkday: 1, hour: 2, min: 0, sec: 0 }
+      },
+      "Pacific/Niue": {
+         standard: stdOffsets[-660]
+      },
+      "Pacific/Norfolk": {
+         standard: stdOffsets[690]
+      },
+      "Pacific/Palau": {
+         standard: stdOffsets[540]
+      },
+      "Pacific/Port_Moresby": {
+         standard: stdOffsets[600]
+      },
+      "Pacific/Pitcairn": {
+         standard: stdOffsets[-480]
+      },
+      "Pacific/Pago_Pago": {
+         standard: stdOffsets[-660]
+      },
+      "Pacific/Apia": {
+         standard: { offset: 780, mon: 4, week: 2, wkday: 1, hour: 4, min: 0, sec: 0 },
+         daylight: { offset: 840, mon: 9, week: -1, wkday: 1, hour: 3, min: 0, sec: 0 }
+      },
+      "Pacific/Guadalcanal": {
+         standard: stdOffsets[660]
+      },
+      "Pacific/Fakaofo": {
+         standard: stdOffsets[780]
+      },
+      "Pacific/Tongatapu": {
+         standard: stdOffsets[780]
+      },
+      "Pacific/Funafuti": {
+         standard: stdOffsets[720]
+      },
+      "Pacific/Johnston": {
+         standard: stdOffsets[-600]
+      },
+      "Pacific/Midway": {
+         standard: stdOffsets[-660]
+      },
+      "Pacific/Wake": {
+         standard: stdOffsets[720]
+      },
+      "Pacific/Efate": {
+         standard: stdOffsets[660]
+      },
+      "Pacific/Wallis": {
+         standard: stdOffsets[720]
+      },
+      "Asia/Riyadh87": {
+         standard: stdOffsets[187]
+      },
+      "Etc/GMT": {
+         standard: stdOffsets[0]
+      },
+      "Etc/GMT-14": {
+         standard: stdOffsets[0]
+      }
 }};
 
 TimezoneData = Y.Date.Timezone.__tzoneData;
 Y.Date.Timezone.__tzoneLinks = {
-    "Mideast/Riyadh88": "Asia/Riyadh88",
-    "Europe/Nicosia": "Asia/Nicosia",
-    "US/Pacific-New": "America/Los_Angeles",
-    "GMT": "Etc/GMT",
-    "Etc/UTC": "Etc/GMT",
-    "Etc/Universal": "Etc/UTC",
-    "Etc/Zulu": "Etc/UTC",
-    "Etc/Greenwich": "Etc/GMT",
-    "Etc/GMT-0": "Etc/GMT",
-    "Etc/GMT+0": "Etc/GMT",
-    "Etc/GMT0": "Etc/GMT",
-    "Mideast/Riyadh87": "Asia/Riyadh87",
-    "America/Lower_Princes": "America/Curacao",
-    "America/Kralendijk": "America/Curacao",
-    "Antarctica/South_Pole": "Antarctica/McMurdo",
-    "Mideast/Riyadh89": "Asia/Riyadh89",
-    "Africa/Asmera": "Africa/Asmara",
-    "Africa/Timbuktu": "Africa/Bamako",
-    "America/Argentina/ComodRivadavia": "America/Argentina/Catamarca",
-    "America/Atka": "America/Adak",
-    "America/Buenos_Aires": "America/Argentina/Buenos_Aires",
-    "America/Catamarca": "America/Argentina/Catamarca",
-    "America/Coral_Harbour": "America/Atikokan",
-    "America/Cordoba": "America/Argentina/Cordoba",
-    "America/Ensenada": "America/Tijuana",
-    "America/Fort_Wayne": "America/Indiana/Indianapolis",
-    "America/Indianapolis": "America/Indiana/Indianapolis",
-    "America/Jujuy": "America/Argentina/Jujuy",
-    "America/Knox_IN": "America/Indiana/Knox",
-    "America/Louisville": "America/Kentucky/Louisville",
-    "America/Mendoza": "America/Argentina/Mendoza",
-    "America/Porto_Acre": "America/Rio_Branco",
-    "America/Rosario": "America/Argentina/Cordoba",
-    "America/Virgin": "America/St_Thomas",
-    "Asia/Ashkhabad": "Asia/Ashgabat",
-    "Asia/Chungking": "Asia/Chongqing",
-    "Asia/Dacca": "Asia/Dhaka",
-    "Asia/Katmandu": "Asia/Kathmandu",
-    "Asia/Calcutta": "Asia/Kolkata",
-    "Asia/Macao": "Asia/Macau",
-    "Asia/Tel_Aviv": "Asia/Jerusalem",
-    "Asia/Saigon": "Asia/Ho_Chi_Minh",
-    "Asia/Thimbu": "Asia/Thimphu",
-    "Asia/Ujung_Pandang": "Asia/Makassar",
-    "Asia/Ulan_Bator": "Asia/Ulaanbaatar",
-    "Atlantic/Faeroe": "Atlantic/Faroe",
-    "Atlantic/Jan_Mayen": "Europe/Oslo",
-    "Australia/ACT": "Australia/Sydney",
-    "Australia/Canberra": "Australia/Sydney",
-    "Australia/LHI": "Australia/Lord_Howe",
-    "Australia/NSW": "Australia/Sydney",
-    "Australia/North": "Australia/Darwin",
-    "Australia/Queensland": "Australia/Brisbane",
-    "Australia/South": "Australia/Adelaide",
-    "Australia/Tasmania": "Australia/Hobart",
-    "Australia/Victoria": "Australia/Melbourne",
-    "Australia/West": "Australia/Perth",
-    "Australia/Yancowinna": "Australia/Broken_Hill",
-    "Brazil/Acre": "America/Rio_Branco",
-    "Brazil/DeNoronha": "America/Noronha",
-    "Brazil/East": "America/Sao_Paulo",
-    "Brazil/West": "America/Manaus",
-    "Canada/Atlantic": "America/Halifax",
-    "Canada/Central": "America/Winnipeg",
-    "Canada/East-Saskatchewan": "America/Regina",
-    "Canada/Eastern": "America/Toronto",
-    "Canada/Mountain": "America/Edmonton",
-    "Canada/Newfoundland": "America/St_Johns",
-    "Canada/Pacific": "America/Vancouver",
-    "Canada/Saskatchewan": "America/Regina",
-    "Canada/Yukon": "America/Whitehorse",
-    "Chile/Continental": "America/Santiago",
-    "Chile/EasterIsland": "Pacific/Easter",
-    "Cuba": "America/Havana",
-    "Egypt": "Africa/Cairo",
-    "Eire": "Europe/Dublin",
-    "Europe/Belfast": "Europe/London",
-    "Europe/Tiraspol": "Europe/Chisinau",
-    "GB": "Europe/London",
-    "GB-Eire": "Europe/London",
-    "GMT+0": "Etc/GMT",
-    "GMT-0": "Etc/GMT",
-    "GMT0": "Etc/GMT",
-    "Greenwich": "Etc/GMT",
-    "Hongkong": "Asia/Hong_Kong",
-    "Iceland": "Atlantic/Reykjavik",
-    "Iran": "Asia/Tehran",
-    "Israel": "Asia/Jerusalem",
-    "Jamaica": "America/Jamaica",
-    "Japan": "Asia/Tokyo",
-    "Kwajalein": "Pacific/Kwajalein",
-    "Libya": "Africa/Tripoli",
-    "Mexico/BajaNorte": "America/Tijuana",
-    "Mexico/BajaSur": "America/Mazatlan",
-    "Mexico/General": "America/Mexico_City",
-    "NZ": "Pacific/Auckland",
-    "NZ-CHAT": "Pacific/Chatham",
-    "Navajo": "America/Denver",
-    "PRC": "Asia/Shanghai",
-    "Pacific/Samoa": "Pacific/Pago_Pago",
-    "Pacific/Yap": "Pacific/Chuuk",
-    "Pacific/Truk": "Pacific/Chuuk",
-    "Pacific/Ponape": "Pacific/Pohnpei",
-    "Poland": "Europe/Warsaw",
-    "Portugal": "Europe/Lisbon",
-    "ROC": "Asia/Taipei",
-    "ROK": "Asia/Seoul",
-    "Singapore": "Asia/Singapore",
-    "Turkey": "Europe/Istanbul",
-    "UCT": "Etc/UCT",
-    "US/Alaska": "America/Anchorage",
-    "US/Aleutian": "America/Adak",
-    "US/Arizona": "America/Phoenix",
-    "US/Central": "America/Chicago",
-    "US/East-Indiana": "America/Indiana/Indianapolis",
-    "US/Eastern": "America/New_York",
-    "US/Hawaii": "Pacific/Honolulu",
-    "US/Indiana-Starke": "America/Indiana/Knox",
-    "US/Michigan": "America/Detroit",
-    "US/Mountain": "America/Denver",
-    "US/Pacific": "America/Los_Angeles",
-    "US/Samoa": "Pacific/Pago_Pago",
-    "UTC": "Etc/UTC",
-    "Universal": "Etc/UTC",
-    "W-SU": "Europe/Moscow",
-    "Zulu": "Etc/UTC",
-    "Europe/Mariehamn": "Europe/Helsinki",
-    "Europe/Vatican": "Europe/Rome",
-    "Europe/San_Marino": "Europe/Rome",
-    "Arctic/Longyearbyen": "Europe/Oslo",
-    "Europe/Ljubljana": "Europe/Belgrade",
-    "Europe/Podgorica": "Europe/Belgrade",
-    "Europe/Sarajevo": "Europe/Belgrade",
-    "Europe/Skopje": "Europe/Belgrade",
-    "Europe/Zagreb": "Europe/Belgrade",
-    "Europe/Bratislava": "Europe/Prague",
-    "America/Shiprock": "America/Denver",
-    "America/St_Barthelemy": "America/Guadeloupe",
-    "America/Marigot": "America/Guadeloupe"
+   "Mideast/Riyadh88": "Asia/Riyadh88",
+   "Europe/Nicosia": "Asia/Nicosia",
+   "America/Lower_Princes": "America/Curacao",
+   "America/Kralendijk": "America/Curacao",
+   "Antarctica/South_Pole": "Antarctica/McMurdo",
+   "Europe/Mariehamn": "Europe/Helsinki",
+   "Europe/Busingen": "Europe/Zurich",
+   "Europe/Vatican": "Europe/Rome",
+   "Europe/San_Marino": "Europe/Rome",
+   "Arctic/Longyearbyen": "Europe/Oslo",
+   "Europe/Ljubljana": "Europe/Belgrade",
+   "Europe/Podgorica": "Europe/Belgrade",
+   "Europe/Sarajevo": "Europe/Belgrade",
+   "Europe/Skopje": "Europe/Belgrade",
+   "Europe/Zagreb": "Europe/Belgrade",
+   "Europe/Bratislava": "Europe/Prague",
+   "Mideast/Riyadh89": "Asia/Riyadh89",
+   "Africa/Asmera": "Africa/Asmara",
+   "Africa/Timbuktu": "Africa/Bamako",
+   "America/Argentina/ComodRivadavia": "America/Argentina/Catamarca",
+   "America/Atka": "America/Adak",
+   "America/Buenos_Aires": "America/Argentina/Buenos_Aires",
+   "America/Catamarca": "America/Argentina/Catamarca",
+   "America/Coral_Harbour": "America/Atikokan",
+   "America/Cordoba": "America/Argentina/Cordoba",
+   "America/Ensenada": "America/Tijuana",
+   "America/Fort_Wayne": "America/Indiana/Indianapolis",
+   "America/Indianapolis": "America/Indiana/Indianapolis",
+   "America/Jujuy": "America/Argentina/Jujuy",
+   "America/Knox_IN": "America/Indiana/Knox",
+   "America/Louisville": "America/Kentucky/Louisville",
+   "America/Mendoza": "America/Argentina/Mendoza",
+   "America/Porto_Acre": "America/Rio_Branco",
+   "America/Rosario": "America/Argentina/Cordoba",
+   "America/Virgin": "America/St_Thomas",
+   "Asia/Ashkhabad": "Asia/Ashgabat",
+   "Asia/Chungking": "Asia/Chongqing",
+   "Asia/Dacca": "Asia/Dhaka",
+   "Asia/Katmandu": "Asia/Kathmandu",
+   "Asia/Calcutta": "Asia/Kolkata",
+   "Asia/Macao": "Asia/Macau",
+   "Asia/Tel_Aviv": "Asia/Jerusalem",
+   "Asia/Saigon": "Asia/Ho_Chi_Minh",
+   "Asia/Thimbu": "Asia/Thimphu",
+   "Asia/Ujung_Pandang": "Asia/Makassar",
+   "Asia/Ulan_Bator": "Asia/Ulaanbaatar",
+   "Atlantic/Faeroe": "Atlantic/Faroe",
+   "Atlantic/Jan_Mayen": "Europe/Oslo",
+   "Australia/ACT": "Australia/Sydney",
+   "Australia/Canberra": "Australia/Sydney",
+   "Australia/LHI": "Australia/Lord_Howe",
+   "Australia/NSW": "Australia/Sydney",
+   "Australia/North": "Australia/Darwin",
+   "Australia/Queensland": "Australia/Brisbane",
+   "Australia/South": "Australia/Adelaide",
+   "Australia/Tasmania": "Australia/Hobart",
+   "Australia/Victoria": "Australia/Melbourne",
+   "Australia/West": "Australia/Perth",
+   "Australia/Yancowinna": "Australia/Broken_Hill",
+   "Brazil/Acre": "America/Rio_Branco",
+   "Brazil/DeNoronha": "America/Noronha",
+   "Brazil/East": "America/Sao_Paulo",
+   "Brazil/West": "America/Manaus",
+   "Canada/Atlantic": "America/Halifax",
+   "Canada/Central": "America/Winnipeg",
+   "Canada/East-Saskatchewan": "America/Regina",
+   "Canada/Eastern": "America/Toronto",
+   "Canada/Mountain": "America/Edmonton",
+   "Canada/Newfoundland": "America/St_Johns",
+   "Canada/Pacific": "America/Vancouver",
+   "Canada/Saskatchewan": "America/Regina",
+   "Canada/Yukon": "America/Whitehorse",
+   "Chile/Continental": "America/Santiago",
+   "Chile/EasterIsland": "Pacific/Easter",
+   "Cuba": "America/Havana",
+   "Egypt": "Africa/Cairo",
+   "Eire": "Europe/Dublin",
+   "Europe/Belfast": "Europe/London",
+   "Europe/Tiraspol": "Europe/Chisinau",
+   "GB": "Europe/London",
+   "GB-Eire": "Europe/London",
+   "GMT+0": "Etc/GMT",
+   "GMT-0": "Etc/GMT",
+   "GMT0": "Etc/GMT",
+   "Greenwich": "Etc/GMT",
+   "Hongkong": "Asia/Hong_Kong",
+   "Iceland": "Atlantic/Reykjavik",
+   "Iran": "Asia/Tehran",
+   "Israel": "Asia/Jerusalem",
+   "Jamaica": "America/Jamaica",
+   "Japan": "Asia/Tokyo",
+   "Kwajalein": "Pacific/Kwajalein",
+   "Libya": "Africa/Tripoli",
+   "Mexico/BajaNorte": "America/Tijuana",
+   "Mexico/BajaSur": "America/Mazatlan",
+   "Mexico/General": "America/Mexico_City",
+   "NZ": "Pacific/Auckland",
+   "NZ-CHAT": "Pacific/Chatham",
+   "Navajo": "America/Denver",
+   "PRC": "Asia/Shanghai",
+   "Pacific/Samoa": "Pacific/Pago_Pago",
+   "Pacific/Yap": "Pacific/Chuuk",
+   "Pacific/Truk": "Pacific/Chuuk",
+   "Pacific/Ponape": "Pacific/Pohnpei",
+   "Poland": "Europe/Warsaw",
+   "Portugal": "Europe/Lisbon",
+   "ROC": "Asia/Taipei",
+   "ROK": "Asia/Seoul",
+   "Singapore": "Asia/Singapore",
+   "Turkey": "Europe/Istanbul",
+   "UCT": "Etc/UCT",
+   "US/Alaska": "America/Anchorage",
+   "US/Aleutian": "America/Adak",
+   "US/Arizona": "America/Phoenix",
+   "US/Central": "America/Chicago",
+   "US/East-Indiana": "America/Indiana/Indianapolis",
+   "US/Eastern": "America/New_York",
+   "US/Hawaii": "Pacific/Honolulu",
+   "US/Indiana-Starke": "America/Indiana/Knox",
+   "US/Michigan": "America/Detroit",
+   "US/Mountain": "America/Denver",
+   "US/Pacific": "America/Los_Angeles",
+   "US/Samoa": "Pacific/Pago_Pago",
+   "UTC": "Etc/UTC",
+   "Universal": "Etc/UTC",
+   "W-SU": "Europe/Moscow",
+   "Zulu": "Etc/UTC",
+   "US/Pacific-New": "America/Los_Angeles",
+   "America/Shiprock": "America/Denver",
+   "America/St_Barthelemy": "America/Guadeloupe",
+   "America/Marigot": "America/Guadeloupe",
+   "Mideast/Riyadh87": "Asia/Riyadh87",
+   "GMT": "Etc/GMT",
+   "Etc/Universal": "Etc/UTC",
+   "Etc/Zulu": "Etc/UTC",
+   "Etc/Greenwich": "Etc/GMT",
+   "Etc/GMT-0": "Etc/GMT",
+   "Etc/GMT+0": "Etc/GMT",
+   "Etc/GMT0": "Etc/GMT"
 };
 
-TimezoneLinks = Y.Date.Timezone.__tzoneLinks;/**
+TimezoneLinks = Y.Date.Timezone.__tzoneLinks;
+/**
  * Timezone performs operations on a given timezone string represented in Olson tz database
  * This module uses parts of zimbra AjxTimezone to handle time-zones
- * @module datatype-date-timezone
- * @requires datatype-date-format
+ * @module gallery-advanced-date-timezone
+ * @requires datatype-date-format, gallery-i18n-common
  */
 
 /**
@@ -3198,66 +1435,14 @@ Y.mix(AjxTimezone, {
     },
 
     /**
-     * Add dst transition rules with dst information
-     * @method addRule
-     * @static
-     * @param rule {Object} Object containing timezone information
-     */
-    addRule: function(rule) {
-        var tzId = rule.tzId, array;
-
-        AjxTimezone._SHORT_NAMES[tzId] = AjxTimezone._generateShortName(rule.standard.offset);
-        AjxTimezone._CLIENT2RULE[tzId] = rule;
-
-        array = rule.daylight ? AjxTimezone.DAYLIGHT_RULES : AjxTimezone.STANDARD_RULES;
-        array.push(rule);
-    },
-
-    /**
      * Get dst transition rule
      * @method getRule
      * @static
      * @param tzId {Object} Timezone Id
-     * @param tz {Object} Rule object to match against
      * @return {Object} The rule
      */
-    getRule: function(tzId, tz) {
-        var rule = AjxTimezone._CLIENT2RULE[tzId],
-            names = [ "standard", "daylight" ],
-            rules, i, j, found, name, onset, breakOuter, p;
-        if (!rule && tz) {
-            rules = tz.daylight ? AjxTimezone.DAYLIGHT_RULES : AjxTimezone.STANDARD_RULES;
-            for (i = 0; i < rules.length; i++) {
-                rule = rules[i];
-
-                found = true;
-                for (j = 0; j < names.length; j++) {
-                    name = names[j];
-                    onset = rule[name];
-                    if (!onset) { continue; }
-			
-                    breakOuter = false;
-
-                    for (p in tz[name]) {
-                        if (tz[name][p] !== onset[p]) {
-                            found = false;
-                            breakOuter = true;
-                            break;
-                        }
-                    }
-
-                    if(breakOuter){
-                        break;
-                    }
-                }
-                if (found) {
-                    return rule;
-                }
-            }
-            return null;
-        }
-
-        return rule;
+    getRule: function(tzId) {
+        return TimezoneData.TIMEZONE_RULES[tzId];
     },
 
     /**
@@ -3324,15 +1509,7 @@ Y.mix(AjxTimezone, {
     },
 
     _SHORT_NAMES: {},
-    _CLIENT2RULE: {},
-    /**
-     * The data is specified using the server identifiers for historical
-     * reasons. Perhaps in the future we'll use the client (i.e. Java)
-     * identifiers on the server as well.
-     */
-    STANDARD_RULES: [],
-    DAYLIGHT_RULES: [],
-
+    
     /**
      * Generate short name for a timezone like +0530 for IST
      * @method _generateShortName
@@ -3355,28 +1532,6 @@ Y.mix(AjxTimezone, {
     },
 
     /**
-     * Initialized timezone rules. Only for internal use.
-     * @method _initTimezoneRules
-     * @static
-     * @private
-     */
-    _initTimezoneRules: function() {
-        var rule, i, j, array;
-
-        for (i = 0; i < TimezoneData.TIMEZONE_RULES.length; i++) {
-            rule = TimezoneData.TIMEZONE_RULES[i];
-            array = rule.daylight ? AjxTimezone.DAYLIGHT_RULES : AjxTimezone.STANDARD_RULES;
-            array.push(rule);
-        }
-
-        TimezoneData.TIMEZONE_RULES.sort(AjxTimezone._BY_OFFSET);
-        for (j = 0; j < TimezoneData.TIMEZONE_RULES.length; j++) {
-            rule = TimezoneData.TIMEZONE_RULES[j];
-            AjxTimezone.addRule(rule);
-        }
-    },
-
-    /**
      * Get timezone ids matching raw offset
      * @method getCurrentTimezoneIds
      * @static
@@ -3390,7 +1545,7 @@ Y.mix(AjxTimezone, {
             today = new Date(),
             tzId, link;
 
-        for(tzId in AjxTimezone._CLIENT2RULE) {
+        for(tzId in TimezoneData.TIMEZONE_RULES) {
             if(rawOffset === 0 || AjxTimezone.getOffset(tzId, today) === rawOffset) {
                 result.push(tzId);
             }
@@ -3423,12 +1578,12 @@ Y.mix(AjxTimezone, {
                 etcGMTId += (rawOffset > 0? "-": "+") + rawOffset/60;
             }
 
-            if(AjxTimezone._CLIENT2RULE[etcGMTId] !== undefined) {
+            if(TimezoneData.TIMEZONE_RULES[etcGMTId] !== undefined) {
                 return etcGMTId;
             }
         }
 	
-        for(tzId in AjxTimezone._CLIENT2RULE) {
+        for(tzId in TimezoneData.TIMEZONE_RULES) {
             if(AjxTimezone.getOffset(tzId, today) === rawOffset) {
                 return tzId;
             }
@@ -3494,7 +1649,7 @@ Y.mix(AjxTimezone, {
      * @return {Boolean} true if tzId is valid, false otherwise
      */
     isValidTimezoneId: function(tzId) {
-        return (AjxTimezone._CLIENT2RULE[tzId] !== undefined || TimezoneLinks[tzId] !== undefined);
+        return (TimezoneData.TIMEZONE_RULES[tzId] !== undefined || TimezoneLinks[tzId] !== undefined);
     }
 });
 
@@ -3507,6 +1662,9 @@ Y.mix(AjxTimezone.prototype, {
      * @return {String}
      */
     getShortName: function(tzId) {
+        if(!AjxTimezone._SHORT_NAMES[tzId]) {
+            AjxTimezone._SHORT_NAMES[tzId] = AjxTimezone._generateShortName(AjxTimezone.getOffset(tzId, new Date()));
+        }
         var shortName = ["GMT",AjxTimezone._SHORT_NAMES[tzId]].join("");
         return shortName;
     },
@@ -3530,8 +1688,6 @@ Y.mix(AjxTimezone.prototype, {
      */
     getLongName: AjxTimezone.prototype.getMediumName
 });
-
-AjxTimezone._initTimezoneRules();
 
 /**
  * Timezone performs operations on a given timezone string represented in Olson tz database
@@ -3758,10 +1914,10 @@ Y.mix(Timezone, {
         var normalizedId,
             next = tzId;
 
-        do {
+        while(next !== undefined) {
             normalizedId = next;
             next = TimezoneLinks[normalizedId];
-        } while( next !== undefined );
+        }
 
         return normalizedId;
     }
@@ -3873,7 +2029,7 @@ Y.mix(Timezone.prototype, {
             offset = AjxTimezone.getOffset(this.tzId, uTime),
             offsetString = "Z",
             rfc3339, offsetSign,
-            Utils = Y.Intl.Utils;
+            Utils = Y.Intl.Common;
 
         if(offset !== 0) {
             offsetSign = (offset > 0 ? "+": "-");
@@ -3900,7 +2056,7 @@ Y.mix(Timezone.prototype, {
         var uTime = new Date(timeValue * 1000),
             offset = AjxTimezone.getOffset(this.tzId, uTime),
             sqlDate,
-            Utils = Y.Intl.Utils;
+            Utils = Y.Intl.Common;
             
         uTime.setTime(timeValue*1000 + offset*60*1000);
 
@@ -3950,4 +2106,4 @@ Y.mix(Timezone.prototype, {
 });
 
 
-}, '@VERSION@', {"requires": ["datatype-date-format", "gallery-i18n-utils"]});
+}, '@VERSION@', {"requires": ["datatype-date-format", "gallery-i18n-common"]});
