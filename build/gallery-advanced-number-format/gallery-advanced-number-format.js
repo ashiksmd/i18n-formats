@@ -649,16 +649,12 @@ Y.mix( Y.Number, {
              return Y.Number._oldFormat(data, config);
          }
     
-         try {
-             var formatter = new YNumberFormat(config.style);
-             if(config.parseIntegerOnly) {
-                 formatter.setParseIntegerOnly(true);
-             }
-             return formatter.format(data);
-         } catch(e) {
-             //Error. Fallback to original format
+
+         var formatter = new YNumberFormat(config.style);
+         if(config.parseIntegerOnly) {
+             formatter.setParseIntegerOnly(true);
          }
-         return Y.Number._oldFormat(data, config);
+         return formatter.format(data);
      },
 
      /**
@@ -673,14 +669,8 @@ Y.mix( Y.Number, {
       * @return {Number} Number represented by data
       */
      parse: function(data, config) {
-         try {
-             var formatter = new YNumberFormat(config.style);
-             return formatter.parse(data, config.parsePosition);
-         } catch(e) {
-             //Fallback on deprecated parse
-         }
-    
-         return Y.Number._oldParse(data);
+         var formatter = new YNumberFormat(config.style);
+         return formatter.parse(data, config.parsePosition);
      }
 }, true);
 

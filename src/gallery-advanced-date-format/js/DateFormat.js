@@ -21,31 +21,31 @@
  */
 
 var MODULE_NAME = "gallery-advanced-date-format",
-    Format, ShortNames, DateFormat, BuddhistDateFormat, YDateFormat, YRelativeTimeFormat, YDurationFormat;
+Format, ShortNames, DateFormat, BuddhistDateFormat, YDateFormat, YRelativeTimeFormat, YDurationFormat;
 
 Format = Y.Intl.Common.BaseFormat;
 Y.Date.__advancedFormat = true;
 
 ShortNames = {
-        "weekdayMonShort":"M",
-        "weekdayTueShort":"T",
-        "weekdayWedShort":"W",
-        "weekdayThuShort":"T",
-        "weekdayFriShort":"F",
-        "weekdaySatShort":"S",
-        "weekdaySunShort":"S",
-        "monthJanShort":"J",
-        "monthFebShort":"F",
-        "monthMarShort":"M",
-        "monthAprShort":"A",
-        "monthMayShort":"M",
-        "monthJunShort":"J",
-        "monthJulShort":"J",
-        "monthAugShort":"A",
-        "monthSepShort":"S",
-        "monthOctShort":"O",
-        "monthNovShort":"N",
-        "monthDecShort":"D"
+    "weekdayMonShort":"M",
+    "weekdayTueShort":"T",
+    "weekdayWedShort":"W",
+    "weekdayThuShort":"T",
+    "weekdayFriShort":"F",
+    "weekdaySatShort":"S",
+    "weekdaySunShort":"S",
+    "monthJanShort":"J",
+    "monthFebShort":"F",
+    "monthMarShort":"M",
+    "monthAprShort":"A",
+    "monthMayShort":"M",
+    "monthJunShort":"J",
+    "monthJulShort":"J",
+    "monthAugShort":"A",
+    "monthSepShort":"S",
+    "monthOctShort":"O",
+    "monthNovShort":"N",
+    "monthDecShort":"D"
 };
     
 //
@@ -79,61 +79,75 @@ Y.Date.__zDateFormat = function(pattern, formats, timeZoneId) {
     if (pattern === null) {
         return;
     }
-    var head, tail, segment, i, c, count, field;
+    var segment, i, c, field, metaRegex, count,
+        literalRegex = /^(('((''|[^'])+?)'(?!'))|[^GyMwWDdFEaHkKhmsSzZ']+)/;
+    
     for (i = 0; i < pattern.length; i++) {
-        // literal
         c = pattern.charAt(i);
-        if (c === "'") {
-            head = i + 1;
-            for (i++ ; i < pattern.length; i++) {
-                c = pattern.charAt(i);
-                if (c === "'") {
-                    if (i + 1 < pattern.length && pattern.charAt(i + 1) === "'") {
-                        pattern = pattern.substr(0, i) + pattern.substr(i + 1);
-                    }
-                    else {
-                        break;
-                    }
+        if(DateFormat._META_CHARS.indexOf(c) !== -1) {     //c is a meta char
+            if(c === 'E') {
+                console.log("E");
+            }
+            metaRegex = new RegExp("^" + c+"+");
+            field = metaRegex.exec(pattern.slice(i))[0];
+            
+            segment = this._createSegment(c, field);
+            if (segment !== null) {
+                i += field.length - 1;
+                segment._index = this._segments.length;
+                this._segments.push(segment);
+            }
+        } else {  //Non-meta char. Should create a TextSegment
+            field = literalRegex.exec(pattern.slice(i));     //Get TextSegment field. Quoted literal or any character not a meta
+            if(field) {
+                field = field[0];
+                count = field.length;
+                i += count - 1;
+                
+                if(field.indexOf("''") !== -1) {     //If contains double apostrophe
+                    field = field.replace("''", "'");
+                    pattern = pattern.slice(0, i) + field + pattern.slice(i+count);
                 }
-            }
-            if (i === pattern.length) {
-		Y.error("unterminated string literal");
-            }
-            tail = i;
-            segment = new Format.TextSegment(this, pattern.substring(head, tail));
-            this._segments.push(segment);
-            continue;
-        }
 
-        // non-meta chars
-        head = i;
-        while(i < pattern.length) {
-            c = pattern.charAt(i);
-            if (DateFormat._META_CHARS.indexOf(c) !== -1 || c === "'") {
-                break;
-            }
-            i++;
-        }
-        tail = i;
-        if (head !== tail) {
-            segment = new Format.TextSegment(this, pattern.substring(head, tail));
-            this._segments.push(segment);
-            i--;
-            continue;
-        }
-		
-        // meta char
-        head = i;
-        while(++i < pattern.length) {
-            if (pattern.charAt(i) !== c) {
-                break;
+                field = field.replace(/^'/, "").replace(/'$/, ""); //remove leading and trailing quotes, if any
+                
+                segment = new Format.TextSegment(this, field);
+                this._segments.push(segment);
             }
         }
-        tail = i--;
-        count = tail - head;
-        field = pattern.substr(head, count);
-        segment = null;
-        switch (c) {
+    }
+};
+
+DateFormat = Y.Date.__zDateFormat;
+Y.extend(DateFormat, Format);
+
+// Constants
+
+Y.mix(DateFormat, {
+    SHORT: 0,
+    MEDIUM: 1,
+    LONG: 2,
+    DEFAULT: 1,
+    _META_CHARS: "GyMwWDdFEaHkKhmsSzZ"
+});
+
+Y.mix(DateFormat.prototype, {
+    /**
+     * Create a segment of the correct type
+     * @method createSegment
+     * @private
+     * @param ch {String} The meta character that will decide the segment type
+     * @param field {String} The field that will be made into a segment. Will be a sequence of ch characters
+     * @return {Intl.Common.BaseFormat.Segment}
+     */
+    _createSegment: function(ch, field) {
+        if(!field) {
+            return null;
+        }
+        
+        var segment = null;
+        
+        switch (ch) {
             case 'G':
                 segment = new DateFormat.EraSegment(this, field);
                 break;
@@ -176,62 +190,42 @@ Y.Date.__zDateFormat = function(pattern, formats, timeZoneId) {
                 segment = new DateFormat.TimezoneSegment(this, field);
                 break;
         }
-        if (segment !== null) {
-            segment._index = this._segments.length;
-            this._segments.push(segment);
-        }
-    }
-};
-
-DateFormat = Y.Date.__zDateFormat;
-Y.extend(DateFormat, Format);
-
-// Constants
-
-Y.mix(DateFormat, {
-	SHORT: 0,
-	MEDIUM: 1,
-	LONG: 2,
-	DEFAULT: 1,
-	_META_CHARS: "GyMwWDdFEaHkKhmsSzZ"
-});
-
-/**
- * Format the date
- * @method format
- * @param object {Date} The date to be formatted
- * @param [relative=false] {Boolean} Whether relative dates should be used.
- * @return {String} Formatted result
- */
-DateFormat.prototype.format = function(object, relative) {
-    var useRelative = false,
+        return segment;
+    },
+ 
+    /**
+     * Format the date
+     * @method format
+     * @param object {Date} The date to be formatted
+     * @param [relative=false] {Boolean} Whether relative dates should be used.
+     * @return {String} Formatted result
+     */
+    format: function(object, relative) {
+        var useRelative = false,
         s = [],
         datePattern = false,
         i;
 
-    if(relative !== null && relative !== "") {
-        useRelative = true;
-    }
+        if(relative !== null && relative !== "") {
+            useRelative = true;
+        }
 
-    for (i = 0; i < this._segments.length; i++) {
-        //Mark datePattern sections in case of relative dates
-        if(this._segments[i]._s.indexOf("<datePattern>") === 0) {
-            if(useRelative) {
-                s.push(relative);
+        for (i = 0; i < this._segments.length; i++) {
+            //Mark datePattern sections in case of relative dates
+            if(this._segments[i]._s.indexOf("<datePattern>") === 0) {
+                if(useRelative) {
+                    s.push(relative);
+                }
+                datePattern = true;
+            } else if(this._segments[i]._s.indexOf("</datePattern>") === 0) {
+                datePattern = false;
+            } else if(!datePattern || !useRelative) {
+                s.push(this._segments[i].format(object));
             }
-            datePattern = true;
-            continue;
         }
-        if(this._segments[i]._s.indexOf("</datePattern>") === 0) {
-            datePattern = false;
-            continue;
-        }
-        if(!datePattern || !useRelative) {
-            s.push(this._segments[i].format(object));
-        }
+        return s.join("");
     }
-    return s.join("");
-};
+}, true);
 
 //
 // Date segment class
@@ -346,24 +340,24 @@ Y.mix(DateFormat.MonthSegment.prototype, {
     initialize: function() {
         DateFormat.MonthSegment.MONTHS = {};
         DateFormat.MonthSegment.MONTHS[DateFormat.SHORT] = [
-            ShortNames.monthJanShort,ShortNames.monthFebShort,ShortNames.monthMarShort,
-            ShortNames.monthAprShort,ShortNames.monthMayShort,ShortNames.monthJunShort,
-            ShortNames.monthJulShort,ShortNames.monthAugShort,ShortNames.monthSepShort,
-            ShortNames.monthOctShort,ShortNames.monthNovShort,ShortNames.monthDecShort
+        ShortNames.monthJanShort,ShortNames.monthFebShort,ShortNames.monthMarShort,
+        ShortNames.monthAprShort,ShortNames.monthMayShort,ShortNames.monthJunShort,
+        ShortNames.monthJulShort,ShortNames.monthAugShort,ShortNames.monthSepShort,
+        ShortNames.monthOctShort,ShortNames.monthNovShort,ShortNames.monthDecShort
         ];
 
         var Formats = this.getFormat().Formats;
         DateFormat.MonthSegment.MONTHS[DateFormat.MEDIUM] = [
-            Formats.monthJanMedium, Formats.monthFebMedium, Formats.monthMarMedium,
-            Formats.monthAprMedium, Formats.monthMayMedium, Formats.monthJunMedium,
-            Formats.monthJulMedium, Formats.monthAugMedium, Formats.monthSepMedium,
-            Formats.monthOctMedium, Formats.monthNovMedium, Formats.monthDecMedium
+        Formats.monthJanMedium, Formats.monthFebMedium, Formats.monthMarMedium,
+        Formats.monthAprMedium, Formats.monthMayMedium, Formats.monthJunMedium,
+        Formats.monthJulMedium, Formats.monthAugMedium, Formats.monthSepMedium,
+        Formats.monthOctMedium, Formats.monthNovMedium, Formats.monthDecMedium
         ];
         DateFormat.MonthSegment.MONTHS[DateFormat.LONG] = [
-            Formats.monthJanLong, Formats.monthFebLong, Formats.monthMarLong,
-            Formats.monthAprLong, Formats.monthMayLong, Formats.monthJunLong,
-            Formats.monthJulLong, Formats.monthAugLong, Formats.monthSepLong,
-            Formats.monthOctLong, Formats.monthNovLong, Formats.monthDecLong
+        Formats.monthJanLong, Formats.monthFebLong, Formats.monthMarLong,
+        Formats.monthAprLong, Formats.monthMayLong, Formats.monthJunLong,
+        Formats.monthJulLong, Formats.monthAugLong, Formats.monthSepLong,
+        Formats.monthOctLong, Formats.monthNovLong, Formats.monthDecLong
         ];
     },
 
@@ -417,17 +411,14 @@ Y.extend(DateFormat.WeekSegment, DateFormat.DateSegment);
  */
 DateFormat.WeekSegment.prototype.format = function(date) {
     var year = date.getYear(),
-        month = date.getMonth(),
-        day = date.getDate(),
-	ofYear = /w/.test(this._s),
-        date2 = new Date(year, ofYear ? 0 : month, 1),
-        week = 0;
-    while (true) {
-        week++;
-        if (date2.getMonth() > month || (date2.getMonth() === month && date2.getDate() >= day)) {
-            break;
-        }
+    month = date.getMonth(),
+    day = date.getDate(),
+    ofYear = /w/.test(this._s),
+    date2 = new Date(year, ofYear ? 0 : month, 1),
+    week = 1;
+    while (!(date2.getMonth() > month || (date2.getMonth() === month && date2.getDate() >= day))) {
         date2.setDate(date2.getDate() + 7);
+        week++;
     }
 
     return Y.Intl.Common.zeroPad(week, this._s.length);
@@ -460,19 +451,19 @@ Y.extend(DateFormat.DaySegment, DateFormat.DateSegment);
  */
 DateFormat.DaySegment.prototype.format = function(date) {
     var month = date.getMonth(),
-        day = date.getDate(),
-        year = date.getYear(),
-        date2;
+    day = date.getDate(),
+    year = date.getYear(),
+    date2;
 
-    if (/D/.test(this._s) && month > 0) {
-        do {
+    if (/D/.test(this._s)) {
+        while (month > 0) {
             // set date to first day of month and then go back one day
             date2 = new Date(year, month, 1);
             date2.setDate(0);
 			
             day += date2.getDate();
             month--;
-        } while (month > 0);
+        }
     }
     return Y.Intl.Common.zeroPad(day, this._s.length);
 };
@@ -507,21 +498,21 @@ Y.mix(DateFormat.WeekdaySegment.prototype, {
         DateFormat.WeekdaySegment.WEEKDAYS = {};
         // NOTE: The short names aren't available in Java so we have to define them.
         DateFormat.WeekdaySegment.WEEKDAYS[DateFormat.SHORT] = [
-            ShortNames.weekdaySunShort,ShortNames.weekdayMonShort,ShortNames.weekdayTueShort,
-            ShortNames.weekdayWedShort,ShortNames.weekdayThuShort,ShortNames.weekdayFriShort,
-            ShortNames.weekdaySatShort
+        ShortNames.weekdaySunShort,ShortNames.weekdayMonShort,ShortNames.weekdayTueShort,
+        ShortNames.weekdayWedShort,ShortNames.weekdayThuShort,ShortNames.weekdayFriShort,
+        ShortNames.weekdaySatShort
         ];
 
         var Formats = this.getFormat().Formats;
         DateFormat.WeekdaySegment.WEEKDAYS[DateFormat.MEDIUM] = [
-            Formats.weekdaySunMedium, Formats.weekdayMonMedium, Formats.weekdayTueMedium,
-            Formats.weekdayWedMedium, Formats.weekdayThuMedium, Formats.weekdayFriMedium,
-            Formats.weekdaySatMedium
+        Formats.weekdaySunMedium, Formats.weekdayMonMedium, Formats.weekdayTueMedium,
+        Formats.weekdayWedMedium, Formats.weekdayThuMedium, Formats.weekdayFriMedium,
+        Formats.weekdaySatMedium
         ];
         DateFormat.WeekdaySegment.WEEKDAYS[DateFormat.LONG] = [
-            Formats.weekdaySunLong, Formats.weekdayMonLong, Formats.weekdayTueLong,
-            Formats.weekdayWedLong, Formats.weekdayThuLong, Formats.weekdayFriLong,
-            Formats.weekdaySatLong
+        Formats.weekdaySunLong, Formats.weekdayMonLong, Formats.weekdayTueLong,
+        Formats.weekdayWedLong, Formats.weekdayThuLong, Formats.weekdayFriLong,
+        Formats.weekdaySatLong
         ];
     },
 
@@ -533,7 +524,7 @@ Y.mix(DateFormat.WeekdaySegment.prototype, {
      */
     format: function(date) {
         var weekday = date.getDay(),
-            style;
+        style;
         if (/E/.test(this._s)) {
             switch (this._s.length) {
                 case 4:
@@ -858,7 +849,7 @@ Y.Date.__YDateFormat = function(timeZone, dateFormat, timeFormat, timeZoneFormat
         
     //If not valid time zone
     if(!Y.Date.Timezone.isValidTimezoneId(timeZone)) {
-	Y.error("Could not find timezone: " + timeZone);
+        Y.error("Could not find timezone: " + timeZone);
     }
 
     this._timeZone = timeZone;
@@ -960,7 +951,9 @@ Y.mix(YDateFormat.prototype, {
             format = Y.Date.DATE_FORMATS[format];
         }
     
-        if(format === null) { return ""; }
+        if(format === null) {
+            return "";
+        }
         /*jshint bitwise: false*/
         if(format & Y.Date.DATE_FORMATS.RELATIVE_DATE) {
             this._relative = true;
@@ -1030,7 +1023,9 @@ Y.mix(YDateFormat.prototype, {
             format = Y.Date.TIME_FORMATS[format];
         }
     
-        if(format === null) { return ""; }
+        if(format === null) {
+            return "";
+        }
         switch(format) {
             case Y.Date.TIME_FORMATS.NONE:
                 return "";
@@ -1057,7 +1052,9 @@ Y.mix(YDateFormat.prototype, {
             format = Y.Date.TIMEZONE_FORMATS[format];
         }
     
-        if(format === null) { return ""; }
+        if(format === null) {
+            return "";
+        }
         switch(format) {
             case Y.Date.TIMEZONE_FORMATS.NONE:
                 return "";
@@ -1078,9 +1075,9 @@ Y.mix(YDateFormat.prototype, {
      */
     _generatePattern: function() {
         var datePattern = this._generateDatePattern(),
-            timePattern = this._generateTimePattern(),
-            timeZonePattern = this._generateTimeZonePattern(),
-            pattern = "";
+        timePattern = this._generateTimePattern(),
+        timeZonePattern = this._generateTimeZonePattern(),
+        pattern = "";
 
         //Combine patterns. Mark date pattern part, to use with relative dates.
         if(datePattern !== "") {
@@ -1118,10 +1115,10 @@ Y.mix(YDateFormat.prototype, {
         }
         
         var offset = this._timeZoneInstance.getRawOffset() * 1000,
-            relativeDate = null,
-            today = new Date(),
-            tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000),
-            yesterday = new Date(today.getTime() - 24 * 60 * 60 * 1000);
+        relativeDate = null,
+        today = new Date(),
+        tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000),
+        yesterday = new Date(today.getTime() - 24 * 60 * 60 * 1000);
         date = new Date(date.getTime() + date.getTimezoneOffset() * 60 * 1000 + offset);
 
         if(this._relative) {

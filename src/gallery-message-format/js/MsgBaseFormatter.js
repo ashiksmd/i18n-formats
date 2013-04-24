@@ -56,30 +56,11 @@ Y.mix(Formatter.prototype, {
         }
 
         return false;
-    },
-
-    /**
-     * Format string. Will be overridden in descendants
-     * @method format
-     */
-    format: function(/*str, config*/) {
-        Y.error('Not implemented');	//Must override in descendants
     }
 });
 
 //For date and time formatters
 Y.mix(Formatter, {
-    /**
-     * Create an instance of the formatter
-     * @method createInstance
-     * @static
-     * //param values {Array|Object} The data to be processed and inserted.
-     */
-    createInstance: function(/*values*/) {
-        //return new Formatter(values);
-        Y.error('Not implemented');	//Must override in descendants
-    },
-
     /**
      * Get current timezone. Used for time format
      * @method getCurrentTimeZone

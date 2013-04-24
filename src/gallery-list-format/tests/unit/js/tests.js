@@ -16,19 +16,19 @@ YUI.add('module-tests', function(Y) {
         testListFormat: function() {
             var input = [];
 
-            var result = Y.Intl.ListFormatter.format(input);
+            var result = Y.Array.format(input);
             Y.Assert.areEqual("", result);
 
             input.push("US");
-            result = Y.Intl.ListFormatter.format(input);
+            result = Y.Array.format(input);
             Y.Assert.areEqual("US", result);
 
             input.push("UK");
-            result = Y.Intl.ListFormatter.format(input);
+            result = Y.Array.format(input);
             Y.Assert.areEqual("US and UK", result);
 
             input.push("Canada");
-            result = Y.Intl.ListFormatter.format(input);
+            result = Y.Array.format(input);
             Y.Assert.areEqual("US, UK, and Canada", result);
         }
     });

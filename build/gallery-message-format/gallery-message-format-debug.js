@@ -58,30 +58,11 @@ Y.mix(Formatter.prototype, {
         }
 
         return false;
-    },
-
-    /**
-     * Format string. Will be overridden in descendants
-     * @method format
-     */
-    format: function(/*str, config*/) {
-        Y.error('Not implemented');	//Must override in descendants
     }
 });
 
 //For date and time formatters
 Y.mix(Formatter, {
-    /**
-     * Create an instance of the formatter
-     * @method createInstance
-     * @static
-     * //param values {Array|Object} The data to be processed and inserted.
-     */
-    createInstance: function(/*values*/) {
-        //return new Formatter(values);
-        Y.error('Not implemented');	//Must override in descendants
-    },
-
     /**
      * Get current timezone. Used for time format
      * @method getCurrentTimeZone
@@ -1051,7 +1032,7 @@ Y.mix(MsgListFormatter.prototype, {
       * @return {String} Formatted result
       */
      format: function(str) {
-          if(Y.Intl === undefined || Y.Intl.ListFormatter === undefined || Y.Intl.ListFormatter.format === undefined) { return str; }
+          if(Y.Array === undefined || Y.Array.format === undefined) { return str; }
           var regex = new RegExp(this.regex, "gm"),
               matches = null,
               params;
@@ -1062,8 +1043,8 @@ Y.mix(MsgListFormatter.prototype, {
               if(this.getParams(params, matches)) {
                   //Got a match
                   str = str.replace(
-                             matches[0],
-                             Y.Intl.ListFormatter.format( params.value )
+                          matches[0],
+                          Y.Array.format( params.value )
                   );
               }
           }

@@ -4,8 +4,9 @@ YUI.add('gallery-list-format', function (Y, NAME) {
  * ListFormatter formats lists with locale dependent rules.
  * @module gallery-list-format
  */
-var MODULE_NAME = "gallery-list-format",
-    ListFormatter;
+var MODULE_NAME = "gallery-list-format";
+
+Y.namespace("Array");
 
 /**
  * ListFormatter formats lists with locale dependent rules.
@@ -15,9 +16,9 @@ var MODULE_NAME = "gallery-list-format",
  * @namespace Intl
  * @static
  */
-ListFormatter = {
+Y.mix(Y.Array, {
     /**
-     * Substitute items into corrrect positions in pattern
+     * Substitute items into correct positions in pattern
      * For internal use only
      * @method __sub
      * @private
@@ -52,20 +53,18 @@ ListFormatter = {
          if(len === 0) { return ""; }
          if(len === 1) { return list[0]; }
          if(len === 2) {
-             return ListFormatter.__sub(two, list[0], list[1]);
+             return Y.Array.__sub(two, list[0], list[1]);
          }
 
-         result = ListFormatter.__sub(start, list[0], list[1]);
+         result = Y.Array.__sub(start, list[0], list[1]);
          for(i=2; i<len-1; i++) {
-              result = ListFormatter.__sub(middle, result, list[i]);
+              result = Y.Array.__sub(middle, result, list[i]);
          }
-         result = ListFormatter.__sub(end, result, list[i]);
+         result = Y.Array.__sub(end, result, list[i]);
 
          return result;
     }
-};
-
-Y.Intl.ListFormatter = ListFormatter;
+});
 
 
 }, '@VERSION@', {
@@ -165,5 +164,8 @@ Y.Intl.ListFormatter = ListFormatter;
         "vi",
         "zh",
         "zu"
+    ],
+    "requires": [
+        "yui-base"
     ]
 });
