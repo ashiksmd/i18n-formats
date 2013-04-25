@@ -82,7 +82,7 @@ Y.Date.__zDateFormat = function(pattern, formats, timeZoneId) {
         return;
     }
     var segment, i, c, field, metaRegex, count,
-    literalRegex = /^(('((''|[^'])+?)'(?!'))|[^GyMwWDdFEaHkKhmsSzZ']+)/;
+        literalRegex = /^(('((''|[^'])+?)'(?!'))|[^GyMwWDdFEaHkKhmsSzZ']+)/;
     
     for (i = 0; i < pattern.length; i++) {
         c = pattern.charAt(i);
@@ -219,13 +219,9 @@ Y.mix(DateFormat.prototype, {
                     s.push(relative);
                 }
                 datePattern = true;
-                continue;
-            }
-            if(this._segments[i]._s.indexOf("</datePattern>") === 0) {
+            } else if(this._segments[i]._s.indexOf("</datePattern>") === 0) {
                 datePattern = false;
-                continue;
-            }
-            if(!datePattern || !useRelative) {
+            } else if(!datePattern || !useRelative) {
                 s.push(this._segments[i].format(object));
             }
         }
@@ -1217,6 +1213,35 @@ Y.mix(Y.Date, {
         ONE_UNIT_LONG: 4
     }
 });
+
+/**
+ * Add value to result array
+ * @method _addResult
+ * @private
+ * @param type {String} Type of value. eg. day, month, year, etc
+ * @param value {Number} Number of elements of type. eg. 3 days, value would be 3
+ * @return {Boolean} Whether the value was added to the result array
+ */
+YRelativeTimeFormat.prototype._addResult = function(type, value) {
+    if (value === 0 && this.result.length === 0 && type !== "second") {
+                            //First result should not be zero, except if everything before seconds is zero
+        return false;
+    }
+
+    var text,
+        patternPlural = type + "s",
+        abbrev = type + "_abbr",
+        abbrevPlural = patternPlural + "_abbr";
+
+    if(this.abbr) {
+        text = value + " " + (value !== 1 ? this.patterns[abbrevPlural] : this.patterns[abbrev]);
+    } else {
+        text = value + " " + (value !== 1 ? this.patterns[patternPlural] : this.patterns[type]);
+    }
+
+    this.result.push(text);
+    return true;
+};
 	
 /**
  * Formats a time value.
@@ -1238,88 +1263,32 @@ YRelativeTimeFormat.prototype.format = function(timeValue, relativeTo) {
     }
 
     var date = new Date((relativeTo - timeValue)*1000),
-        result = [],
         numUnits = this.numUnits,
-        value = date.getUTCFullYear() - 1970,	//Need zero-based index
-        text, pattern, i;
+        value,
+        pattern, i;
+
+    value = [
+        ["year", date.getUTCFullYear() - 1970], //Need zero-based index
+        ["month", date.getUTCMonth()],
+        ["day", date.getUTCDate()-1],           //Need zero-based index
+        ["hour", date.getUTCHours()],
+        ["minute", date.getUTCMinutes()],
+        ["second", date.getUTCSeconds()]
+    ];
+
+    this.result = [];
+    for (i=0; i<value.length && numUnits > 0; i++) {
+        if(this._addResult(value[i][0], value[i][1])) {
+            numUnits--;
+        }
+    }
+
+    pattern = (this.result.length === 1) ? this.patterns["RelativeTime/oneUnit"] : this.patterns["RelativeTime/twoUnits"];
         
-    if(value > 0) {
-        if(this.abbr) {
-            text = value + " " + (value !== 1 ? this.patterns.years_abbr : this.patterns.year_abbr);
-            result.push(text);
-        } else {
-            text = value + " " + (value !== 1 ? this.patterns.years : this.patterns.year);
-            result.push(text);
-        }
-        numUnits--;
+    for(i=0; i<this.result.length; i++) {
+        pattern = pattern.replace("{" + i + "}", this.result[i]);
     }
-
-    value = date.getUTCMonth();
-    if((numUnits > 0) && (numUnits < this.numUnits || value > 0)) {
-        if(this.abbr) {
-            text = value + " " + (value !== 1 ? this.patterns.months_abbr : this.patterns.month_abbr);
-            result.push(text);
-        } else {
-            text = value + " " + (value !== 1 ? this.patterns.months : this.patterns.month);
-            result.push(text);
-        }
-        numUnits--;
-    }
-
-    value = date.getUTCDate()-1;			//Need zero-based index
-    if(numUnits > 0 && (numUnits < this.numUnits || value > 0)) {
-        if(this.abbr) {
-            text = value + " " + (value !== 1 ? this.patterns.days_abbr : this.patterns.day_abbr);
-            result.push(text);
-        } else {
-            text = value + " " + (value !== 1 ? this.patterns.days : this.patterns.day);
-            result.push(text);
-        }
-        numUnits--;
-    }
-
-    value = date.getUTCHours();
-    if(numUnits > 0 && (numUnits < this.numUnits || value > 0)) {
-        if(this.abbr) {
-            text = value + " " + (value !== 1 ? this.patterns.hours_abbr : this.patterns.hour_abbr);
-            result.push(text);
-        } else {
-            text = value + " " + (value !== 1 ? this.patterns.hours : this.patterns.hour);
-            result.push(text);
-        }
-        numUnits--;
-    }
-
-    value = date.getUTCMinutes();
-    if(numUnits > 0 && (numUnits < this.numUnits || value > 0)) {
-        if(this.abbr) {
-            text = value + " " + (value !== 1 ? this.patterns.minutes_abbr : this.patterns.minute_abbr);
-            result.push(text);
-        } else {
-            text = value + " " + (value !== 1 ? this.patterns.minutes : this.patterns.minute);
-            result.push(text);
-        }
-        numUnits--;
-    }
-
-    value = date.getUTCSeconds();
-    if(result.length === 0 || (numUnits > 0 && (numUnits < this.numUnits || value > 0))) {
-        if(this.abbr) {
-            text = value + " " + (value !== 1 ? this.patterns.seconds_abbr : this.patterns.second_abbr);
-            result.push(text);
-        } else {
-            text = value + " " + (value !== 1 ? this.patterns.seconds : this.patterns.second);
-            result.push(text);
-        }
-        numUnits--;
-    }
-
-    pattern = (result.length === 1) ? this.patterns["RelativeTime/oneUnit"] : this.patterns["RelativeTime/twoUnits"];
-        
-    for(i=0; i<result.length; i++) {
-        pattern = pattern.replace("{" + i + "}", result[i]);
-    }
-    for(i=result.length; i<this.numUnits; i++) {
+    for(i=this.result.length; i<this.numUnits; i++) {
         pattern = pattern.replace("{" + i + "}", "");
     }
     //Remove unnecessary whitespaces
