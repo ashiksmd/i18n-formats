@@ -21,7 +21,9 @@
  */
 
 var MODULE_NAME = "gallery-advanced-date-format",
-Format, ShortNames, DateFormat, BuddhistDateFormat, YDateFormat, YRelativeTimeFormat, YDurationFormat;
+    Format, ShortNames, DateFormat, BuddhistDateFormat, YDateFormat, YRelativeTimeFormat, YDurationFormat,
+    DATE_PATTERN_START = "<datePattern>",
+    DATE_PATTERN_END = "</datePattern>";
 
 Format = Y.Intl.Common.BaseFormat;
 Y.Date.__advancedFormat = true;
@@ -85,9 +87,6 @@ Y.Date.__zDateFormat = function(pattern, formats, timeZoneId) {
     for (i = 0; i < pattern.length; i++) {
         c = pattern.charAt(i);
         if(DateFormat._META_CHARS.indexOf(c) !== -1) {     //c is a meta char
-            if(c === 'E') {
-                console.log("E");
-            }
             metaRegex = new RegExp("^" + c+"+");
             field = metaRegex.exec(pattern.slice(i))[0];
             
@@ -212,12 +211,12 @@ Y.mix(DateFormat.prototype, {
 
         for (i = 0; i < this._segments.length; i++) {
             //Mark datePattern sections in case of relative dates
-            if(this._segments[i]._s.indexOf("<datePattern>") === 0) {
+            if(this._segments[i]._s === DATE_PATTERN_START) {
                 if(useRelative) {
                     s.push(relative);
                 }
                 datePattern = true;
-            } else if(this._segments[i]._s.indexOf("</datePattern>") === 0) {
+            } else if(this._segments[i]._s === DATE_PATTERN_END) {
                 datePattern = false;
             } else if(!datePattern || !useRelative) {
                 s.push(this._segments[i].format(object));
@@ -1081,7 +1080,7 @@ Y.mix(YDateFormat.prototype, {
 
         //Combine patterns. Mark date pattern part, to use with relative dates.
         if(datePattern !== "") {
-            datePattern = "'<datePattern>'" + datePattern + "'</datePattern>'";
+            datePattern = "'" + DATE_PATTERN_START + "'" + datePattern + "'" + DATE_PATTERN_END + "'";
         }
         
         if(timePattern !== "" && timeZonePattern !== "") {
