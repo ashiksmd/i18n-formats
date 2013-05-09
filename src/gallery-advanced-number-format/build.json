@@ -6,6 +6,9 @@
                 "js/NumberFormat.js",
                 "js/format-numbers-advanced.js"
             ]
+        },
+        "gallery-number-format-ecma": {
+            "jsfiles": ["js/number-format-ecma.js"]
         }
     }
 }

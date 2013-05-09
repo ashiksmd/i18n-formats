@@ -16,6 +16,8 @@ Y.mix( Y.Number, {
       *         <dd>Format/Style to use. See Y.Number.STYLES</dd>
       *      <dt>[parseIntegerOnly] {Boolean}</dt>
       *         <dd>If set to true, only the whole number part of data will be used</dd>
+      *      <dt>[currency] {String}</dd>
+      *         <dd>Currency code. Used only if style is a currency type</dd>
       *      <dt>[prefix] {String}</dd>
       *         <dd>String prepended before each number, like a currency designator "$"</dd>
       *      <dt>[decimalPlaces] {Number}</dd>
@@ -36,11 +38,25 @@ Y.mix( Y.Number, {
                || config.thousandsSeparator !== undefined || config.suffix !== undefined) {
              return Y.Number._oldFormat(data, config);
          }
-    
+
+         if(Y.Lang.isString(config.style)) {
+             config.style = Y.Number.STYLES[config.style];
+         }
+	
+         //If ecmascript i18n api available, use that.
+         //Ecmascript i18n api does not support scientific style
+         if(Y.Number.formatEcma && config.style !== Y.Number.STYLES.SCIENTIFIC_STYLE) {
+             return Y.Number.formatEcma(data, config);
+         }
 
          var formatter = new YNumberFormat(config.style);
          if(config.parseIntegerOnly) {
              formatter.setParseIntegerOnly(true);
+         }
+         if(formatter.isCurrencyStyle()) {
+             if(config.currency !== undefined) {
+                 formatter.setCurrency(config.currency);
+             }
          }
          return formatter.format(data);
      },

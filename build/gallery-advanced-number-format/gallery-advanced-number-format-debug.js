@@ -37,7 +37,7 @@ Y.Number.__zNumberFormat = function(pattern, formats, skipNegFormat) {
     if (!pattern) { return; }
 
     if(pattern === "{plural_style}") {
-        pattern = this.Formats.decimalFormat;
+        pattern = this.Formats.currencyFormat.replace("\u00a4", "");
         this._isPluralCurrency = true;
         this._pattern = pattern;
     }
@@ -262,7 +262,7 @@ Y.mix( NumberFormat.prototype, {
                     break;
                 case '\u00a4':
                     if(s.charAt(i) === '\u00a4') {
-                        c = this.Formats[this.currency + "_currencyISO"];
+                        c = this.currency;
                         i++;
                     } else {
                         c = this.Formats[this.currency + "_currencySymbol"];
@@ -365,7 +365,7 @@ Y.mix(NumberFormat.NumberSegment.prototype, {
             decimal = this._parent.Formats.decimalSeparator,
             expon, i;
 
-	if (whole.length < this._parent._minIntDigits) {
+        if (whole.length < this._parent._minIntDigits) {
             whole = Y.Intl.Common.zeroPad(whole, this._parent._minIntDigits, this._parent.Formats.numberZero);
         }
         if (whole.length > this._parent._primaryGrouping && this._parent._useGrouping) {
@@ -388,15 +388,18 @@ Y.mix(NumberFormat.NumberSegment.prototype, {
             expon = match.shift();
         }
 
-        fract = fract.replace(/0+$/,"");
-        if (fract.length < this._parent._minFracDigits) {
-            fract = Y.Intl.Common.zeroPad(fract, this._parent._minFracDigits, this._parent.Formats.numberZero, true);
-        }
-	
         a = [ whole ];
-        if (fract.length > 0) {
-            a.push(decimal, fract);
+
+        if(!this._parent._parseIntegerOnly) {
+           fract = fract.replace(/0+$/,"");
+           if (fract.length < this._parent._minFracDigits) {
+               fract = Y.Intl.Common.zeroPad(fract, this._parent._minFracDigits, this._parent.Formats.numberZero, true);
+           }
+           if (fract.length > 0) {
+               a.push(decimal, fract);
+           }
         }
+        
         if (expon) {
             a.push(exponSymbol, expon.replace(/^\+/,""));
         }
@@ -515,10 +518,8 @@ Y.mix(NumberFormat.NumberSegment.prototype, {
 Y.Number.__YNumberFormat = function(style) {
     style = style || Y.Number.STYLES.NUMBER_STYLE;
     
-    if(Y.Lang.isString(style)) {
-        style = Y.Number.STYLES[style];
-    }
-    
+    this.style = style;
+
     var pattern = "",
         formats = Y.Intl.get(MODULE_NAME);
     switch(style) {
@@ -574,7 +575,7 @@ Y.mix(YNumberFormat.prototype, {
      * @method format
      * @param number {Number} the number to format
      * @for Number.YNumberFormat
-     * @return {Number}
+     * @return {String}
      */
     format: function(number) {
         return this._numberFormatInstance.format(number);
@@ -608,6 +609,33 @@ Y.mix(YNumberFormat.prototype, {
      */
     setParseIntegerOnly: function(newValue) {
         this._numberFormatInstance._parseIntegerOnly = newValue;
+    },
+
+    /**
+     * Return currency code associated with object. Valid only if one of currency styles
+     * @method getCurrency
+     * @return {String}
+     */
+    getCurrency: function() {
+        return this._numberFormatInstance.currency;
+    },
+
+    /**
+     * Set currency code associated with object. Valid only if one of currency styles
+     * @method setCurrency
+     * @param currency {String}
+     */
+    setCurrency: function(currency) {
+        this._numberFormatInstance.currency = currency;
+    },
+
+    /**
+     * Returns true if object is of one of the currency styles
+     * @return {Boolean}
+     */
+    isCurrencyStyle: function() {
+        var styles = Y.Number.STYLES;
+        return (this.style === styles.CURRENCY_STYLE || this.style === styles.ISO_CURRENCY_STYLE || this.style === styles.PLURAL_CURRENCY_STYLE);
     }
 });
 Y.mix( Y.Number, {
@@ -628,6 +656,8 @@ Y.mix( Y.Number, {
       *         <dd>Format/Style to use. See Y.Number.STYLES</dd>
       *      <dt>[parseIntegerOnly] {Boolean}</dt>
       *         <dd>If set to true, only the whole number part of data will be used</dd>
+      *      <dt>[currency] {String}</dd>
+      *         <dd>Currency code. Used only if style is a currency type</dd>
       *      <dt>[prefix] {String}</dd>
       *         <dd>String prepended before each number, like a currency designator "$"</dd>
       *      <dt>[decimalPlaces] {Number}</dd>
@@ -648,11 +678,25 @@ Y.mix( Y.Number, {
                || config.thousandsSeparator !== undefined || config.suffix !== undefined) {
              return Y.Number._oldFormat(data, config);
          }
-    
+
+         if(Y.Lang.isString(config.style)) {
+             config.style = Y.Number.STYLES[config.style];
+         }
+	
+         //If ecmascript i18n api available, use that.
+         //Ecmascript i18n api does not support scientific style
+         if(Y.Number.formatEcma && config.style !== Y.Number.STYLES.SCIENTIFIC_STYLE) {
+             return Y.Number.formatEcma(data, config);
+         }
 
          var formatter = new YNumberFormat(config.style);
          if(config.parseIntegerOnly) {
              formatter.setParseIntegerOnly(true);
+         }
+         if(formatter.isCurrencyStyle()) {
+             if(config.currency !== undefined) {
+                 formatter.setCurrency(config.currency);
+             }
          }
          return formatter.format(data);
      },

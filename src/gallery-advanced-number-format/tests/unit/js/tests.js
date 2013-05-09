@@ -51,7 +51,7 @@ YUI.add('module-tests', function(Y) {
 
             var value = 10000000;
             var result1 = Y.Number.format(value, config);
-            var expect1 = "US Dollar10,000,000.00";
+            var expect1 = "USD10,000,000.00";
                         
             Y.Assert.areEqual(expect1, result1, "Unexpected result on format");
                         
@@ -96,7 +96,7 @@ YUI.add('module-tests', function(Y) {
                        
             var value = 10000000;
             var result1 = Y.Number.format(value, config);
-            var expect1 = "10,000,000 US dollars";
+            var expect1 = "10,000,000.00 US dollars";
                         
             Y.Assert.areEqual(expect1, result1, "Unexpected result on format");
                         

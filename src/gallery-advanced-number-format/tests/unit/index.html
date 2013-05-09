@@ -12,8 +12,16 @@
 <script>
 YUI.GlobalConfig = {
     modules: {
-         'gallery-advanced-number-format': '../../../../build/gallery-advanced-number-format/gallery-advanced-number-format-coverage.js',
-         'gallery-i18n-common': '../../../../build/gallery-i18n-common/gallery-i18n-common.js'
+         'gallery-advanced-number-format': '../../../../build/gallery-advanced-number-format/gallery-advanced-number-format.js',
+         'gallery-i18n-common': '../../../../build/gallery-i18n-common/gallery-i18n-common.js',
+         'gallery-number-format-ecma': {
+	           "fullpath": '../../../../build/gallery-number-format-ecma/gallery-number-format-ecma-debug.js',
+	           	"condition": {
+			       "trigger": "gallery-advanced-number-format",
+			       "test": function() {return (window.Intl !== undefined);},
+			       "when": "after"
+			    }
+	     }
     }
 };
 
