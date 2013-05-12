@@ -4,5 +4,12 @@
         "requires": [
             "gallery-advanced-date-timezone"
         ]
+    },
+    "gallery-date-format-ecma": {
+        "condition": {
+	          "trigger": "gallery-advanced-date-format",
+	          "test": "ecma.js"
+	    },
+	    "requires": [ "gallery-advanced-date-format" ]
     }
 }

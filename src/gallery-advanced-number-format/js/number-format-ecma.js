@@ -20,7 +20,7 @@ Y.mix(Y.Number, {
 
    /**
     * Format a number
-    * @method format
+    * @method formatEcma
     * @param data {Number} the number to format
     * @param config {Object} Configuration parameters
     * @for Number

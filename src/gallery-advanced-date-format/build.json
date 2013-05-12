@@ -8,6 +8,11 @@
                 "js/format-duration.js",
                 "js/format-date-advanced.js"
             ]
+        },
+        "gallery-date-format-ecma": {
+            "jsfiles": [
+                "js/gallery-date-format-ecma.js"
+            ]
         }
     }
 }

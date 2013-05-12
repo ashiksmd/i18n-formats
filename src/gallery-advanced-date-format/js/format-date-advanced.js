@@ -9,6 +9,7 @@ Y.mix(Y.Date, {
      *     [dateFormat=0] {String|Number} Date format to use. Should be a key/value from Y.Date.DATE_FORMATS.
      *     [timeFormat=0] {String|Number} Time format to use. Should be a key/value from Y.Date.TIME_FORMATS.
      *     [timezoneFormat=0] {String|Number} Timezone format to use. Should be a key/value from Y.Date.TIMEZONE_FORMATS.
+     *     [relativeDate=false] {Boolean} Set true if relative dates should be used
      *     [relativeTimeFormat=0] {String|Number} RelativeTime format to use. Should be a key/value from Y.Date.RELATIVE_TIME_FORMATS.
      *     [format] {HTML} Format string as pattern. This is passed to the Y.Date.format method from datatype-date-format module.
                            If this parameter is used, the other three will be ignored.
@@ -38,7 +39,12 @@ Y.mix(Y.Date, {
                 
         var formatter, relativeTo;
         if(oConfig.dateFormat || oConfig.timeFormat || oConfig.timezoneFormat) {
-            formatter = new YDateFormat(oConfig.timezone, oConfig.dateFormat, oConfig.timeFormat, oConfig.timezoneFormat);
+            //Use ecmascript i18n api if available
+            if(window.Intl !== undefined && !oConfig.relativeDate) {
+               return Y.Date.formatEcma(oDate, oConfig);
+            }
+            //Else use our api
+            formatter = new YDateFormat(oConfig.timezone, oConfig.dateFormat, oConfig.timeFormat, oConfig.timezoneFormat, oConfig.relativeDate);
             return formatter.format(oDate);
         }
     

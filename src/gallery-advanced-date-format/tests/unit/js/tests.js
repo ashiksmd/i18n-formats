@@ -45,7 +45,7 @@ YUI.add('module-tests', function(Y) {
                 timezoneFormat: Y.Date.TIMEZONE_FORMATS.Z_SHORT
             });
                         
-            Y.Assert.areEqual("Monday, June 25, 2012 3:30 PM GMT+0530", result);
+            Y.Assert.areEqual("Monday, June 25, 2012 3:30 PM GMT+05:30", result);
         },
                     
         testBuddhistCalendar: function () {
@@ -60,7 +60,7 @@ YUI.add('module-tests', function(Y) {
                 timezoneFormat: Y.Date.TIMEZONE_FORMATS.Z_SHORT
             });
                             
-            Y.Assert.areEqual("\u0E27\u0E31\u0E19\u0E08\u0E31\u0E19\u0E17\u0E23\u0E4C\u0E17\u0E35\u0E48 25 \u0E21\u0E34\u0E16\u0E38\u0E19\u0E32\u0E22\u0E19 BE 2555, 6:00 \u0E0A\u0E48\u0E27\u0E07\u0E27\u0E31\u0E19 GMT+0800", result);
+            Y.Assert.areEqual("\u0E27\u0E31\u0E19\u0E08\u0E31\u0E19\u0E17\u0E23\u0E4C\u0E17\u0E35\u0E48 25 \u0E21\u0E34\u0E16\u0E38\u0E19\u0E32\u0E22\u0E19 BE 2555, 6:00 \u0E0A\u0E48\u0E27\u0E07\u0E27\u0E31\u0E19 GMT+08:00", result);
         }
     });
                 
@@ -110,7 +110,8 @@ YUI.add('module-tests', function(Y) {
                     
         testToday : function () {
             var result = Y.Date.format(this.date, {
-                dateFormat:  Y.Date.DATE_FORMATS.YMD_FULL | Y.Date.DATE_FORMATS.RELATIVE_DATE
+                dateFormat:  Y.Date.DATE_FORMATS.YMD_FULL,
+                relativeDate: true
             });
             Y.Assert.areEqual("Today", result);
         },
@@ -118,7 +119,8 @@ YUI.add('module-tests', function(Y) {
         testYesterday : function () {
             var date = new Date(this.date.getTime() - 24*60*60*1000);
             var result = Y.Date.format(date, {
-                dateFormat:  Y.Date.DATE_FORMATS.YMD_FULL | Y.Date.DATE_FORMATS.RELATIVE_DATE
+                dateFormat:  Y.Date.DATE_FORMATS.YMD_FULL,
+                relativeDate: true
             });
                         
             Y.Assert.areEqual("Yesterday", result);
@@ -127,7 +129,8 @@ YUI.add('module-tests', function(Y) {
         testTomorrow : function () {
             var date = new Date(this.date.getTime() + 24*60*60*1000);
             var result = Y.Date.format(date, {
-                dateFormat:  Y.Date.DATE_FORMATS.YMD_FULL | Y.Date.DATE_FORMATS.RELATIVE_DATE
+                dateFormat:  Y.Date.DATE_FORMATS.YMD_FULL,
+                relativeDate: true
             });
                         
             Y.Assert.areEqual("Tomorrow", result);
@@ -136,7 +139,8 @@ YUI.add('module-tests', function(Y) {
         testDayAfterTomorrow: function() {
             var date = new Date(this.date.getTime() + 2*24*60*60*1000);
             var result = Y.Date.format(date, {
-                dateFormat:  Y.Date.DATE_FORMATS.YMD_FULL | Y.Date.DATE_FORMATS.RELATIVE_DATE
+                dateFormat:  Y.Date.DATE_FORMATS.YMD_FULL,
+                relativeDate: true
             });
             var expected = Y.Date.format(date, {
                 dateFormat:  Y.Date.DATE_FORMATS.YMD_FULL

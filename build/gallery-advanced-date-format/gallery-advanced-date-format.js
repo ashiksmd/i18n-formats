@@ -839,8 +839,9 @@ BuddhistDateFormat.EraSegment.prototype.format = function(/*date*/) {
  * @param {Number} [dateFormat=0] Selector for the desired date format from Y.Date.DATE_FORMATS.
  * @param {Number} [timeFormat=0] Selector for the desired time format from Y.Date.TIME_FORMATS.
  * @param {Number} [timeZoneFormat=0] Selector for the desired time zone format from Y.Date.TIMEZONE_FORMATS.
+ * @param {Boolean} [relative=false] Set to true if relative date formats should be used.
  */
-Y.Date.__YDateFormat = function(timeZone, dateFormat, timeFormat, timeZoneFormat) {
+Y.Date.__YDateFormat = function(timeZone, dateFormat, timeFormat, timeZoneFormat, relative) {
         
     if(timeZone === undefined || timeZone === null) {
         timeZone = Y.Date.Timezone.getTimezoneIdForOffset( new Date().getTimezoneOffset() * -60 );
@@ -860,7 +861,7 @@ Y.Date.__YDateFormat = function(timeZone, dateFormat, timeFormat, timeZoneFormat
     this._timeFormat = timeFormat || 0;
     this._timeZoneFormat = timeZoneFormat || 0;
 
-    this._relative = false;
+    this._relative = relative || false;
     this._pattern = this._generatePattern();
 
     var locale = Y.Intl.getLang(MODULE_NAME);
@@ -888,24 +889,24 @@ Y.mix(Y.Date, {
     DATE_FORMATS: {
         NONE: 0,
         WYMD_LONG: 1,
-        WYMD_ABBREVIATED: 4,
-        WYMD_SHORT: 8,
-        WMD_LONG: 16,
-        WMD_ABBREVIATED: 32,
-        WMD_SHORT: 64,
-        YMD_LONG: 128,
-        YMD_ABBREVIATED: 256,
-        YMD_SHORT: 512,
-        YM_LONG: 1024,
-        MD_LONG: 2048,
-        MD_ABBREVIATED: 4096,
-        MD_SHORT: 8192,
-        W_LONG: 16384,
-        W_ABBREVIATED: 32768,
-        M_LONG: 65536,
-        M_ABBREVIATED: 131072,
-        YMD_FULL: 262144,
-        RELATIVE_DATE: 524288
+        WYMD_ABBREVIATED: 2,
+        WYMD_SHORT: 3,
+        WMD_LONG: 4,
+        WMD_ABBREVIATED: 5,
+        WMD_SHORT: 6,
+        YMD_LONG: 7,
+        YMD_ABBREVIATED: 8,
+        YMD_SHORT: 9,
+        YM_LONG: 10,
+        MD_LONG: 11,
+        MD_ABBREVIATED: 12,
+        MD_SHORT: 13,
+        W_LONG: 14,
+        W_ABBREVIATED: 15,
+        M_LONG: 16,
+        M_ABBREVIATED: 17,
+        YMD_FULL: 18,
+        RELATIVE_DATE: 19
     },
 
     /**
@@ -920,7 +921,7 @@ Y.mix(Y.Date, {
         NONE: 0,
         HM_ABBREVIATED: 1,
         HM_SHORT: 2,
-        H_ABBREVIATED: 4
+        H_ABBREVIATED: 3
     },
 
     /**
@@ -955,12 +956,7 @@ Y.mix(YDateFormat.prototype, {
         if(format === null) {
             return "";
         }
-        /*jshint bitwise: false*/
-        if(format & Y.Date.DATE_FORMATS.RELATIVE_DATE) {
-            this._relative = true;
-            format = format ^ Y.Date.DATE_FORMATS.RELATIVE_DATE;
-        }
-        /*jshint bitwise: true*/
+
         switch(format) {
             //Use relative only for formats with day component
             case Y.Date.DATE_FORMATS.NONE:
@@ -1493,6 +1489,7 @@ Y.mix(Y.Date, {
      *     [dateFormat=0] {String|Number} Date format to use. Should be a key/value from Y.Date.DATE_FORMATS.
      *     [timeFormat=0] {String|Number} Time format to use. Should be a key/value from Y.Date.TIME_FORMATS.
      *     [timezoneFormat=0] {String|Number} Timezone format to use. Should be a key/value from Y.Date.TIMEZONE_FORMATS.
+     *     [relativeDate=false] {Boolean} Set true if relative dates should be used
      *     [relativeTimeFormat=0] {String|Number} RelativeTime format to use. Should be a key/value from Y.Date.RELATIVE_TIME_FORMATS.
      *     [format] {HTML} Format string as pattern. This is passed to the Y.Date.format method from datatype-date-format module.
                            If this parameter is used, the other three will be ignored.
@@ -1521,7 +1518,12 @@ Y.mix(Y.Date, {
                 
         var formatter, relativeTo;
         if(oConfig.dateFormat || oConfig.timeFormat || oConfig.timezoneFormat) {
-            formatter = new YDateFormat(oConfig.timezone, oConfig.dateFormat, oConfig.timeFormat, oConfig.timezoneFormat);
+            //Use ecmascript i18n api if available
+            if(window.Intl !== undefined && !oConfig.relativeDate) {
+               return Y.Date.formatEcma(oDate, oConfig);
+            }
+            //Else use our api
+            formatter = new YDateFormat(oConfig.timezone, oConfig.dateFormat, oConfig.timeFormat, oConfig.timezoneFormat, oConfig.relativeDate);
             return formatter.format(oDate);
         }
     

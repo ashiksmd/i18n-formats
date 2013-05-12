@@ -137,7 +137,7 @@ Y.mix(AjxTimezone, {
      * @static
      * @private
      * @param offset {Number} Offset in minutes from GMT
-     * @param [period=false] {Boolean} If true, a dot is inserted between hours and minutes
+     * @param [period=false] {Boolean} If true, a colon is inserted between hours and minutes
      * @return {String} Short name for timezone
      */
     _generateShortName: function(offset, period) {
@@ -149,7 +149,7 @@ Y.mix(AjxTimezone, {
 
         hours = hours < 10 ? '0' + hours : hours;
         minutes = minutes < 10 ? '0' + minutes : minutes;
-        return [sign,hours,period?".":"",minutes].join("");
+        return [sign,hours,period?":":"",minutes].join("");
     },
 
     /**
@@ -284,7 +284,7 @@ Y.mix(AjxTimezone.prototype, {
      */
     getShortName: function(tzId) {
         if(!AjxTimezone._SHORT_NAMES[tzId]) {
-            AjxTimezone._SHORT_NAMES[tzId] = AjxTimezone._generateShortName(AjxTimezone.getOffset(tzId, new Date()));
+            AjxTimezone._SHORT_NAMES[tzId] = AjxTimezone._generateShortName(AjxTimezone.getOffset(tzId, new Date()), true);
         }
         var shortName = ["GMT",AjxTimezone._SHORT_NAMES[tzId]].join("");
         return shortName;

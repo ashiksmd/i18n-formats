@@ -13,9 +13,16 @@
 YUI.GlobalConfig = {
     modules: {
           'gallery-advanced-number-format': '../../../../build/gallery-advanced-number-format/gallery-advanced-number-format.js',
-          'gallery-advanced-date-format': '../../../../build/gallery-advanced-date-format/gallery-advanced-date-format-coverage.js',
+          'gallery-advanced-date-format': '../../../../build/gallery-advanced-date-format/gallery-advanced-date-format.js',
           'gallery-advanced-date-timezone': '../../../../build/gallery-advanced-date-timezone/gallery-advanced-date-timezone.js',
-          'gallery-i18n-common': '../../../../build/gallery-i18n-common/gallery-i18n-common.js'
+          'gallery-i18n-common': '../../../../build/gallery-i18n-common/gallery-i18n-common.js',
+          'gallery-date-format-ecma': {
+	           'fullpath': '../../../../build/gallery-date-format-ecma/gallery-date-format-ecma.js',
+               'condition': {
+                    "trigger": "gallery-advanced-date-format",
+                    "test": function() { return window.Intl !== undefined; }
+               }
+          }
     }
 };
 
