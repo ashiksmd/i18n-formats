@@ -14,7 +14,7 @@ YUI.add('module-tests', function(Y) {
 
         testDateFormat: function() {
             var values = {
-                "DATE": new Date(2012, 8, 25, 16, 30)
+                "DATE": new Date(Date.UTC(2012, 8, 25, 16, 30))
             },
             config = {
                 timezone: "Asia/Calcutta"
