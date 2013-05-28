@@ -2,17 +2,7 @@ YUI.add('module-tests', function(Y) {
 
     var listFormatTests = new Y.Test.Case({
         name: "List Format Tests",
-        setUp: function() {
-            Y.Intl.add(
-                "gallery-list-format",
-                "en",
-                {
-                    listPatternTwo: "{0} and {1}",
-                    listPatternEnd: "{0}, and {1}"
-                }
-                );
-        },
-
+        
         testListFormat: function() {
             var input = [];
 
@@ -29,10 +19,10 @@ YUI.add('module-tests', function(Y) {
 
             input.push("Canada");
             result = Y.Array.format(input);
-            Y.Assert.areEqual("US, UK, and Canada", result);
+            Y.Assert.areEqual("US, UK and Canada", result);
         }
     });
 
     Y.Test.Runner.add(listFormatTests);
 
-},'', { requires: [ 'test', 'gallery-list-format' ] });
+},'', { requires: [ 'test', 'gallery-list-format', 'lang/gallery-list-format_en-GB' ] });

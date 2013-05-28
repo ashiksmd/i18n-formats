@@ -14,22 +14,22 @@ Y.mix(Y.Date, {
     DATE_FORMATS_ECMA: {
         0: /*NONE*/ {},
         1: /*WYMD_LONG*/ {weekday: "long", year: "numeric", month: "long", day: "numeric"},
-        2: /*WYMD_ABBREVIATED*/ {weekday: "narrow", year: "numeric", month: "narrow", day: "numeric"},
+        2: /*WYMD_ABBREVIATED*/ {weekday: "short", year: "numeric", month: "short", day: "numeric"},
         3: /*WYMD_SHORT*/ {weekday: "short", year: "2-digit", month: "numeric", day: "numeric"},
         4: /*WMD_LONG*/ {weekday: "long", month: "long", day: "numeric"},
-        5: /*WMD_ABBREVIATED*/ {weekday: "narrow", month: "narrow", day: "numeric"},
+        5: /*WMD_ABBREVIATED*/ {weekday: "short", month: "short", day: "numeric"},
         6: /*WMD_SHORT*/ {weekday: "short", month: "numeric", day: "numeric"},
         7: /*YMD_LONG*/ {year: "numeric", month: "long", day: "numeric"},
-        8: /*YMD_ABBREVIATED*/ {year: "numeric", month: "narrow", day: "numeric"},
+        8: /*YMD_ABBREVIATED*/ {year: "numeric", month: "short", day: "numeric"},
         9: /*YMD_SHORT*/ {year: "2-digit", month: "numeric", day: "numeric"},
         10: /*YM_LONG*/ {year: "numeric", month: "long"},
         11: /*MD_LONG*/ {month: "long", day: "numeric"},
-        12: /*MD_ABBREVIATED*/ {month: "narrow", day: "numeric"},
+        12: /*MD_ABBREVIATED*/ {month: "short", day: "numeric"},
         13: /*MD_SHORT*/ {month: "numeric", day: "numeric"},
         14: /*W_LONG*/ {weekday: "long"},
-        15: /*W_ABBREVIATED*/ {weekday: "narrow"},
+        15: /*W_ABBREVIATED*/ {weekday: "short"},
         16: /*M_LONG*/ {month: "long"},
-        17: /*M_ABBREVIATED*/ {month: "narrow"},
+        17: /*M_ABBREVIATED*/ {month: "short"},
         18: /*YMD_FULL for en-US,es-US. For other, fall back to YMD_SHORT*/ {year: "numeric", month: "2-digit", day: "2-digit"}
         // 19: RELATIVE_DATE  //Not supported
     },
@@ -87,7 +87,8 @@ Y.mix(Y.Date, {
         }
 
         //Mix all the formats
-        format = Y.Date.DATE_FORMATS_ECMA[dateFormat];
+        format = {};
+        Y.mix(format, Y.Date.DATE_FORMATS_ECMA[dateFormat]);
         Y.mix(format, Y.Date.TIME_FORMATS_ECMA[timeFormat]);
         Y.mix(format, Y.Date.TIMEZONE_FORMATS_ECMA[timezoneFormat]);
 

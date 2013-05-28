@@ -374,7 +374,8 @@ Y.mix(DateFormat.MonthSegment.prototype, {
             case 2:
                 return Y.Intl.Common.zeroPad(month + 1, 2);
             case 3:
-                return DateFormat.MonthSegment.MONTHS[DateFormat.MEDIUM][month];
+                return DateFormat.MonthSegment.MONTHS[DateFormat.MEDIUM][month]
+                       || DateFormat.MonthSegment.MONTHS[DateFormat.LONG][month];
             case 5:
                 return DateFormat.MonthSegment.MONTHS[DateFormat.SHORT][month];
         }

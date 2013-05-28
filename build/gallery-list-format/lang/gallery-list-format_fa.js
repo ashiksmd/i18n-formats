@@ -1,1 +1,1 @@
-YUI.add("lang/gallery-list-format_fa",function(e){e.Intl.add("gallery-list-format","fa",{listPatternEnd:"{0}, {1}",listPatternMiddle:"{0}, {1}",listPatternStart:"{0}, {1}",listPatternTwo:"{0}, {1}"})},"@VERSION@");
+YUI.add("lang/gallery-list-format_fa",function(e){e.Intl.add("gallery-list-format","fa",{listPatternEnd:"{0}\u060c \u0648 {1}",listPatternMiddle:"{0}\u060c\u200f {1}",listPatternStart:"{0}\u060c\u200f {1}",listPatternTwo:"{0} \u0648 {1}"})},"@VERSION@");

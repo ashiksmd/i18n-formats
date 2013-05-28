@@ -3,91 +3,7 @@ YUI.add('module-tests', function(Y) {
     var messageFormatTests = new Y.Test.Case({
     
         name : "Message Format Tests",
-            
-        setUp: function() {
-
-            Y.Intl.add(
-                "gallery-message-format",
-                "ru",
-            {
-                "pluralRule": "set11"
-            });
-            Y.Intl.add(
-                "gallery-advanced-number-format",
-                "ru",
-                {
-                    "decimalFormat" : "#,##0.###",
-                    "decimalSeparator" : ".",
-                    "groupingSeparator" : ",",
-                    "numberZero" : "0"
-                }
-                );
-
-
-            Y.Intl.add(
-                "gallery-advanced-number-format",
-                "en",
-                {
-                    "decimalFormat" : "#,##0.###",
-                    "decimalSeparator" : ".",
-                    "groupingSeparator" : ",",
-                    "numberZero" : "0",
-                    "percentFormat" : "#,##0%",
-                    "percentSign" : "%",
-                    "USD_currencyISO" : "US Dollar",
-                    "USD_currencyPlural" : "US dollars",
-                    "USD_currencySingular" : "US dollar",
-                    "USD_currencySymbol" : "$",
-                    "currencyFormat" : "¤#,##0.00;(¤#,##0.00)",
-                    "defaultCurrency" : "USD",
-                    "exponentialSymbol" : "E",
-                    "minusSign" : "-",
-                    "scientificFormat" : "#E0",
-                    "currencyPatternPlural" : "{0} {1}",
-                    "currencyPatternSingular" : "{0} {1}"
-                }
-            );
-
-            Y.Intl.add(
-                "gallery-list-format",
-                "en",
-                {
-                    "listPatternTwo": "{0} and {1}",
-                    "listPatternEnd": "{0}, and {1}"
-                }
-            );
-            Y.Intl.add(
-                "gallery-message-format",
-                "en",
-                {
-                    "pluralRule": "set3"
-                }
-            );
-
-            Y.Intl.add(
-                "gallery-advanced-date-format",
-                "en",
-                {
-                    "YMD_short" : "M/d/yy",
-                    "YMD_abbreviated" : "MMM d, y",
-                    "YMD_long" : "MMMM d, y",
-                    "WYMD_long" : "EEEE, MMMM d, y",
-                    "monthSepMedium" : "Sep",
-                    "monthSepLong" : "September",
-                    "weekdayTueLong" : "Tuesday",
-                    "HM_abbreviated" : "h:mm a",
-                    "HM_short" : "h:mm a",
-                    "H_abbreviated" : "h a",
-                    "DateTimeCombination" : "{1} {0}",
-                    "DateTimeTimezoneCombination" : "{1} {0} {2}",
-                    "DateTimezoneCombination" : "{1} {2}",
-                    "TimeTimezoneCombination" : "{0} {2}",
-                    "periodAm" : "AM",
-                    "periodPm" : "PM"
-                }
-                );
-        },
-
+        
         testStringFormat: function () {
             var result = Y.Intl.formatMessage("{EMPLOYEE} reports to {MANAGER}", {
                 "EMPLOYEE": "Ashik", 
@@ -99,18 +15,21 @@ YUI.add('module-tests', function(Y) {
         testDateFormat: function() {
             var values = {
                 "DATE": new Date(2012, 8, 25, 16, 30)
+            },
+            config = {
+                timezone: "Asia/Calcutta"
             };
 
-            var result = Y.Intl.formatMessage("Today is {DATE, date, short}", values);
+            var result = Y.Intl.formatMessage("Today is {DATE, date, short}", values, config);
             Y.Assert.areEqual("Today is 9/25/12", result, "short DateFormat failed");
 
-            result = Y.Intl.formatMessage("Today is {DATE, date, medium}", values);
+            result = Y.Intl.formatMessage("Today is {DATE, date, medium}", values, config);
             Y.Assert.areEqual("Today is Sep 25, 2012", result, "medium DateFormat failed");
 
-            result = Y.Intl.formatMessage("Today is {DATE, date, long}", values);
+            result = Y.Intl.formatMessage("Today is {DATE, date, long}", values, config);
             Y.Assert.areEqual("Today is September 25, 2012", result, "long DateFormat failed");
 
-            result = Y.Intl.formatMessage("Today is {DATE, date, full}", values);
+            result = Y.Intl.formatMessage("Today is {DATE, date, full}", values, config);
             Y.Assert.areEqual("Today is Tuesday, September 25, 2012", result, "full DateFormat failed");
         },
 
@@ -119,7 +38,7 @@ YUI.add('module-tests', function(Y) {
                 "DATE": Date.UTC(2012, 8, 25, 11)
             };
             var config = {
-                timezone: "Asia/Kolkata"
+                timezone: "Asia/Calcutta"
             }
             
             var result = Y.Intl.formatMessage("The time is {DATE, time, short}", values, config);
@@ -129,10 +48,16 @@ YUI.add('module-tests', function(Y) {
             Y.Assert.areEqual("The time is 4:30 PM", result, "medium DateFormat failed");
 
             result = Y.Intl.formatMessage("The time is {DATE, time, long}", values, config);
-            Y.Assert.areEqual("The time is 4:30 PM GMT+0530", result, "long DateFormat failed");
-
+            Y.Assert.areEqual("The time is 4:30 PM GMT+05:30", result, "long DateFormat failed");
+            
             result = Y.Intl.formatMessage("The time is {DATE, time, full}", values, config);
-            Y.Assert.areEqual("The time is 4:30 PM (GMT+0530) Asia/Kolkata", result, "full DateFormat failed");
+
+            //If ecmascript i18n api is supported, we get more detailed timezone info
+            if(Y.Date.formatEcma) {
+	           Y.Assert.areEqual("The time is 4:30 PM India Time", result, "full DateFormat failed");
+	        } else {
+		       Y.Assert.areEqual("The time is 4:30 PM (GMT+05:30) Asia/Kolkata", result, "full DateFormat failed");
+	        }
         },
 
         testNumberFormat: function() {
@@ -154,7 +79,7 @@ YUI.add('module-tests', function(Y) {
             Y.Assert.areEqual("Current estimates of global smartphone penetration is around 15%.", result, "MessageFormat: {KEY, number, percent} failed");
 
             result = Y.Intl.formatMessage("The land was sold for {PRICE, number, currency}.", values);
-            Y.Assert.areEqual("The land was sold for $5,000,000.00.", result, "MessageFormat: {KEY, number, currency} failed");
+            Y.Assert.areEqual("The land was sold for $5,000,000.", result, "MessageFormat: {KEY, number, currency} failed");
         },
 
         testSelectFormat: function() {
@@ -245,7 +170,7 @@ YUI.add('module-tests', function(Y) {
 
             input.COUNTRIES.push("Canada");
             result = Y.Intl.formatMessage("{COUNTRIES, list}", input);
-            Y.Assert.areEqual("US, UK, and Canada", result);
+            Y.Assert.areEqual("US, UK and Canada", result);
         },
 
         testNoMatch: function() {
@@ -257,4 +182,8 @@ YUI.add('module-tests', function(Y) {
 
     Y.Test.Runner.add(messageFormatTests);
 
-},'', { requires: [ 'test', 'gallery-message-format', 'gallery-list-format', 'gallery-advanced-date-format', 'gallery-advanced-number-format' ] });
+},'', { requires: [ 'test', 'gallery-message-format', 'gallery-list-format', 'gallery-advanced-date-format', 'gallery-advanced-number-format',
+'lang/gallery-advanced-number-format_ru', 'lang/gallery-advanced-number-format_en-US',
+'lang/gallery-message-format_ru', 'lang/gallery-message-format_en',
+'lang/gallery-list-format_en-GB',
+'lang/gallery-advanced-date-format_en-US' ] });

@@ -1,1 +1,1 @@
-YUI.add("lang/gallery-list-format_km",function(e){e.Intl.add("gallery-list-format","km",{listPatternEnd:"{0}, {1}",listPatternMiddle:"{0}, {1}",listPatternStart:"{0}, {1}",listPatternTwo:"{0}, {1}"})},"@VERSION@");
+YUI.add("lang/gallery-list-format_km",function(e){e.Intl.add("gallery-list-format","km",{listPatternEnd:"{0}, {1}",listPatternMiddle:"{0}, {1}",listPatternStart:"{0}, {1}",listPatternTwo:"{0} \u1793\u17b7\u1784 {1}"})},"@VERSION@");

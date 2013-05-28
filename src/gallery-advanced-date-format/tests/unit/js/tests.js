@@ -3,43 +3,13 @@ YUI.add('module-tests', function(Y) {
        var absoluteDateFormat = new Y.Test.Case({
     
         name : "Absolute DateFormat Tests",
-                    
-        setUp: function() {
-
-            Y.Intl.add(
-                "gallery-advanced-date-format",
-                "en",
-                {                    
-                    "DateTimeTimezoneCombination" : "{1} {0} {2}",
-                    "HM_short" : "h:mm a",
-                    "WYMD_long" : "EEEE, MMMM d, y",
-                    "monthJunLong" : "June",
-                    "periodPm" : "PM",
-                    "weekdayMonLong" : "Monday"
-                }
-                );
-            
-            Y.Intl.add(
-                "gallery-advanced-date-format",
-                "th",
-                {
-                    "DateTimeTimezoneCombination" : "{1}, {0} {2}",
-                    "HM_short" : "h:mm a",
-                    "WYMD_long" : "EEEE\u0e17\u0e35\u0e48 d MMMM G y",
-                    "monthJunLong" : "\u0E21\u0E34\u0E16\u0E38\u0E19\u0E32\u0E22\u0E19",
-                    "periodAm" : "\u0E0A\u0E48\u0E27\u0E07\u0E27\u0E31\u0E19",
-                    "periodPm" : "\u0E0A\u0E48\u0E27\u0E07\u0E27\u0E31\u0E19",
-                    "weekdayMonLong" : "\u0E27\u0E31\u0E19\u0E08\u0E31\u0E19\u0E17\u0E23\u0E4C"
-                }
-                );
-        },
 
         testAbsoluteDateFormat : function () {
-            Y.Intl.setLang("gallery-advanced-date-format", "en");
+            Y.Intl.setLang("gallery-advanced-date-format", "en-US");
                         
             var date = new Date(Date.UTC(2012, 5, 25, 10));
             var result = Y.Date.format(date, {
-                timezone: "Asia/Kolkata",
+                timezone: "Asia/Calcutta",
                 dateFormat: Y.Date.DATE_FORMATS.WYMD_LONG,
                 timeFormat: Y.Date.TIME_FORMATS.HM_SHORT,
                 timezoneFormat: Y.Date.TIMEZONE_FORMATS.Z_SHORT
@@ -59,8 +29,12 @@ YUI.add('module-tests', function(Y) {
                 timeFormat: Y.Date.TIME_FORMATS.HM_SHORT,
                 timezoneFormat: Y.Date.TIMEZONE_FORMATS.Z_SHORT
             });
-                            
-            Y.Assert.areEqual("\u0E27\u0E31\u0E19\u0E08\u0E31\u0E19\u0E17\u0E23\u0E4C\u0E17\u0E35\u0E48 25 \u0E21\u0E34\u0E16\u0E38\u0E19\u0E32\u0E22\u0E19 BE 2555, 6:00 \u0E0A\u0E48\u0E27\u0E07\u0E27\u0E31\u0E19 GMT+08:00", result);
+            //Ecmascript defaults are slightlt different, both are correct
+            if(Y.Date.formatEcma) {
+                Y.Assert.areEqual("\u0E27\u0E31\u0E19\u0E08\u0E31\u0E19\u0E17\u0E23\u0E4C 25 \u0E21\u0E34\u0E16\u0E38\u0E19\u0E32\u0E22\u0E19 2555, 18:00 GMT+08:00", result);
+            } else {
+                Y.Assert.areEqual("\u0E27\u0E31\u0E19\u0E08\u0E31\u0E19\u0E17\u0E23\u0E4C\u0E17\u0E35\u0E48 25 \u0E21\u0E34\u0E16\u0E38\u0E19\u0E32\u0E22\u0E19 BE 2555, 18:00 GMT+08:00", result);
+            }
         }
     });
                 
@@ -69,38 +43,7 @@ YUI.add('module-tests', function(Y) {
         name: "Absoulte Date Format with Relative Dates",
         
         setUp : function () {
-            Y.Intl.add(
-                "gallery-advanced-date-format",
-                "en",
-                {                    
-                    "YMD_full" : "M/d/yy",
-                    "today" : "Today",
-                    "tomorrow" : "Tomorrow",
-                    "yesterday" : "Yesterday",
-                    "monthAprLong" : "April",
-                    "monthAugLong" : "August",
-                    "monthDecLong" : "December",
-                    "monthFebLong" : "February",
-                    "monthJanLong" : "January",
-                    "monthJulLong" : "July",
-                    "monthJunLong" : "June",
-                    "monthMarLong" : "March",
-                    "monthMayLong" : "May",
-                    "monthNovLong" : "November",
-                    "monthOctLong" : "October",
-                    "monthSepLong" : "September",
-                    "periodAm" : "AM",
-                    "periodPm" : "PM",
-                    "weekdayFriLong" : "Friday",
-                    "weekdayMonLong" : "Monday",
-                    "weekdaySatLong" : "Saturday",
-                    "weekdaySunLong" : "Sunday",
-                    "weekdayThuLong" : "Thursday",
-                    "weekdayTueLong" : "Tuesday",
-                    "weekdayWedLong" : "Wednesday"			
-                }
-                );
-                    
+            Y.Intl.setLang("gallery-advanced-date-format", "en-US");
             this.date = new Date();
         },
         
@@ -155,34 +98,8 @@ YUI.add('module-tests', function(Y) {
         name: "Duration Format Tests",
                     
         setUp : function () {
-            Y.Intl.add(
-                "gallery-advanced-number-format",
-                "en-US",
-                {
-                    "decimalFormat" : "#,##0.###",
-                    "decimalSeparator" : ".",
-                    "defaultCurrency" : "USD",
-                    "exponentialSymbol" : "E",
-                    "groupingSeparator" : ",",
-                    "minusSign" : "-",
-                    "numberZero" : "0"
-                }
-                );
-
-            Y.Intl.add(
-                "gallery-advanced-date-format",
-                "en-US",
-                {
-                    "HMS_long" : "{0} {1} {2}",
-                    "HMS_short" : "{0}:{1}:{2}",
-                    "hour" : "hour",
-                    "hours" : "hours",
-                    "minute" : "minute",
-                    "minutes" : "minutes",
-                    "second" : "second",
-                    "seconds" : "seconds"
-                }
-                );
+            Y.Intl.setLang("gallery-advanced-date-format", "en-US");
+            Y.Intl.setLang("gallery-advanced-number-format", "en-US");
         },
         
         //---------------------------------------------------------------------
@@ -292,23 +209,8 @@ YUI.add('module-tests', function(Y) {
         setUp : function () {
             this.delta = 60 * 1000;
             this.timeValue = 1265078145;
-            Y.Intl.add(
-                "gallery-advanced-date-format",
-                "en-US",
-
-                {
-                    "RelativeTime/oneUnit" : "{0} ago",
-                    "RelativeTime/twoUnits" : "{0} {1} ago",
-                    "minute" : "minute",
-                    "minute_abbr" : "min",
-                    "minutes" : "minutes",
-                    "minutes_abbr" : "mins",
-                    "second" : "second",
-                    "second_abbr" : "sec",
-                    "seconds" : "seconds",
-                    "seconds_abbr" : "secs"
-                }
-                );
+            
+            Y.Intl.setLang("gallery-advanced-date-format", "en-US");
             Y.Date.currentDate = new Date(this.timeValue);
         },
         
@@ -365,4 +267,6 @@ YUI.add('module-tests', function(Y) {
 
     Y.Test.Runner.add(dateFormatTestSuite);
 
-},'', { requires: [ 'test', 'gallery-advanced-date-format' ] });
+},'', { requires: [ 'test', 'gallery-advanced-date-format', 'gallery-advanced-number-format',
+'lang/gallery-advanced-date-format_en-US', 'lang/gallery-advanced-date-format_th',
+'lang/gallery-advanced-number-format_en-US' ] });

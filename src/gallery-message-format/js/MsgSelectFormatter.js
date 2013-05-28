@@ -105,11 +105,7 @@ Y.mix(SelectFormatter.prototype, {
      */
     select: function(options, params) {
         for ( var key in options ) {
-            if( key === "other" ) {
-                continue;	//Will use this only if everything else fails
-            }
-
-            if( key === params.value ) {
+            if(options.hasOwnProperty(key) && key !== "other" && key === params.value) {
                 return options[key];
             }
         }

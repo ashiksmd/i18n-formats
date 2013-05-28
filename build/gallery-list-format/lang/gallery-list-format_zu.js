@@ -1,1 +1,1 @@
-YUI.add("lang/gallery-list-format_zu",function(e){e.Intl.add("gallery-list-format","zu",{listPatternEnd:"{0}, {1}",listPatternMiddle:"{0}, {1}",listPatternStart:"{0}, {1}",listPatternTwo:"{0}, {1}"})},"@VERSION@");
+YUI.add("lang/gallery-list-format_zu",function(e){e.Intl.add("gallery-list-format","zu",{listPatternEnd:"{0}, no-{1}",listPatternMiddle:"{0}, {1}",listPatternStart:"{0}, {1}",listPatternTwo:"I-{0} ne-{1}"})},"@VERSION@");

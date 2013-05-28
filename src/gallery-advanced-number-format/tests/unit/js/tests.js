@@ -3,32 +3,6 @@ YUI.add('module-tests', function(Y) {
     var numberFormatTests = new Y.Test.Case({
         name: "Number Format Tests",
                     
-        setUp: function() {
-            Y.Intl.add(
-                "gallery-advanced-number-format",
-                "en-US",
-                {
-                    "USD_currencyISO" : "US Dollar",
-                    "USD_currencyPlural" : "US dollars",
-                    "USD_currencySingular" : "US dollar",
-                    "USD_currencySymbol" : "$",
-                    "currencyFormat" : "¤#,##0.00;(¤#,##0.00)",
-                    "decimalFormat" : "#,##0.###",
-                    "decimalSeparator" : ".",
-                    "defaultCurrency" : "USD",
-                    "exponentialSymbol" : "E",
-                    "groupingSeparator" : ",",
-                    "minusSign" : "-",
-                    "numberZero" : "0",
-                    "percentFormat" : "#,##0%",
-                    "percentSign" : "%",
-                    "scientificFormat" : "#E0",
-                    "currencyPatternPlural" : "{0} {1}",
-                    "currencyPatternSingular" : "{0} {1}"
-                }
-                );
-        },
-                    
         "Test Currency Style" : function() {
             var config = {
                 style: "CURRENCY_STYLE"
@@ -36,7 +10,7 @@ YUI.add('module-tests', function(Y) {
             
             var value = 10000000;
             var result1 = Y.Number.format(value, config);
-            var expect1 = "$10,000,000.00";
+            var expect1 = "$10,000,000";
                         
             Y.Assert.areEqual(expect1, result1, "Unexpected result on format");
                         
@@ -51,7 +25,7 @@ YUI.add('module-tests', function(Y) {
 
             var value = 10000000;
             var result1 = Y.Number.format(value, config);
-            var expect1 = "USD10,000,000.00";
+            var expect1 = "USD10,000,000";
                         
             Y.Assert.areEqual(expect1, result1, "Unexpected result on format");
                         
@@ -96,7 +70,7 @@ YUI.add('module-tests', function(Y) {
                        
             var value = 10000000;
             var result1 = Y.Number.format(value, config);
-            var expect1 = "10,000,000.00 US dollars";
+            var expect1 = "10,000,000 US dollars";
                         
             Y.Assert.areEqual(expect1, result1, "Unexpected result on format");
                         
@@ -122,4 +96,4 @@ YUI.add('module-tests', function(Y) {
 
     Y.Test.Runner.add(numberFormatTests);
 
-},'', { requires: [ 'test', 'gallery-advanced-number-format' ] });
+},'', { requires: [ 'test', 'gallery-advanced-number-format', 'lang/gallery-advanced-number-format_en-US' ] });

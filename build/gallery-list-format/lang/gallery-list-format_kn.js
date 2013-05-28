@@ -1,1 +1,1 @@
-YUI.add("lang/gallery-list-format_kn",function(e){e.Intl.add("gallery-list-format","kn",{listPatternEnd:"{0}, {1}",listPatternMiddle:"{0}, {1}",listPatternStart:"{0}, {1}",listPatternTwo:"{0}, {1}"})},"@VERSION@");
+YUI.add("lang/gallery-list-format_kn",function(e){e.Intl.add("gallery-list-format","kn",{listPatternEnd:"{0}, \u0cae\u0ca4\u0ccd\u0ca4\u0cc1 {1}",listPatternMiddle:"{0}, {1}",listPatternStart:"{0}, {1}",listPatternTwo:"{0} \u0cae\u0ca4\u0ccd\u0ca4\u0cc1 {1}"})},"@VERSION@");

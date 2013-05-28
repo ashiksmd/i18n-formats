@@ -1,1 +1,1 @@
-YUI.add("lang/gallery-list-format_te",function(e){e.Intl.add("gallery-list-format","te",{listPatternEnd:"{0}, {1}",listPatternMiddle:"{0}, {1}",listPatternStart:"{0}, {1}",listPatternTwo:"{0}, {1}"})},"@VERSION@");
+YUI.add("lang/gallery-list-format_te",function(e){e.Intl.add("gallery-list-format","te",{listPatternEnd:"{0} \u0c2e\u0c30\u0c3f\u0c2f\u0c41 {1}",listPatternMiddle:"{0}, {1}",listPatternStart:"{0}, {1}",listPatternTwo:"{0} \u0c2e\u0c30\u0c3f\u0c2f\u0c41 {1}"})},"@VERSION@");

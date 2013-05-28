@@ -364,7 +364,7 @@ Y.mix(NumberFormat.NumberSegment.prototype, {
             expon, i;
 
         if (whole.length < this._parent._minIntDigits) {
-            whole = Y.Intl.Common.zeroPad(whole, this._parent._minIntDigits, this._parent.Formats.numberZero);
+            whole = Y.Intl.Common.zeroPad(whole, this._parent._minIntDigits, 0);
         }
         if (whole.length > this._parent._primaryGrouping && this._parent._useGrouping) {
             i = whole.length - offset;
@@ -390,9 +390,9 @@ Y.mix(NumberFormat.NumberSegment.prototype, {
 
         if(!this._parent._parseIntegerOnly) {
            fract = fract.replace(/0+$/,"");
-           if (fract.length < this._parent._minFracDigits) {
-               fract = Y.Intl.Common.zeroPad(fract, this._parent._minFracDigits, this._parent.Formats.numberZero, true);
-           }
+           /*if (fract.length < this._parent._minFracDigits) {
+               fract = Y.Intl.Common.zeroPad(fract, this._parent._minFracDigits, 0, true);
+           }*/
            if (fract.length > 0) {
                a.push(decimal, fract);
            }

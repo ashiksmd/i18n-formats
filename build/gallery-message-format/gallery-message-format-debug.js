@@ -154,9 +154,9 @@ Y.mix(StringFormatter.prototype, {
 Y.Intl.DateFormatter = function(values) {
     DateFormatter.superclass.constructor.call(this, values);
     this.styles = {
-        "short":  [ 512 /*Y.Date.DATE_FORMATS.YMD_SHORT*/, 0, 0 ],
-        "medium": [ 256 /*Y.Date.DATE_FORMATS.YMD_ABBREVIATED*/,0, 0 ],
-        "long":   [ 128 /*Y.Date.DATE_FORMATS.YMD_LONG*/, 0, 0 ],
+        "short":  [ 9 /*Y.Date.DATE_FORMATS.YMD_SHORT*/, 0, 0 ],
+        "medium": [ 8 /*Y.Date.DATE_FORMATS.YMD_ABBREVIATED*/,0, 0 ],
+        "long":   [ 7 /*Y.Date.DATE_FORMATS.YMD_LONG*/, 0, 0 ],
         "full":   [ 1 /*Y.Date.DATE_FORMATS.WYMD_LONG*/, 0, 0 ]
     };
     this.regex = "{\\s*([a-zA-Z0-9_]+)\\s*,\\s*date\\s*(,\\s*(\\w+)\\s*)?}";
@@ -474,11 +474,7 @@ Y.mix(SelectFormatter.prototype, {
      */
     select: function(options, params) {
         for ( var key in options ) {
-            if( key === "other" ) {
-                continue;	//Will use this only if everything else fails
-            }
-
-            if( key === params.value ) {
+            if(options.hasOwnProperty(key) && key !== "other" && key === params.value) {
                 return options[key];
             }
         }
@@ -519,7 +515,8 @@ Y.mix(SelectFormatter.prototype, {
 
         return str;
     }
-}, true);/**
+}, true);
+/**
  * PluralRules is used to determine the plural form in MessageFormat
  * @class PluralRules
  * @namespace Intl
@@ -1125,6 +1122,7 @@ Y.mix(Y.Intl, {
         "be",
         "cs",
         "cy",
+        "en",
         "fil",
         "fr",
         "ga",
@@ -1132,7 +1130,6 @@ Y.mix(Y.Intl, {
         "he",
         "hi",
         "hr",
-        "",
         "kw",
         "lt",
         "lv",

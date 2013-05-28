@@ -3,6 +3,12 @@
 <head>
     <title>gallery-message-format</title>
     <script src="http://yui.yahooapis.com/3.8.1/build/yui/yui-min.js"></script>
+    <script src='../../../../build/gallery-advanced-number-format/lang/gallery-advanced-number-format_ru.js'></script>
+    <script src='../../../../build/gallery-advanced-number-format/lang/gallery-advanced-number-format_en-US.js'></script>
+    <script src='../../../../build/gallery-message-format/lang/gallery-message-format_ru.js'></script>
+    <script src='../../../../build/gallery-list-format/lang/gallery-list-format_en-GB.js'></script>
+    <script src='../../../../build/gallery-message-format/lang/gallery-message-format_en.js'></script>
+    <script src='../../../../build/gallery-advanced-date-format/lang/gallery-advanced-date-format_en-US.js'></script>
     <script src="js/tests.js"></script>
     <meta charset="utf-8" />
 </head>
@@ -17,7 +23,22 @@ YUI.GlobalConfig = {
          'gallery-advanced-date-timezone': '../../../../build/gallery-advanced-date-timezone/gallery-advanced-date-timezone.js',
          'gallery-list-format': '../../../../build/gallery-list-format/gallery-list-format.js',
          'gallery-message-format': '../../../../build/gallery-message-format/gallery-message-format-coverage.js',
-         'gallery-i18n-common': '../../../../build/gallery-i18n-common/gallery-i18n-common.js'
+         'gallery-i18n-common': '../../../../build/gallery-i18n-common/gallery-i18n-common.js',
+		'gallery-date-format-ecma': {
+	           'fullpath': '../../../../build/gallery-date-format-ecma/gallery-date-format-ecma.js',
+               'condition': {
+                    "trigger": "gallery-advanced-date-format",
+                    "test": function() { return window.Intl !== undefined; }
+               }
+          },
+		'gallery-number-format-ecma': {
+	           "fullpath": '../../../../build/gallery-number-format-ecma/gallery-number-format-ecma-debug.js',
+	           	"condition": {
+			       "trigger": "gallery-advanced-number-format",
+			       "test": function() {return (window.Intl !== undefined);},
+			       "when": "after"
+			    }
+	     }
     }
 };
 

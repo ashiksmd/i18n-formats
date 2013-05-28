@@ -1,1 +1,1 @@
-YUI.add("lang/gallery-list-format_bn",function(e){e.Intl.add("gallery-list-format","bn",{listPatternEnd:"{0}, {1}",listPatternMiddle:"{0}, {1}",listPatternStart:"{0}, {1}",listPatternTwo:"{0}, {1}"})},"@VERSION@");
+YUI.add("lang/gallery-list-format_bn",function(e){e.Intl.add("gallery-list-format","bn",{listPatternEnd:"{0}, \u098f\u09ac\u0982 {1}",listPatternMiddle:"{0}, {1}",listPatternStart:"{0}, {1}",listPatternTwo:"{0} \u098f\u09ac\u0982 {1}"})},"@VERSION@");
