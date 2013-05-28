@@ -1,24 +1,17 @@
 /**
- * ListFormatter formats lists with locale dependent rules.
+ * list-format formats lists with locale dependent rules.
  * @module gallery-list-format
  */
 var MODULE_NAME = "gallery-list-format";
 
 Y.namespace("Array");
 
-/**
- * ListFormatter formats lists with locale dependent rules.
- * For example, in locale en, lists are formatted into a
- * string of comma-separated values
- * @class ListFormatter
- * @namespace Intl
- * @static
- */
 Y.mix(Y.Array, {
     /**
      * Substitute items into correct positions in pattern
      * For internal use only
      * @method __sub
+     * @for Array
      * @private
      * @static
      * @param pattern {String} The pattern
@@ -33,6 +26,7 @@ Y.mix(Y.Array, {
     /**
      * Format list into string
      * @method format
+     * @for Array
      * @static
      * @param list {Array} The list to be formatted
      * @return {String} formatted result
