@@ -341,7 +341,7 @@ Y.mix(NumberFormat.NumberSegment.prototype, {
         expon = this._parent.Formats.exponentialSymbol;
         exponReg = new RegExp(expon + "+");
         s = this._parent._showExponent
-            ? number.toExponential(this._parent._maxFracDigits).toUpperCase().replace(exponReg,expon)
+            ? number.toExponential(this._parent._maxFracDigits || null).toUpperCase().replace(exponReg,expon)
             : number.toFixed(this._parent._maxFracDigits || 0);
         s = this._normalize(s);
         return s;
